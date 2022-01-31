@@ -40,13 +40,13 @@ async function login() {
       },
     });
 
-    return result;
+    return await result.json();
   } catch (e) {
     return e;
   }
 }
 
-/* async function createChannel() {
+async function createChannel() {
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
       method: "POST",
@@ -66,6 +66,6 @@ async function login() {
 
     return result;
   } catch (e) {}
-} */
+}
 
-export { login };
+export { login, createChannel };
