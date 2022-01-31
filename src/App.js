@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import "./assets/styles/css/App.css";
+import { fetchUsers, logIn, register } from "./Utils/api";
+import { useEffect, useState } from "react";
+import { getHeaders } from "./Utils/getHeaders";
 
-function App() {
+const App = () => {
+  const [users, setUsers] = useState(null);
+  const [header, setHeader] = useState(null);
+
+  useEffect(() => {
+    logInUser();
+  }, []);
+
+  useEffect(() => {
+    if (header) {
+      getUsers();
+    }
+  }, [header]);
+
+  const getUsers = async () => {
+    const data = await fetchUsers(header);
+    setUsers(data);
+  };
+
+  const logInUser = async () => {
+    const userData = await logIn();
+    const userHeader = getHeaders(userData);
+    setHeader(userHeader);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Sidebar />
+      <Outlet />
     </div>
   );
-}
+};
 
 export default App;
