@@ -41,49 +41,39 @@ async function login() {
       }),
     });
 
-    return result.json();
+    return result;
   } catch (e) {
     return e;
   }
 }
-
-async function createChannel() {
+async function createChannel(accessToken, client, expiry) {
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
       method: "POST",
-      mode: "cors",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "access-token": "EbBRhHlxy_onrPLeDoxzbQ",
-        client: "YXLnTVh802pqPnrJDNfbqg",
-        expiry: 1621406884,
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
         uid: "ermalagustan@gmail.com",
       },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify({
-        name: "test-channel-egq",
-        user_ids: [1629,1630],
-      }),
+      body: JSON.stringify({ name: "egq123-2", user_ids: [1631] }),
     });
 
-    return result;
+    return result.json();
   } catch (e) {}
 }
 
-async function getUserChannels() {
+async function getUserChannels(accessToken, client, expiry) {
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
       method: "GET",
       headers: {
-        "access-token": "EbBRhHlxy_onrPLeDoxzbQ",
-        client: "YXLnTVh802pqPnrJDNfbqg",
-        expiry: 1621406884,
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
         uid: "ermalagustan@gmail.com",
       },
-      mode: "cors",
-      cache: "default",
     });
 
     return result.json();
