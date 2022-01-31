@@ -1,0 +1,11 @@
+import { fetchUsers } from "../../Utils/api";
+
+const Users = () => {
+  return (
+    <div>
+      <p>Users</p>
+    </div>
+  );
+};
+
+export default Users;
