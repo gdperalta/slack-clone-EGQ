@@ -1,8 +1,8 @@
 import "./App.css";
-import Login from "./components/Login";
+import Channel from "./components/Channel";
 
 function App() {
-  return <Login />;
+  return <Channel />;
 }
 
 export default App;

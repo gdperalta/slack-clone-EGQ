@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createChannel } from "../api/api";
+import { registerUser, login, createChannel, getUserChannels } from "../api/api";
 
 const Channel = () => {
  
