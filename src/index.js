@@ -6,32 +6,35 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
+import { UserProvider } from "./Contexts/context";
 
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route
-          index
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>Select a Channel</p>
-            </main>
-          }
-        />
-        <Route path="users" element={<Users />} />
-        <Route path=":uid" element={<Message />} />
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <UserProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route
+            index
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>Select a Channel</p>
+              </main>
+            }
+          />
+          <Route path="users" element={<Users />} />
+          <Route path=":uid" element={<Message />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </UserProvider>,
   document.getElementById("root")
 );
 

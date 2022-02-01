@@ -1,33 +1,22 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import "./assets/styles/css/App.css";
-import { fetchUsers, logIn, register } from "./Utils/api";
-import { useEffect, useState } from "react";
+import { logIn } from "./Utils/api";
+import { useContext, useEffect } from "react";
 import { getHeaders } from "./Utils/getHeaders";
+import { UserContext } from "./Contexts/context";
 
 const App = () => {
-  const [users, setUsers] = useState(null);
-  const [header, setHeader] = useState(null);
+  const { headerList, setHeaderList } = useContext(UserContext);
 
   useEffect(() => {
     logInUser();
   }, []);
 
-  useEffect(() => {
-    if (header) {
-      getUsers();
-    }
-  }, [header]);
-
-  const getUsers = async () => {
-    const data = await fetchUsers(header);
-    setUsers(data);
-  };
-
   const logInUser = async () => {
     const userData = await logIn();
     const userHeader = getHeaders(userData);
-    setHeader(userHeader);
+    setHeaderList(userHeader);
   };
 
   return (
