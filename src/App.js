@@ -7,7 +7,7 @@ import { getHeaders } from "./Utils/getHeaders";
 import { UserContext } from "./Contexts/context";
 
 const App = () => {
-  const { headerList, setHeaderList } = useContext(UserContext);
+  const { setHeaderList } = useContext(UserContext);
 
   useEffect(() => {
     logInUser();
