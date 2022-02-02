@@ -1,4 +1,6 @@
-import { Outlet } from "react-router-dom";
+
+import './App.css'
+import { Outlet} from "react-router-dom";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import "./assets/styles/css/App.css";
 import { logIn } from "./Utils/api";
@@ -18,6 +20,7 @@ const App = () => {
     const userHeader = getHeaders(userData);
     setHeaderList(userHeader);
   };
+
 
   return (
     <div className="wrapper">
