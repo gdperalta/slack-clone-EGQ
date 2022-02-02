@@ -1,5 +1,11 @@
 .channel {
-  &-list-item{
-  display: flex;
+  &-list-item {
+    display: flex;
+    cursor: pointer;
+
+   &-icon{
+    height: "1em";
+    width: "1em";    
+   }
   }
 }

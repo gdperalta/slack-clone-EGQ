@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import { Layout } from "./Pages/Layout";
+import AddNewChannel from "./Components/Channels/AddNewChannel";
+import ChannelMessages from "./Components/Channels/ChannelMessages";
 
 const App = () => {
   const [headerList, setHeaderList] = useState(null);
@@ -46,6 +48,11 @@ const App = () => {
               }
             />
             <Route path="users" element={<Users users={users} />} />
+            <Route
+              path="channels/:channelId"
+              element={<ChannelMessages/>}
+            />
+            <Route path="addNewChannel" element={ <AddNewChannel/> } />
             <Route
               path=":uid"
               element={<Message users={users} headerList={headerList} />}
