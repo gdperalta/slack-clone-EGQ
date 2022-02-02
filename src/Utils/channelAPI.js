@@ -1,10 +1,5 @@
-export const createChannel = async (
-  channelName,
-  accessToken,
-  client,
-  expiry,
-  email
-) => {
+export const createChannel = async (headers) => {
+  const { accessToken, client, expiry, uid } = headers;
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
       method: "POST",
@@ -13,16 +8,16 @@ export const createChannel = async (
         "access-token": accessToken,
         client: client,
         expiry: expiry,
-        uid: email,
+       uid: uid,
       },
-      body: JSON.stringify({ name: channelName, user_ids: [1629, 1630, 1631] }),
+      body: JSON.stringify({ name: "egq123-3", user_ids: [1629, 1643, 1631] }),
     });
-
-    return result.json();
+    return await result.json();
   } catch (e) {}
 };
 
-export const getUserChannels = async (accessToken, client, expiry, email) => {
+export const getUserChannels = async (headers) => {
+  const { accessToken, client, expiry, uid } = headers;
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
       method: "GET",
@@ -30,11 +25,11 @@ export const getUserChannels = async (accessToken, client, expiry, email) => {
         "access-token": accessToken,
         client: client,
         expiry: expiry,
-        uid: email,
+        uid: uid,
       },
     });
 
-    return result.json();
+    return await result.json();
   } catch (e) {
     console.log(e);
   }
