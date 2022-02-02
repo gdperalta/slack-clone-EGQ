@@ -1,31 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { fetchUsers } from "../../Utils/api";
-import { UserContext } from "../../Contexts/context";
+import { useEffect, useState } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 
-const Users = () => {
-  const [users, setUsers] = useState(null);
+const Users = ({ users }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { headerList } = useContext(UserContext);
   let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (headerList) {
-      getUsers();
-    }
-  }, [headerList]);
-
-  useEffect(() => {
+    setIsLoading(true);
     if (users) {
       setIsLoading(false);
     }
   }, [users]);
-
-  const getUsers = async () => {
-    setIsLoading(true);
-    const data = await fetchUsers(headerList);
-    setUsers(data.data);
-  };
 
   if (isLoading) {
     return <div>...Loading</div>;
