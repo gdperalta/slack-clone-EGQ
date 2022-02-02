@@ -7,6 +7,8 @@ import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
 import Login from "./Components/Login/Login";
+import AddNewChannel from "./Components/Channels/AddNewChannel";
+import ChannelMessages from "./Components/Channels/ChannelMessages";
 
 /* import { io } from "socket.io-client";
 const socket = io("http://localhost:3001");
@@ -70,6 +72,11 @@ const App = () => {
               }
             />
             <Route path="users" element={<Users users={users} />} />
+            <Route
+              path="channels/:channelId"
+              element={<ChannelMessages/>}
+            />
+            <Route path="addNewChannel" element={ <AddNewChannel/> } />
             <Route
               path=":uid"
               element={<Message users={users} headerList={headerList} />}
