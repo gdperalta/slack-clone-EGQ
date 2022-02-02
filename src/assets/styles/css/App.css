@@ -7,6 +7,10 @@
   flex-direction: column;
 }
 
+.channel-list-item {
+  display: flex;
+}
+
 *,
 *:before,
 *:after {
