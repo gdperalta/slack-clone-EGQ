@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import Channels from "../Components/Channels/Channels";
 import Messages from "../Components/Messages/Messages";
 
-export const Layout = () => {
+const Layout = () => {
   return (
     <div className="wrapper">
       <div className="sidebar-wrapper">
@@ -16,3 +16,5 @@ export const Layout = () => {
     </div>
   );
 };
+
+export default Layout;
