@@ -1,3 +1,5 @@
+import {Link } from "react-router-dom";
+
 export default function LoginHeader (){
     return(
         <div className="pageHeader">
@@ -10,7 +12,7 @@ export default function LoginHeader (){
                 <div className="rightCol">
                     <div>
                         New to Slack? <br></br>
-                        <div className="create">Create an account</div>
+                        <Link to="/signup" className="create">Create an account</Link>
                     </div>
                 </div>
         </div>
