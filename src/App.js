@@ -1,3 +1,5 @@
+
+import './App.css'
 import "./assets/styles/css/App.css";
 import { logIn, fetchUsers } from "./Utils/api";
 import { useEffect, useState } from "react";
@@ -6,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import { Layout } from "./Pages/Layout";
+
 
 const App = () => {
   const [headerList, setHeaderList] = useState(null);
@@ -62,6 +65,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
-  );
-};
+  )};
+
+
 export default App;
