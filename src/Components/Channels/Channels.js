@@ -14,15 +14,10 @@ const Channels = () => {
     const fetchChannels = async () => {
       const response = await logIn();
       const header = getHeaders(response);
-      
-     /*  const channels = await getUserChannels(
-        header.accessToken,
-        header.client,
-        header.expiry,
-        header.uid
-      ); */
 
-      setUserChannels(dummyChannels);
+      const channels = await getUserChannels(header);
+
+      setUserChannels(channels);
     };
 
     fetchChannels().catch(console.error);

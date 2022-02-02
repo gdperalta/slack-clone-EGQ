@@ -17,13 +17,7 @@ const AddNewChannel = () => {
     const response = await logIn();
     const header = getHeaders(response);
 
-    const result = await createChannel(
-      channelName,
-      header.accessToken,
-      header.client,
-      header.expiry,
-      header.uid
-    );
+    const result = await createChannel(channelName, header);
 
     console.log(result);
   };
@@ -31,13 +25,14 @@ const AddNewChannel = () => {
   return (
     <div>
       <form onSubmit={showChannelName}>
+        <label>Channel Name: </label>
         <input
           type="text"
           name="channelName"
           value={channelName}
           onChange={handleChange}
         />
-        <input value="Submit" type="submit" />
+        <input value="Next" type="submit" />
       </form>
     </div>
   );
