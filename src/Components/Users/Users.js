@@ -15,12 +15,16 @@ const Users = () => {
     }
   }, [headerList]);
 
+  useEffect(() => {
+    if (users) {
+      setIsLoading(false);
+    }
+  }, [users]);
+
   const getUsers = async () => {
     setIsLoading(true);
     const data = await fetchUsers(headerList);
     setUsers(data.data);
-    console.log(data.data);
-    setIsLoading(false);
   };
 
   if (isLoading) {
@@ -42,11 +46,31 @@ const Users = () => {
             }
           }}
         />
-        {users.map((user) => {
-          <NavLink to={`/users/${user.id}`} key={user.id}>
-            {user.uid}
-          </NavLink>;
-        })}
+        {users
+          .filter((user) => {
+            let filter = searchParams.get("filter");
+            //Returned "" if search input is blank to show empty search list on initial render
+            if (!filter) return "";
+            let name = user.uid.toLowerCase();
+            return name.startsWith(filter.toLowerCase());
+          })
+          .map((user) => {
+            return (
+              <NavLink
+                style={({ isActive }) => {
+                  return {
+                    display: "block",
+                    margin: "1rem 0",
+                    color: isActive ? "green" : "",
+                  };
+                }}
+                to={`/${user.id}`}
+                key={user.id}
+              >
+                {user.uid}
+              </NavLink>
+            );
+          })}
       </nav>
     </div>
   );
