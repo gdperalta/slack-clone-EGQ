@@ -1,4 +1,4 @@
-import Channels from "../Channels/Channels";
+/* import Channels from "../Channels/Channels";
 import Messages from "../Messages/Messages";
 import { Link } from "react-router-dom";
 
@@ -15,3 +15,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+ */
