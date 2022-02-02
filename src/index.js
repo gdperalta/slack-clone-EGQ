@@ -6,7 +6,6 @@ import "./index.css";
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import React from "react";
-import reportWebVitals from "./reportWebVitals";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import { UserProvider } from "./Contexts/context";
