@@ -3,18 +3,18 @@ import { useParams } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import MessageScreen from "./MessageScreen";
 
-const Message = ({ users, headerList }) => {
+const Message = ({ users, headerList, userDetails, receiverEmail }) => {
   const [receiver, setReceiver] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     if (users) {
-      let receiver = getUser(parseInt(params.uid));
-      setReceiver(receiver);
+      let receiverData = getUser(parseInt(params.uid));
+      setReceiver(receiverData);
       setIsLoading(false);
     }
-  }, [users]);
+  }, [receiverEmail, users]);
   let params = useParams();
 
   const getUser = (id) => {
@@ -29,7 +29,11 @@ const Message = ({ users, headerList }) => {
     <div>
       <p>{receiver.uid}</p>
       <p>{receiver.id}</p>
-      <MessageScreen headerList={headerList} receiver={receiver} />
+      <MessageScreen
+        userDetails={userDetails}
+        headerList={headerList}
+        receiver={receiver}
+      />
       <MessageInput headerList={headerList} receiver={receiver} />
     </div>
   );
