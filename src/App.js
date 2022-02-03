@@ -15,8 +15,13 @@ socket.on("connect", () => {
 }); */
 
 const App = () => {
+  const [userDetails, setUserDetail] = useState({
+    email: "",
+    id: "",
+  });
   const [headerList, setHeaderList] = useState(null);
   const [users, setUsers] = useState(null);
+  const [receiverEmail, setReceiverEmail] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -39,8 +44,15 @@ const App = () => {
   const logInUser = async () => {
     const userData = await logIn();
     const userHeader = getHeaders(userData);
+    const details = await userData.json();
+    const { email, id } = details.data;
+    setUserDetail({
+      email: email,
+      id: id,
+    });
     setHeaderList(userHeader);
     sessionStorage.setItem("header", JSON.stringify(userHeader));
+    sessionStorage.setItem("user", JSON.stringify({ email, id }));
   };
 
   const getUsers = async () => {
@@ -53,13 +65,26 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
+  const changeReceiver = (e) => {
+    setReceiverEmail(e.target.textContent);
+  };
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <Layout /> : <Login onclick={handleLogin} />}
+            element={
+              isLoggedIn ? (
+                <Layout
+                  headerList={headerList}
+                  changeReceiver={changeReceiver}
+                />
+              ) : (
+                <Login onclick={handleLogin} />
+              )
+            }
           >
             <Route
               index
@@ -69,10 +94,20 @@ const App = () => {
                 </main>
               }
             />
-            <Route path="users" element={<Users users={users} />} />
+            <Route
+              path="users"
+              element={<Users users={users} changeReceiver={changeReceiver} />}
+            />
             <Route
               path=":uid"
-              element={<Message users={users} headerList={headerList} />}
+              element={
+                <Message
+                  users={users}
+                  userDetails={userDetails}
+                  headerList={headerList}
+                  receiverEmail={receiverEmail}
+                />
+              }
             />
             <Route
               path="*"
