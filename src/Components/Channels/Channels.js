@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { getUserChannels } from "../../Utils/channelAPI";
-import { logIn } from "../../Utils/api";
 import Channel from "./Channel";
-import { dummyChannels } from "../../Utils/mockData";
 import AddNewChannel from "./AddNewChannel";
-import { NavLink } from "react-router-dom";
-import { getHeaders } from "../../Utils/getHeaders";
+
 
 const Channels = () => {
   const [userChannels, setUserChannels] = useState({});
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchChannels = async () => {
-      const response = await logIn();
-      const header = getHeaders(response);
-
+      const header = JSON.parse(sessionStorage.getItem("header"));
       const channels = await getUserChannels(header);
-
       setUserChannels(channels);
     };
 
     fetchChannels().catch(console.error);
-  }, []);
+  }, [show]);
 
   const renderChannelList = () => {
     return userChannels.data.map((item, index) => {
@@ -37,7 +32,12 @@ const Channels = () => {
       ) : (
         <p>Loading channels</p>
       )}
-      <NavLink to="/addNewChannel">Add new channel</NavLink>
+      <button onClick={() => setShow(true)}>Add new channel</button>
+      <AddNewChannel
+        title="Create new channel"
+        onClose={() => setShow(false)}
+        show={show}
+      />
     </div>
   );
 };

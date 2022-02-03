@@ -7,7 +7,6 @@ import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
 import Login from "./Components/Login/Login";
-import AddNewChannel from "./Components/Channels/AddNewChannel";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
 
 /* import { io } from "socket.io-client";
@@ -20,7 +19,7 @@ const App = () => {
   const [headerList, setHeaderList] = useState(null);
   const [users, setUsers] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
 
@@ -43,7 +42,7 @@ const App = () => {
     const userHeader = getHeaders(userData);
     setHeaderList(userHeader);
     sessionStorage.setItem("header", JSON.stringify(userHeader));
-  };
+      };
 
   const getUsers = async () => {
     const data = await fetchUsers(headerList);
@@ -72,15 +71,8 @@ const App = () => {
               }
             />
             <Route path="users" element={<Users users={users} />} />
-            <Route
-              path="channels/:channelId"
-              element={<ChannelMessages/>}
-            />
-            <Route path="addNewChannel" element={ <AddNewChannel/> } />
-            <Route
-              path=":uid"
-              element={<Message users={users} headerList={headerList} />}
-            />
+            <Route path="channels/:channelId" element={<ChannelMessages />} />
+            <Route path=":uid" element={<Message users={users} headerList={headerList} />}/>
             <Route
               path="*"
               element={

@@ -1,8 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 import { getChannelDetails } from "../../Utils/channelAPI";
-import { logIn } from "../../Utils/api";
-import { getHeaders } from "../../Utils/getHeaders";
 import { useState } from "react";
 
 const ChannelMessages = () => {
@@ -13,9 +11,7 @@ const ChannelMessages = () => {
   
   useEffect(() => {
     const fetchChannelDetails = async () => {
-      const response = await logIn();
-      const header = getHeaders(response);
-
+      const header = JSON.parse(sessionStorage.getItem("header"));
       const channelDetails = await getChannelDetails(
         channelId,
         header.accessToken,
@@ -24,8 +20,7 @@ const ChannelMessages = () => {
         header.uid
       );
 
-      setChannelDetails(channelDetails);
-      console.log(channelDetails);
+      setChannelDetails(channelDetails);      
     };
 
     fetchChannelDetails().catch(console.error);
@@ -33,7 +28,6 @@ const ChannelMessages = () => {
 
   return (
     <div>
-      {" "}
       <p>Hello!</p>
       {channelDetails.data !== undefined ? (
         channelDetails.data.id + " " + channelDetails.data.name

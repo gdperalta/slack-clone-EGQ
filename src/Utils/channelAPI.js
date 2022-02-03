@@ -17,7 +17,6 @@ export const createChannel = async (channelName, headers) => {
 };
 
 export const getUserChannels = async (headers) => {
-  console.log(headers);
   const { accessToken, client, expiry, uid } = headers;
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
