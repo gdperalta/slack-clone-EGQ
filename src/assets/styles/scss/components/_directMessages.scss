@@ -1,0 +1,19 @@
+@use "../utilities/variables";
+
+.recentMessages {
+  display: block;
+  width: calc(15vw - 1px);
+  max-width: 400px;
+  margin-left: -1rem;
+  padding: 0.5rem;
+  color: darken(variables.$font-color, 15%);
+  text-decoration: none;
+  &:hover {
+    background-color: variables.$hover-color;
+  }
+}
+
+.activeMsg {
+  color: variables.$font-color;
+  background-color: variables.$secondary-color;
+}
