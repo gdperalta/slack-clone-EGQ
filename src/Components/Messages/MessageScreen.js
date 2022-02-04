@@ -33,7 +33,7 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
     let day = d.getDate();
     let month = months[d.getMonth()];
     let completeDate = `${month} ${day}, ${convertedHour}:${minutes} ${time}`;
-    return <span>{completeDate}</span>;
+    return <span id="date">{completeDate}</span>;
   };
   return (
     <div>
@@ -44,23 +44,32 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
               className="messageContainer"
               key={`${sender[0].sender.email}-${sender[0].sender.id}`}
             >
+              <span className="icon">
+                {sender[0].sender.email.charAt(0).toUpperCase()}
+              </span>
               <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  height: "40px",
+                  flexDirection: "column",
+                  width: "100%",
+                  padding: "0 5px",
                 }}
               >
-                <h3>{sender[0].sender.email}</h3>
-                {getDate(sender[0].created_at)}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "30px",
+                    marginBottom: "4px",
+                  }}
+                >
+                  <h3>{sender[0].sender.email}</h3>
+                  {getDate(sender[0].created_at)}
+                </div>
+                {sender.map((data) => {
+                  return <p key={data.id}>{data.body}</p>;
+                })}
               </div>
-              {sender.map((data) => {
-                return (
-                  <div key={data.id}>
-                    <p>{data.body}</p>
-                  </div>
-                );
-              })}
             </div>
           );
         })}
