@@ -8,7 +8,7 @@ const ChannelMessages = () => {
 
   let params = useParams();
   let channelId = params.channelId;
-  
+
   useEffect(() => {
     const fetchChannelDetails = async () => {
       const header = JSON.parse(sessionStorage.getItem("header"));
@@ -20,7 +20,7 @@ const ChannelMessages = () => {
         header.uid
       );
 
-      setChannelDetails(channelDetails);      
+      setChannelDetails(channelDetails);
     };
 
     fetchChannelDetails().catch(console.error);
@@ -28,6 +28,9 @@ const ChannelMessages = () => {
 
   return (
     <div>
+      <div style={{position:"absolute", right: "20px"}}>
+        <a>Add members</a>
+      </div>
       <p>Hello!</p>
       {channelDetails.data !== undefined ? (
         channelDetails.data.id + " " + channelDetails.data.name
