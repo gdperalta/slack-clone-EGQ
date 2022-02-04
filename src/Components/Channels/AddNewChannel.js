@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { createChannel } from "../../Utils/channelAPI";
 import { fetchUsers } from "../../Utils/api";
 import "../../assets/styles/css/App.css";
+import { FaPeopleArrows } from "react-icons/fa";
 
 const AddNewChannel = (props) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
   const [filterEmail, setFilterEmail] = useState("");
   const [users, setUsers] = useState(null);
+  const [filteredUsers, setFilteredUsers] = useState(null);
   const headerList = JSON.parse(sessionStorage.getItem("header"));
 
   useEffect(() => {
@@ -20,7 +22,21 @@ const AddNewChannel = (props) => {
     };
 
     getUsers().catch(console.error);
-  }, []);
+  }, [headerList]);
+
+  useEffect(() => {
+    if (users !== null) {
+      if (filterEmail !== "") {
+        setFilteredUsers(
+          users.filter((user) => {
+            return user.uid.startsWith(filterEmail);
+          })
+        );
+      } else {
+        setFilteredUsers(null);
+      }
+    }
+  }, [filterEmail]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -38,8 +54,24 @@ const AddNewChannel = (props) => {
     const header = JSON.parse(sessionStorage.getItem("header"));
     const result = await createChannel(channelName, header);
     console.log(result);
+    setChannelName("");
+    setFilterEmail("");
+    setFilteredUsers(null);
     props.onClose();
     navigate("/");
+  };
+
+  const renderFilteredUsers = () => {
+    if (filteredUsers !== null) {
+      return filteredUsers.map((item) => {
+        return (
+          <div key={item.id}>
+            <span> {item.email} </span>
+            <FaPeopleArrows className="channel-user-add-user" />
+          </div>
+        );
+      });
+    }
   };
 
   return ReactDOM.createPortal(
@@ -61,7 +93,7 @@ const AddNewChannel = (props) => {
               onChange={handleChange}
             />
             <div>
-              <div>
+              <div style={{ position: "relative" }}>
                 <h4>Add members</h4>
                 <input
                   type="search"
@@ -70,23 +102,17 @@ const AddNewChannel = (props) => {
                   value={filterEmail}
                   onChange={handleChange}
                 />
+                <div style={{ position: "relative" }}>
+                  <div className="channel-user-custom-dropdown">
+                    {renderFilteredUsers()}
+                  </div>
+                </div>
               </div>
               <div>
                 <input value="Save" type="submit" />
               </div>
             </div>
           </form>
-           { users!= null  ? ( users
-            .filter((user) => {
-              return user.uid.startsWith("gdp");
-            })
-            .map((item, index) => {
-              return (
-                <div key={index}>
-                  <span> {item.email} </span>
-                </div>
-              );
-            })) : ""}  
         </div>
         <div className="modal-footer">
           <button onClick={props.onClose} className="button">
