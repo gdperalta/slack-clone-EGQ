@@ -84,10 +84,12 @@ export const sendMessageToServer = async (headers, receiverID, message) => {
     redirect: "follow",
   };
 
-  fetch("http://206.189.91.54//api/v1/messages", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  const response = await fetch(
+    "http://206.189.91.54//api/v1/messages",
+    requestOptions
+  );
+
+  return await response.json();
 };
 
 export const fetchMessages = async (header, id) => {
