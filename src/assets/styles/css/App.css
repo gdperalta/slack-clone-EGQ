@@ -1,6 +1,6 @@
 .sidebar-wrapper {
   height: 100%;
-  width: 15vw;
+  width: 19vw;
   max-width: 400px;
   padding-left: 1rem;
   color: #ffffff;
@@ -39,7 +39,7 @@
 
 .recentMessages {
   display: block;
-  width: calc(15vw - 1px);
+  width: calc(19vw - 1px);
   max-width: 400px;
   margin-left: -1rem;
   padding: 0.5rem;
@@ -61,8 +61,14 @@
 }
 
 .messageHeader {
+  display: flex;
+  align-items: center;
   width: 100%;
+  padding-left: 1rem;
   border-bottom: solid 1px #b3bcc7;
+}
+.messageHeader h3 {
+  padding-left: 5px;
 }
 
 .messageDisplay {
@@ -70,7 +76,15 @@
   padding: 1rem;
 }
 
-.messageContainer span {
+.messageContainer {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.messageContainer p {
+  margin: 0.4rem 0;
+}
+
+#date {
   margin-left: 8px;
   color: #949494;
   font-size: 14px;
@@ -101,6 +115,19 @@
 }
 .inputWrapper button img:hover {
   cursor: pointer;
+}
+
+.icon {
+  border: solid 1px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  background-color: #78af8f;
+  color: white;
+  font-size: 24px;
+  font-weight: bolder;
+  text-align: center;
 }
 
 *,

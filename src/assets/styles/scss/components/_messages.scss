@@ -6,8 +6,14 @@
 }
 
 .messageHeader {
+  display: flex;
+  align-items: center;
   width: 100%;
+  padding-left: 1rem;
   border-bottom: solid 1px lighten(variables.$hover-color, 40%);
+  h3 {
+    padding-left: 5px;
+  }
 }
 
 .messageDisplay {
@@ -16,11 +22,17 @@
 }
 
 .messageContainer {
-  span {
-    margin-left: 8px;
-    color: rgb(148, 148, 148);
-    font-size: variables.$font-size - 10px;
+  display: flex;
+  margin-bottom: 1rem;
+  p {
+    margin: 0.4rem 0;
   }
+}
+
+#date {
+  margin-left: 8px;
+  color: rgb(148, 148, 148);
+  font-size: variables.$font-size - 10px;
 }
 
 .inputWrapper {
@@ -48,4 +60,17 @@
       }
     }
   }
+}
+
+.icon {
+  border: solid 1px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  background-color: variables.$alternate-color2;
+  color: white;
+  font-size: variables.$font-size;
+  font-weight: bolder;
+  text-align: center;
 }
