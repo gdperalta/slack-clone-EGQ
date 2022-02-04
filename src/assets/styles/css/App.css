@@ -3,6 +3,7 @@
   width: 19vw;
   max-width: 400px;
   padding-left: 1rem;
+  padding-top: 45px;
   color: #ffffff;
   background-color: #303e4d;
   border: solid #4a5664 1px;
@@ -18,7 +19,7 @@
 .messageScreen {
   overflow: hidden;
   width: 100%;
-  height: 80vh;
+  height: 90%;
   /* width */
   /* Handle */
   /* Handle on hover */
@@ -57,13 +58,15 @@
 
 .messageWrapper {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
+  margin-top: 40px;
 }
 
 .messageHeader {
   display: flex;
   align-items: center;
   width: 100%;
+  height: 7%;
   padding-left: 1rem;
   border-bottom: solid 1px #b3bcc7;
 }
@@ -73,6 +76,7 @@
 
 .messageDisplay {
   width: 100%;
+  height: 93%;
   padding: 1rem;
 }
 
@@ -128,6 +132,23 @@
   font-size: 24px;
   font-weight: bolder;
   text-align: center;
+}
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  background-color: #303e4d;
+  color: #ffffff;
+  border-bottom: solid #4a5664 2px;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+}
+.Header h1 {
+  padding: 0;
+  margin: 0;
 }
 
 *,

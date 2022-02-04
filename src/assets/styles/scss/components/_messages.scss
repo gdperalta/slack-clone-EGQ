@@ -2,13 +2,15 @@
 
 .messageWrapper {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
+  margin-top: 40px;
 }
 
 .messageHeader {
   display: flex;
   align-items: center;
   width: 100%;
+  height: 7%;
   padding-left: 1rem;
   border-bottom: solid 1px lighten(variables.$hover-color, 40%);
   h3 {
@@ -18,6 +20,7 @@
 
 .messageDisplay {
   width: 100%;
+  height: 93%;
   padding: 1rem;
 }
 
