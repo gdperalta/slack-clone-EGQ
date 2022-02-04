@@ -8,12 +8,6 @@ import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
 import Login from "./Components/Login/Login";
 
-/* import { io } from "socket.io-client";
-const socket = io("http://localhost:3001");
-socket.on("connect", () => {
-  console.log(`You connected with ${socket.id}`);
-}); */
-
 const App = () => {
   const [userDetails, setUserDetail] = useState({
     email: "",
@@ -24,22 +18,16 @@ const App = () => {
   const [receiverEmail, setReceiverEmail] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  //Log in
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
 
     if (oldHeader) {
-      setIsLoggedIn(true);
-      setHeaderList(oldHeader);
+      logInUser();
     } else {
       setIsLoggedIn(false);
     }
   }, []);
-
-  useEffect(() => {
-    if (headerList) {
-      getUsers();
-    }
-  }, [headerList]);
 
   const logInUser = async () => {
     const userData = await logIn();
@@ -53,18 +41,26 @@ const App = () => {
     setHeaderList(userHeader);
     sessionStorage.setItem("header", JSON.stringify(userHeader));
     sessionStorage.setItem("user", JSON.stringify({ email, id }));
+    setIsLoggedIn(true);
   };
+
+  const handleLogin = () => {
+    logInUser();
+  };
+
+  //Fetch All Users
+  useEffect(() => {
+    if (headerList) {
+      getUsers();
+    }
+  }, [headerList]);
 
   const getUsers = async () => {
     const data = await fetchUsers(headerList);
     setUsers(data.data);
   };
 
-  const handleLogin = () => {
-    logInUser();
-    setIsLoggedIn(true);
-  };
-
+  //Message Receiver
   const changeReceiver = (e) => {
     setReceiverEmail(e.target.textContent);
   };
