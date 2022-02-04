@@ -4,7 +4,7 @@ import { WiStars } from "react-icons/wi";
 import { useState,useEffect} from "react";
 // import { logIn,fetchUsers} from "../../Utils/api";
 import { getHeaders } from "../../Utils/getHeaders";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginBody (){
     const [formData, setFormData] = useState({
@@ -12,28 +12,7 @@ export default function LoginBody (){
         password: "",
     });
 
-    
-    const register = async () => {
-        var raw = {
-          email: "dio@gmail.com",
-          password: "asdfjkl",
-          password_confirmation: "asdfjkl",
-        };
-        var requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(raw),
-          redirect: "follow",
-        };
-      
-        fetch("http://206.189.91.54//api/v1/auth/", requestOptions)
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
-      };      
-        const logIn = async () => {
+    const logIn = async () => {
         var raw = { email: formData.email , password: "asdfjkl" };
       
         var requestOptions = {
@@ -50,9 +29,9 @@ export default function LoginBody (){
         );
         console.log(await response.text());
         return response;
-      };
+    };
       
-      const fetchUsers = async (headers) => {
+    const fetchUsers = async (headers) => {
         const { accessToken, client, expiry, uid } = headers;
         const myHeaders = new Headers();
         myHeaders.append("access-token", accessToken);
@@ -66,15 +45,15 @@ export default function LoginBody (){
           redirect: "follow",
         };
       
-        const response = await fetch(
+    const response = await fetch(
           "http://206.189.91.54//api/v1/users",
           requestOptions
         );
         return await response.json();
       };
-        const [headerList, setHeaderList] = useState(null);
-        const [users, setUsers] = useState(null);
-        const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [headerList, setHeaderList] = useState(null);
+    const [users, setUsers] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
         useEffect(() => {
             const oldHeader = JSON.parse(sessionStorage.getItem("header"));
@@ -93,12 +72,7 @@ export default function LoginBody (){
             }
         }, [headerList]);
     
-        function handleEmailInput(e){
-            setFormData({...formData, email: e.target.value});
-          }
-        function handlePasswordInput(e){
-            setFormData({...formData, password: e.target.value});
-        }
+       
         
 
     const logInUser = async () => {
@@ -110,11 +84,18 @@ export default function LoginBody (){
         const data = await fetchUsers(headerList);
         setUsers(data.data);
     };
+    
     const handleLogin = () => {
         logInUser();
-        setIsLoggedIn(true);
+        setIsLoggedIn(true); 
     };
-
+    console.log(isLoggedIn);
+    function handleEmailInput(e){
+        setFormData({...formData, email: e.target.value});
+      }
+    function handlePasswordInput(e){
+        setFormData({...formData, password: e.target.value});
+    }
     console.log(formData);
     return(
         <div className="login-main">

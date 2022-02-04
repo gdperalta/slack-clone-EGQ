@@ -36,6 +36,7 @@ const App = () => {
   }, [headerList]);
 
 
+
   const logInUser = async () => {
     const userData = await logIn();
     const userHeader = getHeaders(userData);
@@ -50,14 +51,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/MainPage" element={<Layout/>} />
-          <Route path="/signup" element={<Signup/>} />
-          <Route
-            path="/"
-            element={isLoggedIn ? <Layout /> : <Login  /> }
-            >
-            
+        {isLoggedIn ?<Route path="/" element={<Layout/>}> 
             <Route
               index
               element={
@@ -81,6 +75,8 @@ const App = () => {
               }
             />
           </Route>
+          :<Route path="/" element={<Login />}/>}
+          <Route path="/signup" element={<Signup/>} />
         </Routes>
       </BrowserRouter>
     </div>

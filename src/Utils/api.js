@@ -1,5 +1,3 @@
-import LoginBody from "../Components/Login/LoginBody";
-
 export const register = async () => {
   var raw = {
     email: "dio@gmail.com",
