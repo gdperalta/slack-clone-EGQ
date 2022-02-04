@@ -1,34 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchMessages } from "../../Utils/api";
 
-const MessageScreen = ({ headerList, receiver, userDetails }) => {
-  const [messageDisplay, setMessageDisplay] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (receiver) {
-      getMessages();
-    }
-  }, [receiver]);
-
-  const getMessages = async () => {
-    const messages = await fetchMessages(headerList, receiver.id);
-    setMessageDisplay(messages.data);
-    setIsLoading(false);
-  };
-
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
-
+const MessageScreen = ({ userDetails, messageDisplay }) => {
   return (
     <div>
       <p>Messages</p>
-      <div
-        className="messageScreen"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
+      <div className="messageScreen">
         {messageDisplay.map((data) => {
           return (
             <div key={data.id}>
