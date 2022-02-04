@@ -3,9 +3,16 @@ import { useParams } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import MessageScreen from "./MessageScreen";
 import { sendMessageToServer, fetchMessages } from "../../Utils/api";
-import { createUniqueArray } from "../../Utils/createUniqueArray";
+import { createUniqueArray, filterArray } from "../../Utils/handleArrays";
+import MessageHeader from "./MessageHeader";
 
-const Message = ({ users, headerList, userDetails, receiverEmail }) => {
+const Message = ({
+  users,
+  headerList,
+  userDetails,
+  receiverEmail,
+  messageWasSent,
+}) => {
   const [receiver, setReceiver] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [messageDisplay, setMessageDisplay] = useState(null);
@@ -32,11 +39,18 @@ const Message = ({ users, headerList, userDetails, receiverEmail }) => {
     }
   }, [receiver]);
 
+  const filterMessages = (messages) => {
+    let uniqueMessages = createUniqueArray(messages);
+    let filteredMessages = filterArray(uniqueMessages);
+
+    return uniqueMessages;
+  };
+
   const getMessages = async () => {
     const messages = await fetchMessages(headerList, receiver.id);
-    const uniqueMessages = createUniqueArray(messages.data);
+    const filteredMessages = filterMessages(messages.data);
 
-    setMessageDisplay(uniqueMessages);
+    setMessageDisplay(filteredMessages);
     setIsLoading(false);
   };
 
@@ -46,6 +60,7 @@ const Message = ({ users, headerList, userDetails, receiverEmail }) => {
 
     newMsg.data.sender = userDetails;
     setMessageDisplay([...messageDisplay, newMsg.data]);
+    messageWasSent(newMsg.data);
     setIsLoading(false);
   };
 
@@ -54,20 +69,21 @@ const Message = ({ users, headerList, userDetails, receiverEmail }) => {
   }
 
   return (
-    <div>
-      <p>{receiver.uid}</p>
-      <p>{receiver.id}</p>
-      <MessageScreen
-        userDetails={userDetails}
-        headerList={headerList}
-        receiver={receiver}
-        messageDisplay={messageDisplay}
-      />
-      <MessageInput
-        headerList={headerList}
-        receiver={receiver}
-        sendMessage={sendMessage}
-      />
+    <div className="messageWrapper">
+      <MessageHeader receiver={receiver} />
+      <div className="messageDisplay">
+        <MessageScreen
+          userDetails={userDetails}
+          headerList={headerList}
+          receiver={receiver}
+          messageDisplay={messageDisplay}
+        />
+        <MessageInput
+          headerList={headerList}
+          receiver={receiver}
+          sendMessage={sendMessage}
+        />
+      </div>
     </div>
   );
 };
