@@ -1,12 +1,7 @@
 import { useState } from "react";
-import { sendMessageToServer } from "../../Utils/api";
 
-const MessageInput = ({ headerList, receiver }) => {
+const MessageInput = ({ sendMessage }) => {
   const [message, setMessage] = useState("");
-
-  const sendMessage = () => {
-    sendMessageToServer(headerList, receiver.id, message);
-  };
 
   return (
     <div>
@@ -16,7 +11,7 @@ const MessageInput = ({ headerList, receiver }) => {
           setMessage(e.target.value);
         }}
       />
-      <button onClick={sendMessage}>Send</button>
+      <button onClick={() => sendMessage(message)}>Send</button>
     </div>
   );
 };
