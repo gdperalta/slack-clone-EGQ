@@ -7,17 +7,17 @@ import AddNewChannel from "./AddNewChannel";
 const Channels = () => {
   const [userChannels, setUserChannels] = useState({});
   const [show, setShow] = useState(false);
-  const header = JSON.parse(sessionStorage.getItem("header"));
-
+  
   useEffect(() => {
     const fetchChannels = async () => {
-      
+  
+      const header = JSON.parse(sessionStorage.getItem("header"));
       const channels = await getUserChannels(header);
       setUserChannels(channels);
     };
 
     fetchChannels().catch(console.error);
-  }, [header,show]);
+  }, [show]);
 
   const renderChannelList = () => {
     return userChannels.data.map((item, index) => {
