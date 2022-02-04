@@ -17,6 +17,7 @@ const App = () => {
   const [users, setUsers] = useState(null);
   const [receiverEmail, setReceiverEmail] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
 
   //Log in
   useEffect(() => {
@@ -65,6 +66,10 @@ const App = () => {
     setReceiverEmail(e.target.textContent);
   };
 
+  const messageWasSent = (msg) => {
+    setMessageSent(msg);
+  };
+
   return (
     <div>
       <BrowserRouter>
@@ -76,6 +81,8 @@ const App = () => {
                 <Layout
                   headerList={headerList}
                   changeReceiver={changeReceiver}
+                  receiverEmail={receiverEmail}
+                  messageSent={messageSent}
                 />
               ) : (
                 <Login onclick={handleLogin} />
@@ -102,6 +109,7 @@ const App = () => {
                   userDetails={userDetails}
                   headerList={headerList}
                   receiverEmail={receiverEmail}
+                  messageWasSent={messageWasSent}
                 />
               }
             />
