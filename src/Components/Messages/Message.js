@@ -42,8 +42,9 @@ const Message = ({
   const filterMessages = (messages) => {
     let uniqueMessages = createUniqueArray(messages);
     let filteredMessages = filterArray(uniqueMessages);
+    console.log(filteredMessages);
 
-    return uniqueMessages;
+    return filteredMessages;
   };
 
   const getMessages = async () => {
