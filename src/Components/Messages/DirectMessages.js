@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  useLocation,
-  Outlet,
-  NavLink,
-  useSearchParams,
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { fetchRecentMsgs } from "../../Utils/api";
+import { createUniqueArray } from "../../Utils/createUniqueArray";
 
 const DirectMessages = ({ headerList, changeReceiver }) => {
   const [recentMessages, setRecentMessages] = useState(null);
@@ -20,13 +16,7 @@ const DirectMessages = ({ headerList, changeReceiver }) => {
 
   const getDirectMessages = async () => {
     const recentDMs = await fetchRecentMsgs(headerList);
-
-    const uniqueUsers = recentDMs.data.filter((item, index) => {
-      const i = recentDMs.data.findIndex((user) => {
-        return user.uid === item.uid;
-      });
-      return i === index;
-    });
+    const uniqueUsers = createUniqueArray(recentDMs.data);
 
     setRecentMessages(uniqueUsers);
     setIsLoading(false);
