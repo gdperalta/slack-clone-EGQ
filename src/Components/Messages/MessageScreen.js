@@ -36,44 +36,42 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
     return <span id="date">{completeDate}</span>;
   };
   return (
-    <div>
-      <div className="messageScreen">
-        {messageDisplay.map((sender) => {
-          return (
+    <div className="messageScreen">
+      {messageDisplay.map((sender) => {
+        return (
+          <div
+            className="messageContainer"
+            key={`${sender[0].sender.email}-${sender[0].sender.id}`}
+          >
+            <span className="icon">
+              {sender[0].sender.email.charAt(0).toUpperCase()}
+            </span>
             <div
-              className="messageContainer"
-              key={`${sender[0].sender.email}-${sender[0].sender.id}`}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                padding: "0 5px",
+              }}
             >
-              <span className="icon">
-                {sender[0].sender.email.charAt(0).toUpperCase()}
-              </span>
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  padding: "0 5px",
+                  alignItems: "center",
+                  height: "30px",
+                  marginBottom: "4px",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "30px",
-                    marginBottom: "4px",
-                  }}
-                >
-                  <h3>{sender[0].sender.email}</h3>
-                  {getDate(sender[0].created_at)}
-                </div>
-                {sender.map((data) => {
-                  return <p key={data.id}>{data.body}</p>;
-                })}
+                <h3>{sender[0].sender.email}</h3>
+                {getDate(sender[0].created_at)}
               </div>
+              {sender.map((data) => {
+                return <p key={data.id}>{data.body}</p>;
+              })}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
