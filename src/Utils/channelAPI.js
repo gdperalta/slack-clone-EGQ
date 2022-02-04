@@ -1,4 +1,4 @@
-export const createChannel = async (channelName, headers) => {
+export const createChannel = async (channelName, newMembers, headers) => {
   const { accessToken, client, expiry, uid } = headers;
   try {
     const result = await fetch("http://206.189.91.54//api/v1/channels", {
@@ -10,7 +10,7 @@ export const createChannel = async (channelName, headers) => {
         expiry: expiry,
        uid: uid,
       },
-      body: JSON.stringify({ name: channelName, user_ids: [1629, 1643, 1631] }),
+      body: JSON.stringify({ name: channelName, user_ids: newMembers }),
     });
     return await result.json();
   } catch (e) {}
