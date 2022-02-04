@@ -8,13 +8,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import { Layout } from "./Pages/Layout";
-
+import Login from "./Components/Login/Login"
+import Signup from "./Components/Signup/Signup"
 
 const App = () => {
+
   const [headerList, setHeaderList] = useState(null);
   const [users, setUsers] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const oldHeader = JSON.parse(sessionStorage.getItem("header"));
+
+    if (oldHeader) {
+      setIsLoggedIn(true);
+      setHeaderList(oldHeader);
+    } else {
+      setIsLoggedIn(false);
+    }
     logInUser();
   }, []);
 
@@ -24,12 +35,12 @@ const App = () => {
     }
   }, [headerList]);
 
+
   const logInUser = async () => {
     const userData = await logIn();
     const userHeader = getHeaders(userData);
     setHeaderList(userHeader);
   };
-
   const getUsers = async () => {
     const data = await fetchUsers(headerList);
     setUsers(data.data);
@@ -39,7 +50,14 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/MainPage" element={<Layout/>} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route
+            path="/"
+            element={isLoggedIn ? <Layout /> : <Login  /> }
+            >
+            
             <Route
               index
               element={
@@ -48,6 +66,7 @@ const App = () => {
                 </main>
               }
             />
+            
             <Route path="users" element={<Users users={users} />} />
             <Route
               path=":uid"

@@ -1,3 +1,5 @@
+import LoginBody from "../Components/Login/LoginBody";
+
 export const register = async () => {
   var raw = {
     email: "dio@gmail.com",
@@ -21,7 +23,7 @@ export const register = async () => {
 };
 
 export const logIn = async () => {
-  var raw = { email: "gdp@gmail.com", password: "asdfjkl" };
+  var raw = { email: "dio@gmail.com" , password: "asdfjkl" };
 
   var requestOptions = {
     method: "POST",
@@ -31,13 +33,10 @@ export const logIn = async () => {
     body: JSON.stringify(raw),
     redirect: "follow",
   };
-
   const response = await fetch(
     "http://206.189.91.54//api/v1/auth/sign_in",
     requestOptions
   );
-  console.log(await response.text());
-
   return response;
 };
 
@@ -59,7 +58,6 @@ export const fetchUsers = async (headers) => {
     "http://206.189.91.54//api/v1/users",
     requestOptions
   );
-
   return await response.json();
 };
 
