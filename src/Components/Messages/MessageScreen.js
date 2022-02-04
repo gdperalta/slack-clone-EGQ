@@ -38,9 +38,12 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
   return (
     <div>
       <div className="messageScreen">
-        {messageDisplay.map((data) => {
+        {messageDisplay.map((sender) => {
           return (
-            <div className="messageContainer" key={data.id}>
+            <div
+              className="messageContainer"
+              key={`${sender[0].sender.email}-${sender[0].sender.id}`}
+            >
               <div
                 style={{
                   display: "flex",
@@ -48,15 +51,16 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
                   height: "40px",
                 }}
               >
-                <h3>
-                  {data.sender.id === userDetails.id
-                    ? userDetails.email
-                    : data.sender.email}
-                </h3>
-                {getDate(data.created_at)}
+                <h3>{sender[0].sender.email}</h3>
+                {getDate(sender[0].created_at)}
               </div>
-
-              <p>{data.body}</p>
+              {sender.map((data) => {
+                return (
+                  <div key={data.id}>
+                    <p>{data.body}</p>
+                  </div>
+                );
+              })}
             </div>
           );
         })}
