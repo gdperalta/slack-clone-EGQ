@@ -13,16 +13,18 @@ const AddNewChannel = (props) => {
   const [filterEmail, setFilterEmail] = useState("");
   const [users, setUsers] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState(null);
-  const headerList = JSON.parse(sessionStorage.getItem("header"));
+  const [selectedUserIDs, setSelectedUserIDs] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
+      const headerList = JSON.parse(sessionStorage.getItem("header"));
+
       const data = await fetchUsers(headerList);
       setUsers(data.data);
     };
 
     getUsers().catch(console.error);
-  }, [headerList]);
+  }, []);
 
   useEffect(() => {
     if (users !== null) {
@@ -38,6 +40,10 @@ const AddNewChannel = (props) => {
     }
   }, [filterEmail]);
 
+  useEffect(() => {
+    console.log(selectedUserIDs);
+  }, [selectedUserIDs]);
+
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -52,13 +58,23 @@ const AddNewChannel = (props) => {
     event.preventDefault();
 
     const header = JSON.parse(sessionStorage.getItem("header"));
-    const result = await createChannel(channelName, header);
-    console.log(result);
-    setChannelName("");
-    setFilterEmail("");
-    setFilteredUsers(null);
-    props.onClose();
-    navigate("/");
+    const result = await createChannel(channelName, selectedUserIDs, header);
+
+    if (result.errors !== undefined) {
+      if (result.errors[0] == "Name has already been taken")
+        alert("Name has already been taken");
+    } else {
+      setChannelName("");
+      setFilterEmail("");
+      setFilteredUsers(null);
+      setSelectedUserIDs([]);
+      props.onClose();
+      navigate("/");
+    }
+  };
+
+  const AddToSelectedUsers = (id) => {
+    setSelectedUserIDs([...selectedUserIDs, id]);
   };
 
   const renderFilteredUsers = () => {
@@ -67,11 +83,26 @@ const AddNewChannel = (props) => {
         return (
           <div key={item.id}>
             <span> {item.email} </span>
-            <FaPeopleArrows className="channel-user-add-user" />
+            <FaPeopleArrows
+              className="channel-user-add-user"
+              id={item.id}
+              onClick={AddToSelectedUsers.bind(this, item.id)}
+              style={{ position: "absolute", right: "10px" }}
+            />
           </div>
         );
       });
     }
+  };
+
+  const getSpecificUser = (user_id) => {
+    return users.find(({ id }) => (id === user_id));
+  };
+
+  const renderSelectedUsers = () => {
+    return selectedUserIDs.map((item, index) => {
+      return <p key={index}>{getSpecificUser(item).email}</p>;
+    });
   };
 
   return ReactDOM.createPortal(
@@ -82,6 +113,10 @@ const AddNewChannel = (props) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h4 className="modal-title"> {props.title}</h4>
+          <span>
+            Channels are where your team communicates. They're best when
+            organized around a topic - #programming for example.
+          </span>
         </div>
         <div className="modal-body">
           <form onSubmit={registerChannel}>
@@ -101,45 +136,37 @@ const AddNewChannel = (props) => {
                   placeholder="Search by name or email address"
                   value={filterEmail}
                   onChange={handleChange}
+                  style={{ width: "100%" }}
                 />
                 <div style={{ position: "relative" }}>
                   <div className="channel-user-custom-dropdown">
                     {renderFilteredUsers()}
                   </div>
                 </div>
-              </div>
-              <div>
-                <input value="Save" type="submit" />
+                <div>
+                  <h4>Selected users</h4>
+                  <div>{renderSelectedUsers()}</div>
+                  <input
+                    style={{
+                      right: "0",
+                      marginTop: "10px",
+                      marginRight: "10px",
+                      marginBottom: "10px",
+                      width: "100px",
+                    }}
+                    value="Create Channel"
+                    type="submit"
+                  />
+                </div>
               </div>
             </div>
           </form>
         </div>
-        <div className="modal-footer">
-          <button onClick={props.onClose} className="button">
-            Close
-          </button>
-        </div>
+        <div className="modal-footer"></div>
       </div>
     </div>,
     document.getElementById("root")
   );
-
-  /* return (
-    <div>
-      <ChannelModal
-        title="My modal"
-        users={users}
-        onClose={() => {
-          setShow(false);
-          navigate("/");
-        }}
-        show={show}
-        
-      >
-        
-      </ChannelModal>
-    </div>
-  ); */
 };
 
 export default AddNewChannel;
