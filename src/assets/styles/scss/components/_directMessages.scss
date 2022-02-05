@@ -5,7 +5,7 @@
   width: calc(19vw - 1px);
   max-width: 400px;
   margin-left: -1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 2rem;
   color: darken(variables.$font-color, 15%);
   text-decoration: none;
   &:hover {
@@ -16,4 +16,7 @@
 .activeMsg {
   color: variables.$font-color;
   background-color: variables.$secondary-color;
+  &:hover {
+    background-color: variables.$secondary-color;
+  }
 }

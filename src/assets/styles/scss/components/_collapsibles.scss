@@ -1,0 +1,27 @@
+@use "../utilities/variables";
+
+.collapsibleWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border: 0;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+  div:hover {
+    background-color: variables.$hover-color;
+    border-radius: 4px;
+  }
+  h3 {
+    margin-left: 2px;
+  }
+}
+
+.collapsibleContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
