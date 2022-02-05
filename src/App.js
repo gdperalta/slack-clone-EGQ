@@ -35,8 +35,6 @@ const App = () => {
     }
   }, [headerList]);
 
-
-
   const logInUser = async () => {
     const userData = await logIn();
     const userHeader = getHeaders(userData);
@@ -60,7 +58,6 @@ const App = () => {
                 </main>
               }
             />
-            
             <Route path="users" element={<Users users={users} />} />
             <Route
               path=":uid"

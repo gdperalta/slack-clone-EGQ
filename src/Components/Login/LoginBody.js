@@ -13,7 +13,7 @@ export default function LoginBody (){
     });
 
     const logIn = async () => {
-        var raw = { email: formData.email , password: "asdfjkl" };
+        var raw = { email: formData.email , password: formData.password };
       
         var requestOptions = {
           method: "POST",
@@ -72,9 +72,6 @@ export default function LoginBody (){
             }
         }, [headerList]);
     
-       
-        
-
     const logInUser = async () => {
         const userData = await logIn();
         const userHeader = getHeaders(userData);
