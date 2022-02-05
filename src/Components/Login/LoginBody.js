@@ -61,7 +61,6 @@ export default function LoginBody ({onSuccess}){
     function handlePasswordInput(e){
         setFormData({...formData, password: e.target.value});
     }
-    console.log(formData);
     return(
         <div className="login-main">
             <div className='login-board'>

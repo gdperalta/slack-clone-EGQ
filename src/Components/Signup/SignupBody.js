@@ -1,16 +1,48 @@
-import { divideScalarDependencies } from "mathjs";
+import { useState,useEffect} from "react";
 
 export default function SignupBody(){
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+        confirmpassword:"",
+    })
+    console.log(formData)
+    function handleEmailInput(e){
+        setFormData({...formData, email: e.target.value});
+      }
+    function handlePasswordInput(e){
+        setFormData({...formData, password: e.target.value});
+    }
+    function handleConfirmPassword(e){
+        setFormData({...formData, confirmpassword: e.target.value});
+    }
     return(
+       
         <div>
+            
             <div className="signup-main">
                 <div className='signup-board'>
                     <div className="heading">First, enter your email</div>
                     <div className="sub-heading">We suggest using the <strong>email address you use at work.</strong></div>
                     <div className="inputs">
-                        <input type="email" placeholder="name@work-email.com"></input>
-                        <input type="text" placeholder="Enter your password"></input>
-                        <input type="text" placeholder="Confirm password"></input>
+                        <input type="email" 
+                            type="email" 
+                            placeholder="name@work-email.com"
+                            value={formData.email}
+                            onChange={handleEmailInput}>
+                        </input>
+                        <input 
+                            type="text" 
+                            placeholder="Enter your password"
+                            value={formData.password}
+                            onChange={handlePasswordInput}>
+                        </input>
+                        <input 
+                            type="text" 
+                            placeholder="Confirm password"
+                            value={formData.confirmpassword}
+                            onChange={handleConfirmPassword}>
+                         </input>
                     </div>
                     <div className="signin">
                         <button className="signBtn">Continue</button>
