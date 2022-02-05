@@ -1,7 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
 import Channels from "../Components/Channels/Channels";
-// import Messages from "../Components/Messages/Messages";
-// import Login from "../Components/Login/Login";
 import Header from "../Components/Header/Header";
 import DirectMessages from "../Components/Messages/DirectMessages";
 
