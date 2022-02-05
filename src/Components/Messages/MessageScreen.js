@@ -1,32 +1,117 @@
-import { useEffect, useState } from "react";
-import { fetchMessages } from "../../Utils/api";
-
-const MessageScreen = ({ headerList, receiver }) => {
-  const [messageDisplay, setMessageDisplay] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (receiver) {
-      getMessages();
-    }
-  }, [receiver]);
-
-  const getMessages = async () => {
-    const messages = await fetchMessages(headerList, receiver.id);
-    setMessageDisplay(messages.data);
-    setIsLoading(false);
+const MessageScreen = ({ userDetails, messageDisplay }) => {
+  const addZero = (i) => {
+    if (i < 10) i = "0" + i;
+    return i;
   };
 
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
+  const convertHour = (i) => {
+    if (i > 12) i = i - 12;
+    return i;
+  };
 
+  const getDate = (date) => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    let d = new Date(date);
+    let hour = d.getHours();
+    let time = hour > 11 ? "pm" : "am";
+    let convertedHour = convertHour(d.getHours());
+    let minutes = addZero(d.getMinutes());
+    let day = d.getDate();
+    let month = months[d.getMonth()];
+    let completeDate = `${month} ${day}, ${convertedHour}:${minutes} ${time}`;
+    return <span id="date">{completeDate}</span>;
+  };
+
+  let x;
   return (
-    <div>
-      <p>Messages</p>
-      {messageDisplay.map((data) => {
-        return <div key={data.id}>{data.body}</div>;
+    <div className="messageScreen">
+      {messageDisplay.map((user) => {
+        if (x === user.sender.email) {
+          return (
+            <div className="messageContainer">
+              <span style={{ width: "45px" }}></span>
+              <p key={user.id}>{user.body}</p>
+            </div>
+          );
+        } else {
+          x = user.sender.email;
+          return (
+            <div className="messageContainer">
+              <span className="icon">
+                {user.sender.email.charAt(0).toUpperCase()}
+              </span>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  padding: "0 5px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "30px",
+                    marginBottom: "4px",
+                  }}
+                >
+                  <h3>{user.sender.email}</h3>
+                  {getDate(user.created_at)}
+                </div>
+                <p key={user.id}>{user.body}</p>
+              </div>
+            </div>
+          );
+        }
+
+        /* return (
+          <div
+            className="messageContainer"
+            key={`${sender[0].sender.email}-${sender[0].sender.id}`}
+          >
+            <span className="icon">
+              {sender[0].sender.email.charAt(0).toUpperCase()}
+            </span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                padding: "0 5px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  height: "30px",
+                  marginBottom: "4px",
+                }}
+              >
+                <h3>{sender[0].sender.email}</h3>
+                {getDate(sender[0].created_at)}
+              </div>
+              {sender.map((data) => {
+                return <p key={data.id}>{data.body}</p>;
+              })}
+            </div>
+          </div>
+        ); */
       })}
     </div>
   );

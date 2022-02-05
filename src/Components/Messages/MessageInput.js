@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { sendMessageToServer } from "../../Utils/api";
+import sendButton from "../../assets/images/send.png";
 
-const MessageInput = ({ headerList, receiver }) => {
+const MessageInput = ({ sendMessage }) => {
   const [message, setMessage] = useState("");
 
-  const sendMessage = () => {
-    sendMessageToServer(headerList, receiver.id, message);
-  };
-
   return (
-    <div>
+    <div className="inputWrapper">
       <input
         value={message}
         onChange={(e) => {
           setMessage(e.target.value);
         }}
+        placeholder="Type a message"
       />
-      <button onClick={sendMessage}>Send</button>
+
+      <button onClick={() => sendMessage(message)}>
+        <img src={sendButton} />
+      </button>
     </div>
   );
 };

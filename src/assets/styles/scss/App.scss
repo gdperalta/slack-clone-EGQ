@@ -1,5 +1,10 @@
-@use "./components/sidebar";
+@use "./layout/sidebar";
 @use "./components/channels";
+@use "./components/modal";
+@use "./components/msgScreen";
+@use "./components/directMessages";
+@use "./components/messages";
+@use "./components/header";
 
 *,
 *:before,
@@ -15,13 +20,8 @@ body {
   height: 100%;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-}
-
 .wrapper {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
 }
