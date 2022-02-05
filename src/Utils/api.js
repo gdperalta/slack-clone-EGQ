@@ -36,7 +36,6 @@ export const logIn = async () => {
     "http://206.189.91.54//api/v1/auth/sign_in",
     requestOptions
   );
-  console.log(await response.text());
 
   return response;
 };
@@ -85,10 +84,12 @@ export const sendMessageToServer = async (headers, receiverID, message) => {
     redirect: "follow",
   };
 
-  fetch("http://206.189.91.54//api/v1/messages", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  const response = await fetch(
+    "http://206.189.91.54//api/v1/messages",
+    requestOptions
+  );
+
+  return await response.json();
 };
 
 export const fetchMessages = async (header, id) => {
@@ -107,6 +108,28 @@ export const fetchMessages = async (header, id) => {
 
   const response = await fetch(
     `http://206.189.91.54//api/v1/messages?receiver_class=User&receiver_id=${id}`,
+    requestOptions
+  );
+
+  return await response.json();
+};
+
+export const fetchRecentMsgs = async (header, id) => {
+  const { accessToken, client, expiry, uid } = header;
+  var myHeaders = new Headers();
+  myHeaders.append("access-token", accessToken);
+  myHeaders.append("client", client);
+  myHeaders.append("expiry", expiry);
+  myHeaders.append("uid", uid);
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const response = await fetch(
+    "http://206.189.91.54//api/v1/users/recent",
     requestOptions
   );
 

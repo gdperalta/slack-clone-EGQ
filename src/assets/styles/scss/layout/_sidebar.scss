@@ -1,0 +1,15 @@
+@use "../utilities/variables";
+
+.sidebar-wrapper {
+  height: 100%;
+  width: 19vw;
+  max-width: 400px;
+  padding-left: 1rem;
+  padding-top: 45px;
+  color: variables.$font-color;
+  background-color: variables.$primary-color;
+  border: solid variables.$hover-color 1px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
