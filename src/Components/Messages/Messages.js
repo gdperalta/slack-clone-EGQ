@@ -10,9 +10,6 @@ const Messages = () => {
   return (
     <div>
       <p>Messages</p>
-      <nav>
-        <NavLink to={`/${testData.uid}`}>{testData.name} aa</NavLink>
-      </nav>
     </div>
   );
 };

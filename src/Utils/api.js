@@ -1,6 +1,6 @@
 export const register = async () => {
   var raw = {
-    email: "gdp@gmail.com",
+    email: "dio@gmail.com",
     password: "asdfjkl",
     password_confirmation: "asdfjkl",
   };
@@ -21,7 +21,7 @@ export const register = async () => {
 };
 
 export const logIn = async () => {
-  var raw = { email: "gdp@gmail.com", password: "asdfjkl" };
+  var raw = { email: "dio@gmail.com" , password: "asdfjkl" };
 
   var requestOptions = {
     method: "POST",
@@ -31,19 +31,16 @@ export const logIn = async () => {
     body: JSON.stringify(raw),
     redirect: "follow",
   };
-
   const response = await fetch(
     "http://206.189.91.54//api/v1/auth/sign_in",
     requestOptions
   );
-  console.log(await response.text());
-
   return response;
 };
 
-export const fetchUsers = async (data) => {
-  const { accessToken, client, expiry, uid } = data;
-  var myHeaders = new Headers();
+export const fetchUsers = async (headers) => {
+  const { accessToken, client, expiry, uid } = headers;
+  const myHeaders = new Headers();
   myHeaders.append("access-token", accessToken);
   myHeaders.append("client", client);
   myHeaders.append("expiry", expiry);
@@ -59,7 +56,55 @@ export const fetchUsers = async (data) => {
     "http://206.189.91.54//api/v1/users",
     requestOptions
   );
-  //console.log(await response.text());
+  return await response.json();
+};
+
+export const sendMessageToServer = async (headers, receiverID, message) => {
+  const { accessToken, client, expiry, uid } = headers;
+  const myHeaders = new Headers();
+  myHeaders.append("access-token", accessToken);
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("client", client);
+  myHeaders.append("expiry", expiry);
+  myHeaders.append("uid", uid);
+
+  const raw = {
+    receiver_id: receiverID,
+    receiver_class: "User",
+    body: message,
+  };
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify(raw),
+    redirect: "follow",
+  };
+
+  fetch("http://206.189.91.54//api/v1/messages", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+};
+
+export const fetchMessages = async (header, id) => {
+  const { accessToken, client, expiry, uid } = header;
+  var myHeaders = new Headers();
+  myHeaders.append("access-token", accessToken);
+  myHeaders.append("client", client);
+  myHeaders.append("expiry", expiry);
+  myHeaders.append("uid", uid);
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const response = await fetch(
+    `http://206.189.91.54//api/v1/messages?receiver_class=User&receiver_id=${id}`,
+    requestOptions
+  );
 
   return await response.json();
 };

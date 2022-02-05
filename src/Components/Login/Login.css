@@ -43,7 +43,7 @@ button{
     justify-content: center;
 }
 .login-board{
-    text-align: center;
+ 
     height: 100vh;
     width: 295px;
 }
@@ -94,14 +94,14 @@ button{
     padding: 0 20px;
     font-size: 12px;
 }
-.inputs input{
-    width: 91%;
+.input input{
+    width: 100%;
     margin-top:10px;
     padding: 10px;
     border: 1px solid grey;
     border-radius: 3px;
 }
-.inputs input:hover{
+.input input:hover{
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 .signBtn{
@@ -117,26 +117,24 @@ button{
     background:#693b58;
    
 }
-.instructions{
+.instruction{
     display: flex;
     justify-content: center;
     align-items:center;
-    color: grey;
+    padding: 12px 24px;
+    color: darkgrey;
     background-color: whitesmoke;
     border-radius: 8px;
-    
 }
-
-.instructions span{
+.instruction span{
     padding-left: 12px;
     text-align: justify;
-    font-size: 12px;
-    margin:10px 20px 10px 0;
+    font-size: 14px;
 }
-.instructions span strong{
+.instruction span strong{
     color:#483D8B;
 }
-.instructions span strong:hover{
+.instruction span strong:hover{
     text-decoration: underline;
     cursor: pointer;
 }
