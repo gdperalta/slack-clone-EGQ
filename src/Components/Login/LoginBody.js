@@ -2,7 +2,8 @@ import { FcGoogle } from "react-icons/fc";
 import { DiApple } from "react-icons/di";
 import { WiStars } from "react-icons/wi";
 import { useState,useEffect} from "react";
-// import { logIn,fetchUsers} from "../../Utils/api";
+
+import { logIn,fetchUsers} from "../../Utils/api";
 import { getHeaders } from "../../Utils/getHeaders";
 import { useNavigate } from "react-router-dom";
 
@@ -11,46 +12,6 @@ export default function LoginBody (){
         email: "",
         password: "",
     });
-
-    const logIn = async () => {
-        var raw = { email: formData.email , password: formData.password };
-      
-        var requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(raw),
-          redirect: "follow",
-        };
-        const response = await fetch(
-          "http://206.189.91.54//api/v1/auth/sign_in",
-          requestOptions
-        );
-        console.log(await response.text());
-        return response;
-    };
-      
-    const fetchUsers = async (headers) => {
-        const { accessToken, client, expiry, uid } = headers;
-        const myHeaders = new Headers();
-        myHeaders.append("access-token", accessToken);
-        myHeaders.append("client", client);
-        myHeaders.append("expiry", expiry);
-        myHeaders.append("uid", uid);
-      
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow",
-        };
-      
-    const response = await fetch(
-          "http://206.189.91.54//api/v1/users",
-          requestOptions
-        );
-        return await response.json();
-      };
     const [headerList, setHeaderList] = useState(null);
     const [users, setUsers] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,9 +32,15 @@ export default function LoginBody (){
             getUsers();
             }
         }, [headerList]);
-    
+    let navigate= useNavigate()
     const logInUser = async () => {
-        const userData = await logIn();
+        const userData = await logIn(formData.email, formData.password)
+        const data = await userData.json()
+        if(data.data){
+            navigate("/Mainpage")
+        }else{
+            console.log("failed")
+        }
         const userHeader = getHeaders(userData);
         setHeaderList(userHeader);
     };

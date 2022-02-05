@@ -1,5 +1,5 @@
 
-import './App.css'
+
 import "./assets/styles/css/App.css";
 import { logIn, fetchUsers, register } from "./Utils/api";
 import { useEffect, useState } from "react";
@@ -77,7 +77,7 @@ const App = () => {
   const messageWasSent = (msg) => {
     setMessageSent(msg);
   };
-
+  console.log(isLoggedIn)
   return (
     <div>
       <BrowserRouter>
@@ -134,6 +134,7 @@ const App = () => {
             />
           </Route>
           :<Route path="/" element={<Login />}/>}
+          <Route path="/Mainpage" element={<Layout/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>
       </BrowserRouter>

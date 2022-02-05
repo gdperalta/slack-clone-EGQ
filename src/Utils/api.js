@@ -20,8 +20,8 @@ export const register = async () => {
     .catch((error) => console.log("error", error));
 };
 
-export const logIn = async () => {
-  var raw = { email: "dio@gmail.com" , password: "asdfjkl" };
+export const logIn = async (email, password) => {
+  var raw = { email: email , password: password };
 
   var requestOptions = {
     method: "POST",
