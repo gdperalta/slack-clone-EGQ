@@ -1,7 +1,10 @@
+import { NavLink } from "react-router-dom";
+import "../../assets/styles/css/App.css";
+
 const Channel = (props) => {
   const showChannelNames = (props) => {
     return (
-      <div style={{display: "flex"}}>{/* replace this with class from css */}
+      <div style={{display: "flex" , cursor:"pointer"}}>{/* replace this with class from css */}
         <svg
           style={{
             display: "flex",
@@ -26,7 +29,7 @@ const Channel = (props) => {
           ></path>
         </svg>
 
-        <a>{props.name}</a>
+        <NavLink to={`/channels/${props.id}`}>{props.name}</NavLink>
       </div>
     );
   };

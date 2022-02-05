@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { getUserChannels } from "../../Utils/channelAPI";
-import { logIn } from "../../Utils/api";
 import Channel from "./Channel";
-import {dummyChannels} from "../../Utils/mockData";
+import AddNewChannel from "./AddNewChannel";
+
 
 const Channels = () => {
   const [userChannels, setUserChannels] = useState({});
-
+  const [show, setShow] = useState(false);
+  
   useEffect(() => {
     const fetchChannels = async () => {
-      /*  const header = {};
-      const response = await logIn();
-
-      for (let pair of response.headers.entries()) {
-        header[pair[0]] = pair[1];
-      }
-      //console.log(header);
-
-      const channels = await getUserChannels(
-        header["access-token"],
-        header["client"],
-        header["expiry"]
-      ); */
-
-     
-      setUserChannels(dummyChannels);
+  
+      const header = JSON.parse(sessionStorage.getItem("header"));
+      const channels = await getUserChannels(header);
+      setUserChannels(channels);
     };
 
     fetchChannels().catch(console.error);
-  }, []);
+  }, [show]);
 
   const renderChannelList = () => {
     return userChannels.data.map((item, index) => {
-      return <Channel key={index} name={item.name} />;
+      return <Channel key={index} id={item.id} name={item.name} />;
     });
   };
 
@@ -42,8 +31,14 @@ const Channels = () => {
       {userChannels.data !== undefined ? (
         renderChannelList()
       ) : (
-        <p>Error loading channels</p>
+        <p>Loading channels</p>
       )}
+      <button onClick={() => setShow(true)}>Add new channel</button>
+      <AddNewChannel
+        title="Create new channel"
+        onClose={() => setShow(false)}
+        show={show}
+      />
     </div>
   );
 };

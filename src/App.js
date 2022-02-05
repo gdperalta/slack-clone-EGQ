@@ -7,6 +7,7 @@ import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
 import Login from "./Components/Login/Login";
+import ChannelMessages from "./Components/Channels/ChannelMessages";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -20,6 +21,7 @@ const App = () => {
   const [messageSent, setMessageSent] = useState(false);
 
   //Log in
+
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
 
@@ -101,6 +103,7 @@ const App = () => {
               path="users"
               element={<Users users={users} changeReceiver={changeReceiver} />}
             />
+            <Route path="channels/:channelId" element={<ChannelMessages />} />
             <Route
               path=":uid"
               element={
