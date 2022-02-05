@@ -1,0 +1,132 @@
+body,html{
+    margin: 0;
+    padding: 0;
+}
+.pageHeader{
+    margin: 2% auto;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3,1fr);
+};
+.centerCol{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* signup body styling  */
+.signup-main{
+    display: flex;
+    justify-content: center;
+}
+.signup-board{
+    text-align: center;
+    height: 100vh;
+    width: 330px;
+}
+.signup-board .logo img{
+    height: 32px;
+}
+.heading{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.sub-heading{
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+.inputs input{
+    width: 91%;
+    margin-top:10px;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+.inputs input:hover{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.signBtn{
+    background: #3f0f40;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    padding:10px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.signBtn:hover{
+    background:#693b58;
+}
+.instructions{
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:flex-start;
+    color:grey;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.46668;
+}
+.emailNotifs{
+    display: flex;
+    font-size: 13.5px;
+    padding-top: 10px;
+}
+.emailNotifs input{
+    width: 15px;
+    height: 15px;
+    margin-left: 0;
+    cursor: pointer;
+}
+.terms{
+    text-align: left;
+    padding-top: 15px;
+    font-size: 13.5px;
+}
+.instructions a{
+    text-decoration: none;
+    color: grey;
+}
+.instructions a:hover{
+    text-decoration: underline;
+    
+}
+/* footer styling  */
+.pageFooter{
+    display: flex;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    text-align: center;
+   padding-bottom:3rem;
+}
+.pageFooter a{
+    text-decoration: none;
+    color: grey;
+}
+.pageFooter a:hover{
+    color: #000;
+}
+.pageFooterChild{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.pageFooterItems{
+    margin-right: 10px;
+    font-size:12px;
+}
+.pageFooterItems:hover{
+    text-decoration: underline;
+}
+.regionLabel{
+    margin-left: 1px;
+}
