@@ -82,23 +82,12 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-        {isLoggedIn ?<Route path="/" element={<Layout/>}> 
-
-          {/* <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <Layout
+        {isLoggedIn ?<Route path="/" element={<Layout
                   headerList={headerList}
                   changeReceiver={changeReceiver}
                   receiverEmail={receiverEmail}
                   messageSent={messageSent}
-                />
-              ) : (
-                <Login onclick={handleLogin} />
-              )
-            }
-          > */}
+                />}>  
             <Route
               index
               element={
