@@ -35,10 +35,51 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
     let completeDate = `${month} ${day}, ${convertedHour}:${minutes} ${time}`;
     return <span id="date">{completeDate}</span>;
   };
+
+  let x;
   return (
     <div className="messageScreen">
-      {messageDisplay.map((sender) => {
-        return (
+      {messageDisplay.map((user) => {
+        if (x === user.sender.email) {
+          return (
+            <div className="messageContainer">
+              <span style={{ width: "45px" }}></span>
+              <p key={user.id}>{user.body}</p>
+            </div>
+          );
+        } else {
+          x = user.sender.email;
+          return (
+            <div className="messageContainer">
+              <span className="icon">
+                {user.sender.email.charAt(0).toUpperCase()}
+              </span>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  padding: "0 5px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "30px",
+                    marginBottom: "4px",
+                  }}
+                >
+                  <h3>{user.sender.email}</h3>
+                  {getDate(user.created_at)}
+                </div>
+                <p key={user.id}>{user.body}</p>
+              </div>
+            </div>
+          );
+        }
+
+        /* return (
           <div
             className="messageContainer"
             key={`${sender[0].sender.email}-${sender[0].sender.id}`}
@@ -70,7 +111,7 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
               })}
             </div>
           </div>
-        );
+        ); */
       })}
     </div>
   );
