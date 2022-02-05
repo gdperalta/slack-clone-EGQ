@@ -1,3 +1,5 @@
+
+import './App.css'
 import "./assets/styles/css/App.css";
 import { logIn, fetchUsers, register } from "./Utils/api";
 import { useEffect, useState } from "react";
@@ -6,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
+import Signup from "./Components/Signup/Signup"
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
 
@@ -26,6 +29,7 @@ const App = () => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
 
     if (oldHeader) {
+      setIsLoggedIn(true); // for
       logInUser();
     } else {
       setIsLoggedIn(false);
@@ -51,12 +55,14 @@ const App = () => {
     logInUser();
   };
 
+
   //Fetch All Users
   useEffect(() => {
     if (headerList) {
       getUsers();
     }
   }, [headerList]);
+
 
   const getUsers = async () => {
     const data = await fetchUsers(headerList);
@@ -76,7 +82,9 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route
+        {isLoggedIn ?<Route path="/" element={<Layout/>}> 
+
+          {/* <Route
             path="/"
             element={
               isLoggedIn ? (
@@ -90,7 +98,7 @@ const App = () => {
                 <Login onclick={handleLogin} />
               )
             }
-          >
+          > */}
             <Route
               index
               element={
@@ -125,10 +133,12 @@ const App = () => {
               }
             />
           </Route>
+          :<Route path="/" element={<Login />}/>}
+          <Route path="/signup" element={<Signup/>} />
         </Routes>
       </BrowserRouter>
     </div>
-  );
-};
+  )};
+
 
 export default App;
