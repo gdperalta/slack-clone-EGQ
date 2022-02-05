@@ -42,7 +42,7 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
       {messageDisplay.map((user) => {
         if (x === user.sender.email) {
           return (
-            <div className="messageContainer">
+            <div key={user.id} className="messageContainer">
               <span style={{ width: "45px" }}></span>
               <p key={user.id}>{user.body}</p>
             </div>
@@ -50,7 +50,7 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
         } else {
           x = user.sender.email;
           return (
-            <div className="messageContainer">
+            <div className="messageContainer" key={user.id}>
               <span className="icon">
                 {user.sender.email.charAt(0).toUpperCase()}
               </span>
