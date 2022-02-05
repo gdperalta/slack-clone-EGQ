@@ -4,11 +4,11 @@ import LoginHeader from "./LoginHeader";
 import LoginBody from "./LoginBody"
 import LoginFooter from "./LoginFooter";
 
-export default function Login(){
+export default function Login({onSuccess}){
     return(
         <>
             <LoginHeader/>
-            <LoginBody/>
+            <LoginBody onSuccess={onSuccess}/>
             <LoginFooter/>
         </>
     )

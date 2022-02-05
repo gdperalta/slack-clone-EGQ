@@ -36,11 +36,11 @@ const App = () => {
     }
   }, []);
 
-  const logInUser = async () => {
-    const userData = await logIn();
-    const userHeader = getHeaders(userData);
-    const details = await userData.json();
-    const { email, id } = details.data;
+  const logInUser = async (userData,header) => {
+    console.log(header)
+    const userHeader = getHeaders(header);
+
+    const { email, id } = userData.data;
     setUserDetail({
       email: email,
       id: id,
@@ -133,7 +133,7 @@ const App = () => {
               }
             />
           </Route>
-          :<Route path="/" element={<Login />}/>}
+          :<Route path="/" element={<Login onSuccess={logInUser} />}/>}
           <Route path="/Mainpage" element={<Layout/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>

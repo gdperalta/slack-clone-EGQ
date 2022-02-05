@@ -7,7 +7,7 @@ import { logIn,fetchUsers} from "../../Utils/api";
 import { getHeaders } from "../../Utils/getHeaders";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginBody (){
+export default function LoginBody ({onSuccess}){
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -37,6 +37,7 @@ export default function LoginBody (){
         const userData = await logIn(formData.email, formData.password)
         const data = await userData.json()
         if(data.data){
+            onSuccess(data,userData);
             navigate("/Mainpage")
         }else{
             console.log("failed")
