@@ -192,3 +192,21 @@ export const getChannelDetails = async (
     return result.json();
   } catch (e) {}
 };
+
+export const addNewMemberToChannel = async (channelId, newMemberId, headers) => {
+  const { accessToken, client, expiry, uid } = headers;
+  try {
+    const result = await fetch("http://206.189.91.54//api/v1/channel/add_member", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
+       uid: uid,
+      },
+      body: JSON.stringify({ id: channelId, member_id: newMemberId }),
+    });
+    return await result.json();
+  } catch (e) {}
+};
