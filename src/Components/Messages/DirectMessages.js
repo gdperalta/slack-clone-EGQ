@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { fetchRecentMsgs } from "../../Utils/api";
 import { createUniqueArray } from "../../Utils/handleArrays";
-import { AiFillCaretRight, AiFillCaretDown } from "react-icons/ai";
+import {
+  AiFillCaretRight,
+  AiFillCaretDown,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { IconContext } from "react-icons";
 
 const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
@@ -31,9 +35,11 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
 
     if (collapsibleContent.current.style.maxHeight) {
       collapsibleContent.current.style.maxHeight = null;
+      //collapsibleContent.current.style.overflow = "hidden";
     } else {
       collapsibleContent.current.style.maxHeight =
         collapsibleContent.current.scrollHeight + "px";
+      //collapsibleContent.current.style.overflow = "visible";
     }
   };
 
@@ -43,12 +49,27 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
 
   return (
     <div>
-      <button className="collapsibleWrapper" onClick={handleCollapse}>
-        <IconContext.Provider value={{ color: "white", size: "20px" }}>
-          <div>{isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}</div>
-        </IconContext.Provider>
-        <h3>Direct Messages</h3>
-      </button>
+      <div className="directMsgBtn">
+        <button className="collapsibleWrapper" onClick={handleCollapse}>
+          <IconContext.Provider value={{ color: "white", size: "20px" }}>
+            <div>
+              {isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}
+            </div>
+          </IconContext.Provider>
+          <h3>Direct Messages</h3>
+        </button>
+        <Link
+          to="/users"
+          className="addUserButton"
+          title="Open a Direct Message"
+        >
+          <IconContext.Provider value={{ color: "white", size: "20px" }}>
+            <div>
+              <AiOutlinePlus />
+            </div>
+          </IconContext.Provider>
+        </Link>
+      </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
         {recentMessages.map((user) => {
           return (
@@ -60,7 +81,8 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
               key={user.id}
               onClick={changeReceiver}
             >
-              {user.uid}
+              <span className="iconDM">{user.uid.charAt(0).toUpperCase()}</span>
+              <span>{user.uid.split("@")[0]}</span>
             </NavLink>
           );
         })}
