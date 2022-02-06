@@ -6,6 +6,31 @@ export default function SignupBody(){
         password: "",
         confirmpassword:"",
     })
+    useEffect(() => {
+      register();
+    }, []);
+
+    const register = async () => {
+        var raw = {
+          email: formData.email,
+          password: formData.password,
+          password_confirmation: formData.confirmpassword,
+        };
+      
+        var requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(raw),
+          redirect: "follow",
+        };
+      
+        fetch("http://206.189.91.54//api/v1/auth/", requestOptions)
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      };
     console.log(formData)
     function handleEmailInput(e){
         setFormData({...formData, email: e.target.value});
@@ -45,7 +70,7 @@ export default function SignupBody(){
                          </input>
                     </div>
                     <div className="signin">
-                        <button className="signBtn">Continue</button>
+                        <button className="signBtn" onClick={register}>Continue</button>
                     </div>
                     <div className="instructions">
                         <span className="emailNotifs"> <input type="checkbox" name="emailnotifs" id="emailnotifs"/> <label htmlFor="emailnotifs">Its okay to send me emails about Slack.</label></span>

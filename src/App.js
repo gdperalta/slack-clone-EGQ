@@ -50,12 +50,6 @@ const App = () => {
     sessionStorage.setItem("user", JSON.stringify({ email, id }));
     setIsLoggedIn(true);
   };
-
-  const handleLogin = () => {
-    logInUser();
-  };
-
-
   //Fetch All Users
   useEffect(() => {
     if (headerList) {

@@ -1,8 +1,8 @@
 export const register = async () => {
   var raw = {
-    email: "quevon.com",
-    password: "asdfjkl",
-    password_confirmation: "asdfjkl",
+    email: "quevon@gmail.com",
+    password: "123456",
+    password_confirmation: "123456",
   };
 
   var requestOptions = {
