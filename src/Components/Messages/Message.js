@@ -65,15 +65,14 @@ const Message = ({
   };
 
   if (isLoading) {
-    return <div className="messageWrapper">...Loading</div>;
+    return <div className="outletWrapper">...Loading</div>;
   }
 
   return (
-    <div className="messageWrapper">
+    <div className="outletWrapper">
       <MessageHeader receiver={receiver} />
       <div className="messageDisplay">
         <MessageScreen
-          userDetails={userDetails}
           headerList={headerList}
           receiver={receiver}
           messageDisplay={messageDisplay}
