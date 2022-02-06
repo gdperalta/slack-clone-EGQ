@@ -55,22 +55,8 @@ const MessageScreen = ({ messageDisplay }) => {
               <span className="icon">
                 {user.sender.email.charAt(0).toUpperCase()}
               </span>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  padding: "0 5px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "30px",
-                    marginBottom: "4px",
-                  }}
-                >
+              <div>
+                <div>
                   <h3>{user.sender.email.split("@")[0]}</h3>
                   {getDate(user.created_at)}
                 </div>
