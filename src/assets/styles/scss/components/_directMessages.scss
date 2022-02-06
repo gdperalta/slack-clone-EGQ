@@ -1,11 +1,13 @@
 @use "../utilities/variables";
 
 .recentMessages {
-  display: block;
+  height: 35px;
+  display: flex;
+  align-items: center;
   width: calc(19vw - 1px);
   max-width: 400px;
   margin-left: -1rem;
-  padding: 0.5rem 2rem;
+  padding: 0.25rem 2rem;
   color: darken(variables.$font-color, 15%);
   text-decoration: none;
   &:hover {
@@ -19,4 +21,38 @@
   &:hover {
     background-color: variables.$secondary-color;
   }
+}
+
+.directMsgBtn {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding-left: 0.5rem;
+  .addUserButton {
+    opacity: 0;
+    padding: 2px;
+    &:hover {
+      background-color: variables.$hover-color;
+      border-radius: 4px;
+    }
+  }
+  &:hover {
+    .addUserButton {
+      opacity: 1;
+    }
+  }
+}
+
+.iconDM {
+  width: 25px;
+  height: 25px;
+  line-height: 24px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-color: variables.$alternate-color2;
+  color: white;
+  font-size: variables.$font-size - 4px;
+  font-weight: bolder;
+  text-align: center;
 }
