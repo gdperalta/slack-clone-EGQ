@@ -48,6 +48,22 @@
     }
   }
 
+  &-save-channel-button{   
+      right: 0;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: 100px;   
+  }
+
+  &-save-new-member-to-channel-button{   
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 8rem;   
+}
+
   &-add-member-button {
     position: absolute;
     right: 20px;
