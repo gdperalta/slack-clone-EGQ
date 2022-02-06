@@ -1,4 +1,6 @@
-const MessageScreen = ({ userDetails, messageDisplay }) => {
+const MessageScreen = ({ messageDisplay }) => {
+  let currentUser;
+
   const addZero = (i) => {
     if (i < 10) i = "0" + i;
     return i;
@@ -36,19 +38,18 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
     return <span id="date">{completeDate}</span>;
   };
 
-  let x;
   return (
     <div className="messageScreen">
       {messageDisplay.map((user) => {
-        if (x === user.sender.email) {
+        if (currentUser === user.sender.email) {
           return (
             <div key={user.id} className="messageContainer">
-              <span style={{ width: "45px" }}></span>
+              <span style={{ width: "55px" }}></span>
               <p key={user.id}>{user.body}</p>
             </div>
           );
         } else {
-          x = user.sender.email;
+          currentUser = user.sender.email;
           return (
             <div className="messageContainer" key={user.id}>
               <span className="icon">
@@ -70,7 +71,7 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
                     marginBottom: "4px",
                   }}
                 >
-                  <h3>{user.sender.email}</h3>
+                  <h3>{user.sender.email.split("@")[0]}</h3>
                   {getDate(user.created_at)}
                 </div>
                 <p key={user.id}>{user.body}</p>
@@ -78,40 +79,6 @@ const MessageScreen = ({ userDetails, messageDisplay }) => {
             </div>
           );
         }
-
-        /* return (
-          <div
-            className="messageContainer"
-            key={`${sender[0].sender.email}-${sender[0].sender.id}`}
-          >
-            <span className="icon">
-              {sender[0].sender.email.charAt(0).toUpperCase()}
-            </span>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                padding: "0 5px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "30px",
-                  marginBottom: "4px",
-                }}
-              >
-                <h3>{sender[0].sender.email}</h3>
-                {getDate(sender[0].created_at)}
-              </div>
-              {sender.map((data) => {
-                return <p key={data.id}>{data.body}</p>;
-              })}
-            </div>
-          </div>
-        ); */
       })}
     </div>
   );
