@@ -2,8 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { createChannel } from "../../Utils/channelAPI";
-import { fetchUsers } from "../../Utils/api";
+import { createChannel, fetchUsers } from "../../Utils/api";
 import "../../assets/styles/css/App.css";
 import { FaPeopleArrows } from "react-icons/fa";
 
