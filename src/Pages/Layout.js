@@ -9,7 +9,6 @@ const Layout = ({ headerList, changeReceiver, receiverEmail, messageSent }) => {
       <Header />
       <div className="sidebar-wrapper">
         <nav>
-          <Link to="/users">Message A User</Link>
           <Channels />
           <DirectMessages
             changeReceiver={changeReceiver}
