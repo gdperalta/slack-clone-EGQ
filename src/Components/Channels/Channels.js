@@ -42,7 +42,11 @@ const Channels = () => {
 
   return (
     <div>
-      <button className="collapsibleWrapper" onClick={handleCollapse}>
+      <button
+        className="collapsibleWrapper"
+        style={{ paddingLeft: "0.5rem" }}
+        onClick={handleCollapse}
+      >
         <IconContext.Provider value={{ color: "white", size: "20px" }}>
           <div>{isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}</div>
         </IconContext.Provider>
