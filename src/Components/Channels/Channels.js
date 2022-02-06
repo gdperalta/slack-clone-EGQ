@@ -48,6 +48,7 @@ const Channels = () => {
         title="Create new channel"
         onClose={() => setShow(false)}
         show={show}
+        mode="createChannel"
       />
     </div>
   );
