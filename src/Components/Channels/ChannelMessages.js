@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
-import { getChannelDetails } from "../../Utils/channelAPI";
+import { getChannelDetails } from "../../Utils/api";
 import { useState } from "react";
 
 const ChannelMessages = () => {
@@ -20,6 +20,7 @@ const ChannelMessages = () => {
         header.uid
       );
 
+      console.log(channelDetails);
       setChannelDetails(channelDetails);
     };
 
@@ -27,8 +28,8 @@ const ChannelMessages = () => {
   }, [channelId]);
 
   return (
-    <div>
-      <div style={{position:"absolute", right: "20px"}}>
+    <div className="messageWrapper">
+      <div className="channel-add-member-button">
         <a>Add members</a>
       </div>
       <p>Hello!</p>
