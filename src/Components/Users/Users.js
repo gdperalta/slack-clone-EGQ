@@ -17,7 +17,7 @@ const Users = ({ users, changeReceiver }) => {
   }
 
   return (
-    <div>
+    <div className="outletWrapper">
       <p>Users</p>
       <nav>
         <input
