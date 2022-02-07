@@ -1,6 +1,10 @@
+import { useState } from "react";
+import AddNewChannel from "../Channels/AddNewChannel";
 import { FaLock } from "react-icons/fa";
 
 const MessageHeader = ({ receiver }) => {
+  const [show, setShow] = useState(false);
+
   return (
     <>
       {receiver.email ? (
@@ -12,6 +16,19 @@ const MessageHeader = ({ receiver }) => {
         <div className="messageHeader">
           <FaLock />
           <h3>{receiver.name}</h3>
+          <div
+            className="channel-add-member-button"
+            onClick={() => setShow(true)}
+          >
+            Add members
+          </div>
+          <AddNewChannel
+            title="Create new channel"
+            channelName={receiver.name}
+            onClose={() => setShow(false)}
+            show={show}
+            mode="addMember"
+          />
         </div>
       )}
     </>
