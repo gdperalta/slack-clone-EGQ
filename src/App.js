@@ -111,6 +111,8 @@ const App = () => {
                 element={
                   <Users
                     users={users}
+                    headerList={headerList}
+                    userDetails={userDetails}
                     changeMessageDisplay={changeMessageDisplay}
                   />
                 }
