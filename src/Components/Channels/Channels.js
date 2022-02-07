@@ -60,6 +60,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
         title="Create new channel"
         onClose={() => setShow(false)}
         show={show}
+        mode="createChannel"
       />
     </div>
   );

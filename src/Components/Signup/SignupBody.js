@@ -1,5 +1,3 @@
-import { divideScalarDependencies } from "mathjs";
-
 export default function SignupBody(){
     return(
         <div>
