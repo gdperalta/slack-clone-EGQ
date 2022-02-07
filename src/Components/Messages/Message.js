@@ -8,12 +8,14 @@ import MessageHeader from "./MessageHeader";
 
 const Message = ({
   users,
+  userChannels,
   headerList,
   userDetails,
-  receiverEmail,
+  messageTitle,
   messageWasSent,
 }) => {
   const [receiver, setReceiver] = useState(null);
+  const [messageClass, setMessageClass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [messageDisplay, setMessageDisplay] = useState(null);
   let params = useParams();
@@ -21,18 +23,33 @@ const Message = ({
   //Handle Receiver
   useEffect(() => {
     setIsLoading(true);
-    if (users) {
-      let receiverData = getUser(parseInt(params.uid));
-      setReceiver(receiverData);
+    let routeParam = params.uid.split("_");
+    if (routeParam[0] === "Channel") {
+      if (userChannels) {
+        let channelData = getChannel(parseInt(routeParam[1]));
+        setReceiver(channelData);
+        setMessageClass(routeParam[0]);
+      }
+    } else {
+      if (users) {
+        let receiverData = getUser(parseInt(routeParam[1]));
+        setReceiver(receiverData);
+        setMessageClass(routeParam[0]);
+      }
     }
-  }, [receiverEmail, users]);
+  }, [messageTitle, users]);
 
   const getUser = (id) => {
     return users.find((user) => user.id === id);
   };
 
+  const getChannel = (id) => {
+    return userChannels.find((channel) => channel.id === id);
+  };
+
   //Handle Messages
   useEffect(() => {
+    console.log("t");
     setIsLoading(true);
     if (receiver) {
       getMessages();
@@ -41,13 +58,13 @@ const Message = ({
 
   const filterMessages = (messages) => {
     let uniqueMessages = createUniqueArray(messages);
-    let filteredMessages = filterArray(uniqueMessages);
+    //let filteredMessages = filterArray(uniqueMessages);
 
     return uniqueMessages;
   };
 
   const getMessages = async () => {
-    const messages = await fetchMessages(headerList, receiver.id);
+    const messages = await fetchMessages(headerList, messageClass, receiver.id);
     const filteredMessages = filterMessages(messages.data);
 
     setMessageDisplay(filteredMessages);
@@ -56,11 +73,16 @@ const Message = ({
 
   const sendMessage = async (message) => {
     setIsLoading(true);
-    const newMsg = await sendMessageToServer(headerList, receiver.id, message);
+    const newMsg = await sendMessageToServer(
+      headerList,
+      receiver.id,
+      message,
+      messageClass
+    );
 
     newMsg.data.sender = userDetails;
     setMessageDisplay([...messageDisplay, newMsg.data]);
-    messageWasSent(newMsg.data);
+    if (messageClass === "User") messageWasSent(receiver);
     setIsLoading(false);
   };
 
