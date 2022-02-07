@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getUserChannels } from "../../Utils/channelAPI";
 import Channel from "./Channel";
 import AddNewChannel from "./AddNewChannel";
 import { AiFillCaretRight, AiFillCaretDown } from "react-icons/ai";
