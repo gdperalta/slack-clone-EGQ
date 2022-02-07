@@ -24,6 +24,7 @@ const MessageHeader = ({ receiver }) => {
           </div>
           <AddNewChannel
             title="Create new channel"
+            channelId = {receiver.id}
             channelName={receiver.name}
             onClose={() => setShow(false)}
             show={show}

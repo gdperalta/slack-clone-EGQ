@@ -7,9 +7,9 @@ import {
   addNewMemberToChannel,
   fetchUsers,
 } from "../../Utils/api";
-import { FaPeopleArrows } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
 
-const AddNewChannel = (props) => {
+const AddNewChannel = ({ title, channelId, mode, show, onClose }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
   const [filterEmail, setFilterEmail] = useState("");
@@ -42,9 +42,9 @@ const AddNewChannel = (props) => {
     }
   }, [filterEmail]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(selectedUserIDs);
-  }, [selectedUserIDs]);
+  }, [selectedUserIDs]); */
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -70,7 +70,7 @@ const AddNewChannel = (props) => {
       setFilterEmail("");
       setFilteredUsers(null);
       setSelectedUserIDs([]);
-      props.onClose();
+      onClose();
       navigate("/");
     }
   };
@@ -79,7 +79,17 @@ const AddNewChannel = (props) => {
     event.preventDefault();
 
     const header = JSON.parse(sessionStorage.getItem("header"));
-    const result = await addNewMemberToChannel(2198, 1629, header);
+
+    var result = {};
+    selectedUserIDs.map((userId) => {
+      addNewMemberToChannel(channelId, userId, header).then((response) =>{
+        console.log(response);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    });
 
     if (result.errors !== undefined) {
       console.log(result.errors);
@@ -88,13 +98,13 @@ const AddNewChannel = (props) => {
       setFilterEmail("");
       setFilteredUsers(null);
       setSelectedUserIDs([]);
-      props.onClose();
-      navigate("/");
+      onClose();     
     }
   };
 
   const AddToSelectedUsers = (id) => {
     setSelectedUserIDs([...selectedUserIDs, id]);
+    setFilterEmail("");
   };
 
   const renderFilteredUsers = () => {
@@ -103,7 +113,7 @@ const AddNewChannel = (props) => {
         return (
           <div key={item.id}>
             <span> {item.email} </span>
-            <FaPeopleArrows
+            <FaPlusCircle
               className="channel-user-add-user"
               id={item.id}
               onClick={AddToSelectedUsers.bind(this, item.id)}
@@ -120,33 +130,36 @@ const AddNewChannel = (props) => {
   };
 
   const renderSelectedUsers = () => {
-    return selectedUserIDs.map((item, index) => {
-      return <p key={index}>{getSpecificUser(item).email}</p>;
-    });
+    return (
+      <div style={{ height: "300px", overflowY: "scroll" }}>
+        {selectedUserIDs.map((item, index) => {
+          return <p key={index}>{getSpecificUser(item).email}</p>;
+        })}
+      </div>
+    );
   };
 
   return ReactDOM.createPortal(
-    <div
-      className={`modal ${props.show ? "show" : ""}`}
-      onClick={props.onClose}
-    >
-      {console.log(props.mode)}
+    <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
+      {console.log(mode)}
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {props.mode === "createChannel" ? (
+        {mode === "createChannel" ? (
           <div className="modal-header">
-            <h4 className="modal-title">{props.title} </h4>
-            <span>
+            <h4 className="modal-title">{title} </h4>
+            <span style={{ fontSize: ".8em" }}>
               Channels are where your team communicates. They're best when
               organized around a topic - #programming for example.
             </span>
           </div>
         ) : (
           <div className="modal-header">
-            <h4 className="modal-title"><span>Add new members to </span> {props.channelName} </h4>
+            <h4 className="modal-title">
+              <span>Add new members to </span> {channelName}{" "}
+            </h4>
           </div>
         )}
 
-        {props.mode === "createChannel" ? (
+        {mode === "createChannel" ? (
           <div className="modal-body">
             <form onSubmit={registerChannel}>
               <label>Channel Name: </label>
@@ -204,7 +217,7 @@ const AddNewChannel = (props) => {
                   </div>
                   <div>
                     <h4>Selected users</h4>
-                    <div>{renderSelectedUsers()}</div>
+                    {renderSelectedUsers()}
                     <input
                       className="channel-save-new-member-to-channel-button"
                       value="Save new members"
