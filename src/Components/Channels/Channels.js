@@ -5,26 +5,26 @@ import AddNewChannel from "./AddNewChannel";
 import { AiFillCaretRight, AiFillCaretDown } from "react-icons/ai";
 import { IconContext } from "react-icons";
 
-const Channels = () => {
-  const [userChannels, setUserChannels] = useState({});
+const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
   const [show, setShow] = useState(false);
   //Collapsible content
   const [isCollapsed, setisCollapsed] = useState(true);
   const collapsibleContent = useRef(null);
 
   useEffect(() => {
-    const fetchChannels = async () => {
-      const header = JSON.parse(sessionStorage.getItem("header"));
-      const channels = await getUserChannels(header);
-      setUserChannels(channels);
-    };
-
-    fetchChannels().catch(console.error);
+    getChannels();
   }, [show]);
 
   const renderChannelList = () => {
-    return userChannels.data.map((item, index) => {
-      return <Channel key={index} id={item.id} name={item.name} />;
+    return userChannels.map((item, index) => {
+      return (
+        <Channel
+          key={index}
+          id={item.id}
+          name={item.name}
+          changeMessageDisplay={changeMessageDisplay}
+        />
+      );
     });
   };
 
@@ -53,11 +53,7 @@ const Channels = () => {
         <h3>Channels</h3>
       </button>
       <nav className="collapsibleContent" ref={collapsibleContent}>
-        {userChannels.data !== undefined ? (
-          renderChannelList()
-        ) : (
-          <p>Loading channels</p>
-        )}
+        {userChannels ? renderChannelList() : <p>Loading channels</p>}
         <button onClick={() => setShow(true)}>Add new channel</button>
       </nav>
       <AddNewChannel
