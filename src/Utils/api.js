@@ -20,6 +20,7 @@ export const register = async () => {
     .catch((error) => console.log("error", error));
 };
 
+
 export const logIn = async (email, password) => {
   var raw = { email: email , password: password };
 

@@ -1,22 +1,20 @@
 import { useState,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupBody(){
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        confirmpassword:"",
+        password_confirmation:"",
     })
-    useEffect(() => {
-      register();
-    }, []);
-
+    let navigate = useNavigate();
     const register = async () => {
         var raw = {
           email: formData.email,
           password: formData.password,
-          password_confirmation: formData.confirmpassword,
+          password_confirmation: formData.password_confirmation,
         };
-      
+
         var requestOptions = {
           method: "POST",
           headers: {
@@ -25,11 +23,17 @@ export default function SignupBody(){
           body: JSON.stringify(raw),
           redirect: "follow",
         };
-      
+        
         fetch("http://206.189.91.54//api/v1/auth/", requestOptions)
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
+        
+        .then((response) =>
+            response.json()
+        ) 
+        .then((result) => {if(result.status == "error" ){
+            alert("error")
+        }else{
+            navigate("/")
+        }})
       };
     console.log(formData)
     function handleEmailInput(e){
@@ -39,7 +43,7 @@ export default function SignupBody(){
         setFormData({...formData, password: e.target.value});
     }
     function handleConfirmPassword(e){
-        setFormData({...formData, confirmpassword: e.target.value});
+        setFormData({...formData, password_confirmation: e.target.value});
     }
     return(
        
@@ -65,7 +69,7 @@ export default function SignupBody(){
                         <input 
                             type="text" 
                             placeholder="Confirm password"
-                            value={formData.confirmpassword}
+                            value={formData.password_confirmation}
                             onChange={handleConfirmPassword}>
                          </input>
                     </div>
