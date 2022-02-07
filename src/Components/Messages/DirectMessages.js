@@ -9,13 +9,20 @@ import {
 } from "react-icons/ai";
 import { IconContext } from "react-icons";
 
-const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
+const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
   const [recentMessages, setRecentMessages] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCollapsed, setisCollapsed] = useState(true);
   const collapsibleContent = useRef(null);
 
   useEffect(() => {
+    if (messageSent) {
+      let oldUser = recentMessages.find((user) => user.uid === messageSent.uid);
+
+      if (oldUser) {
+        return;
+      }
+    }
     setIsLoading(true);
     if (headerList) {
       getDirectMessages();
@@ -27,6 +34,7 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
     const uniqueUsers = createUniqueArray(recentDMs.data);
 
     setRecentMessages(uniqueUsers);
+
     setIsLoading(false);
   };
 
@@ -35,11 +43,9 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
 
     if (collapsibleContent.current.style.maxHeight) {
       collapsibleContent.current.style.maxHeight = null;
-      //collapsibleContent.current.style.overflow = "hidden";
     } else {
       collapsibleContent.current.style.maxHeight =
         collapsibleContent.current.scrollHeight + "px";
-      //collapsibleContent.current.style.overflow = "visible";
     }
   };
 
@@ -77,9 +83,9 @@ const DirectMessages = ({ headerList, changeReceiver, messageSent }) => {
               className={({ isActive }) =>
                 isActive ? "recentMessages activeMsg" : "recentMessages"
               }
-              to={`/${user.id}`}
+              to={`/User_${user.id}`}
               key={user.id}
-              onClick={changeReceiver}
+              onClick={changeMessageDisplay}
             >
               <span className="iconDM">{user.uid.charAt(0).toUpperCase()}</span>
               <span>{user.uid.split("@")[0]}</span>
