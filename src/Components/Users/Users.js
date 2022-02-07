@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 
-const Users = ({ users, changeReceiver }) => {
+const Users = ({ users, changeMessageDisplay }) => {
   const [isLoading, setIsLoading] = useState(true);
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -51,7 +51,7 @@ const Users = ({ users, changeReceiver }) => {
                 }}
                 to={`/${user.id}`}
                 key={user.id}
-                onClick={changeReceiver}
+                onClick={changeMessageDisplay}
               >
                 {user.uid}
               </NavLink>
