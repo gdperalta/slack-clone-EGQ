@@ -142,7 +142,7 @@ const AddNewChannel = (props) => {
           </div>
         ) : (
           <div className="modal-header">
-            <h4 className="modal-title">Add new member to [] channel </h4>
+            <h4 className="modal-title"><span>Add new members to </span> {props.channelName} </h4>
           </div>
         )}
 
