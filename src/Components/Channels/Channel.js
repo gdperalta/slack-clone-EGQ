@@ -1,15 +1,14 @@
 import { NavLink } from "react-router-dom";
 
 const Channel = (props) => {
-  return (
-    <div className="channel-list-item">
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "channel-list-item active-channel" : "channel-list-item"
-        }
-        to={`/channels/${props.id}`}
-      >
-        <svg style={{ viewBox: "0 0 24 24" }}>
+  const showChannelNames = (props) => {
+    return (
+      <div className="channel-list-item">
+        <svg
+          style={{            
+            viewBox: "0 0 24 24",
+          }}
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -17,10 +16,18 @@ const Channel = (props) => {
             fill="white"
           ></path>
         </svg>
-        {props.name}
-      </NavLink>
-    </div>
-  );
+
+        <NavLink
+          to={`/Channel_${props.id}`}
+          onClick={props.changeMessageDisplay}
+        >
+          {props.name}
+        </NavLink>
+      </div>
+    );
+  };
+
+  return showChannelNames(props);
 };
 
 export default Channel;

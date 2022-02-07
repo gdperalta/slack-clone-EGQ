@@ -1,5 +1,5 @@
 import "./assets/styles/css/App.css";
-import { logIn, fetchUsers, register } from "./Utils/api";
+import { fetchUsers } from "./Utils/api";
 import { useEffect, useState } from "react";
 import { getHeaders } from "./Utils/getHeaders";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,6 +9,7 @@ import Layout from "./Pages/Layout";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
+import { getUserChannels } from "./Utils/channelAPI";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -17,7 +18,8 @@ const App = () => {
   });
   const [headerList, setHeaderList] = useState(null);
   const [users, setUsers] = useState(null);
-  const [receiverEmail, setReceiverEmail] = useState(null);
+  const [userChannels, setUserChannels] = useState(null);
+  const [messageTitle, setMessageTitle] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
 
@@ -25,10 +27,12 @@ const App = () => {
 
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     if (oldHeader) {
-      setIsLoggedIn(true); // for
+      setIsLoggedIn(true);
       setHeaderList(oldHeader);
+      setUserDetail(user);
     } else {
       setIsLoggedIn(false);
     }
@@ -48,14 +52,11 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
-  const handleLogin = () => {
-    logInUser();
-  };
-
-  //Fetch All Users
+  //Fetch All Users and Channels
   useEffect(() => {
     if (headerList) {
       getUsers();
+      getChannels();
     }
   }, [headerList]);
 
@@ -64,13 +65,20 @@ const App = () => {
     setUsers(data.data);
   };
 
-  //Message Receiver
-  const changeReceiver = (e) => {
-    setReceiverEmail(e.target.textContent);
+  const getChannels = async () => {
+    if (headerList) {
+      const data = await getUserChannels(headerList);
+      setUserChannels(data.data);
+    }
   };
 
-  const messageWasSent = (msg) => {
-    setMessageSent(msg);
+  //Message Receiver
+  const changeMessageDisplay = (e) => {
+    setMessageTitle(e.target.textContent);
+  };
+
+  const messageWasSent = (receiver) => {
+    setMessageSent(receiver);
   };
 
   return (
@@ -83,9 +91,10 @@ const App = () => {
               element={
                 <Layout
                   headerList={headerList}
-                  changeReceiver={changeReceiver}
-                  receiverEmail={receiverEmail}
+                  changeMessageDisplay={changeMessageDisplay}
                   messageSent={messageSent}
+                  userChannels={userChannels}
+                  getChannels={getChannels}
                 />
               }
             >
@@ -100,7 +109,10 @@ const App = () => {
               <Route
                 path="users"
                 element={
-                  <Users users={users} changeReceiver={changeReceiver} />
+                  <Users
+                    users={users}
+                    changeMessageDisplay={changeMessageDisplay}
+                  />
                 }
               />
               <Route path="channels/:channelId" element={<ChannelMessages />} />
@@ -109,9 +121,10 @@ const App = () => {
                 element={
                   <Message
                     users={users}
+                    userChannels={userChannels}
                     userDetails={userDetails}
                     headerList={headerList}
-                    receiverEmail={receiverEmail}
+                    messageTitle={messageTitle}
                     messageWasSent={messageWasSent}
                   />
                 }
