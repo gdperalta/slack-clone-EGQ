@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import MessageScreen from "./MessageScreen";
 import { sendMessageToServer, fetchMessages } from "../../Utils/api";
-import { createUniqueArray, filterArray } from "../../Utils/handleArrays";
+import { createUniqueArray } from "../../Utils/handleArrays";
 import MessageHeader from "./MessageHeader";
 
 const Message = ({
@@ -49,7 +49,6 @@ const Message = ({
 
   //Handle Messages
   useEffect(() => {
-    console.log("t");
     setIsLoading(true);
     if (receiver) {
       getMessages();
@@ -58,7 +57,6 @@ const Message = ({
 
   const filterMessages = (messages) => {
     let uniqueMessages = createUniqueArray(messages);
-    //let filteredMessages = filterArray(uniqueMessages);
 
     return uniqueMessages;
   };
@@ -99,6 +97,8 @@ const Message = ({
           receiver={receiver}
           messageDisplay={messageDisplay}
         />
+      </div>
+      <div className="messageFooter">
         <MessageInput
           headerList={headerList}
           receiver={receiver}
