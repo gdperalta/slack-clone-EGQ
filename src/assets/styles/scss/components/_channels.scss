@@ -1,18 +1,38 @@
 @use "../utilities/variables";
 
+.channels-button {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding-left: 0.5rem;
+  .add-channel-button {
+    opacity: 0;
+    padding: 2px;
+    cursor: pointer;
+    &:hover {
+      background-color: variables.$hover-color;
+      border-radius: 4px;
+    }
+  }
+  &:hover {
+    .add-channel-button {
+      opacity: 1;
+    }
+  }
+}
+
 .channel {
   &-list-item {
-    cursor: pointer;
+    height: 35px;
     display: flex;
+    align-items: center;
     width: calc(19vw - 1px);
     max-width: 400px;
     margin-left: -1rem;
-    color: #d9d9d9;
+    padding: 0.25rem 2rem;
+    color: darken(variables.$font-color, 15%);
     text-decoration: none;
-    padding-left: 0.8rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    margin-bottom: 0;
+    cursor: pointer;
 
     &-icon {
       height: "1em";
@@ -20,17 +40,17 @@
     }
 
     svg {
-      padding: 0;
+      padding-right: 5px;
       font-size: 25px;
       color: black;
       margin: 0;
       box-sizing: border-box;
-      height: 1em;
-      width: 1em;
+      height: .8em;
+      width: .8em;      
     }
 
     &:hover {
-      background-color: #4a5664;
+      background-color: variables.$hover-color;
     }
   }
 
@@ -48,21 +68,21 @@
     }
   }
 
-  &-save-channel-button{   
-      right: 0;
-      margin-top: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      width: 100px;   
-  }
-
-  &-save-new-member-to-channel-button{   
+  &-save-channel-button {
     right: 0;
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-    width: 8rem;   
-}
+    width: 100px;
+  }
+
+  &-save-new-member-to-channel-button {
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 8rem;
+  }
 
   &-add-member-button {
     position: absolute;
@@ -98,6 +118,9 @@
 .active-channel {
   color: variables.$font-color;
   background-color: variables.$secondary-color;
+  &:hover {
+    background-color: variables.$secondary-color;
+  }
 }
 
 .svg-plus-sign {
