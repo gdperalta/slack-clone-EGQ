@@ -99,11 +99,7 @@ const Message = ({
         />
       </div>
       <div className="messageFooter">
-        <MessageInput
-          headerList={headerList}
-          receiver={receiver}
-          sendMessage={sendMessage}
-        />
+        <MessageInput receiver={receiver} sendMessage={sendMessage} />
       </div>
     </div>
   );
