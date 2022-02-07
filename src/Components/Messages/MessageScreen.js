@@ -1,42 +1,7 @@
+import { getDate, getFullDate } from "../../Utils/handleDate";
+
 const MessageScreen = ({ messageDisplay }) => {
   let currentUser;
-
-  const addZero = (i) => {
-    if (i < 10) i = "0" + i;
-    return i;
-  };
-
-  const convertHour = (i) => {
-    if (i > 12) i = i - 12;
-    return i;
-  };
-
-  const getDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    let d = new Date(date);
-    let hour = d.getHours();
-    let time = hour > 11 ? "pm" : "am";
-    let convertedHour = convertHour(d.getHours());
-    let minutes = addZero(d.getMinutes());
-    let day = d.getDate();
-    let month = months[d.getMonth()];
-    let completeDate = `${month} ${day}, ${convertedHour}:${minutes} ${time}`;
-    return <span id="date">{completeDate}</span>;
-  };
 
   return (
     <div className="messageScreen">
@@ -58,7 +23,7 @@ const MessageScreen = ({ messageDisplay }) => {
               <div>
                 <div>
                   <h3>{user.sender.email.split("@")[0]}</h3>
-                  {getDate(user.created_at)}
+                  {getFullDate(user.created_at)}
                 </div>
                 <p key={user.id}>{user.body}</p>
               </div>
