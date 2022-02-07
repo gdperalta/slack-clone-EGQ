@@ -3,7 +3,6 @@
 .messageDisplay {
   width: 100%;
   height: 78%;
-  padding-left: 1rem;
 }
 
 .messageFooter {
@@ -24,7 +23,7 @@
   height: 100%;
   padding: 0.5rem;
   margin-top: 0.5rem;
-  border: solid 1px variables.$primary-color;
+  border: solid 1px lighten(variables.$primary-color, 50%);
   border-radius: 4px;
   input {
     width: 100%;

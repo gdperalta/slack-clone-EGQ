@@ -1,6 +1,6 @@
 .sidebar-wrapper {
   height: 100%;
-  width: 19vw;
+  width: 17vw;
   max-width: 400px;
   padding-top: 45px;
   color: #ffffff;
@@ -24,7 +24,7 @@
   width: 100%;
   height: 7%;
   padding-left: 1rem;
-  border-bottom: solid 1px #b3bcc7;
+  border-bottom: solid 1px #afbdcd;
 }
 .outletHeader h3 {
   padding-left: 5px;
@@ -127,7 +127,7 @@
 
 .messageContainer {
   display: flex;
-  padding: 0.2rem 0;
+  padding: 0.2rem 1rem;
 }
 .messageContainer div {
   display: flex;
@@ -148,7 +148,7 @@
   margin: 0;
 }
 .messageContainer:hover {
-  background-color: #d0d6dd;
+  background-color: #e9ecf1;
 }
 
 .recentMessages {
@@ -209,7 +209,6 @@
 .messageDisplay {
   width: 100%;
   height: 78%;
-  padding-left: 1rem;
 }
 
 .messageFooter {
@@ -230,7 +229,7 @@
   height: 100%;
   padding: 0.5rem;
   margin-top: 0.5rem;
-  border: solid 1px #303e4d;
+  border: solid 1px #afbdcd;
   border-radius: 4px;
 }
 .inputWrapper input {
@@ -418,9 +417,14 @@
   border: solid 1px #b3bcc7;
   border-radius: 8px;
   padding: 1rem;
+  text-decoration: none;
+  color: black;
 }
 .messageBody span {
   color: #6d6d6d;
+}
+.messageBody:hover {
+  background-color: #e9ecf1;
 }
 
 .msg {

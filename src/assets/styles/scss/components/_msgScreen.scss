@@ -23,7 +23,7 @@
 
 .messageContainer {
   display: flex;
-  padding: 0.2rem 0;
+  padding: 0.2rem 1rem;
   div {
     display: flex;
     flex-direction: column;
@@ -44,6 +44,6 @@
     margin: 0;
   }
   &:hover {
-    background-color: lighten(variables.$hover-color, 50%);
+    background-color: lighten(variables.$tertiary-color, 70%);
   }
 }
