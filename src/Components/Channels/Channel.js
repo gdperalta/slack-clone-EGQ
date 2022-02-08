@@ -1,0 +1,19 @@
+import { NavLink } from "react-router-dom";
+import { FaLock } from "react-icons/fa";
+
+const Channel = (props) => {
+  return (
+    <NavLink
+      className={({ isActive }) =>
+        isActive ? "channel-list-item active-channel" : "channel-list-item"
+      }
+      to={`/Channel_${props.id}`}
+      onClick={props.changeMessageDisplay}
+    >
+      <FaLock fill="whiteSmoke" />
+      <span>{props.name}</span>
+    </NavLink>
+  );
+};
+
+export default Channel;

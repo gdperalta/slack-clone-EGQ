@@ -1,0 +1,58 @@
+@use "../utilities/variables";
+
+.messageDisplay {
+  width: 100%;
+  height: 78%;
+}
+
+.messageFooter {
+  width: 100%;
+  height: 12%;
+  padding: 0 1rem 1rem 1rem;
+}
+
+#date {
+  margin-left: 8px;
+  color: rgb(148, 148, 148);
+  font-size: variables.$font-size - 10px;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: solid 1px lighten(variables.$primary-color, 50%);
+  border-radius: 4px;
+  input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-size: variables.$font-size - 4px;
+  }
+  button {
+    width: 40px;
+    background: transparent;
+    border: 0;
+    img {
+      width: 100%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.icon {
+  width: 45px;
+  height: 45px;
+  line-height: 42px;
+  margin: 0;
+  border-radius: 4px;
+  background-color: variables.$alternate-color2;
+  color: white;
+  font-size: variables.$font-size + 10px;
+  font-weight: bolder;
+  text-align: center;
+}
