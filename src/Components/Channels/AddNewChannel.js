@@ -2,19 +2,31 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { createChannel } from "../../Utils/channelAPI";
-import { fetchUsers } from "../../Utils/api";
-import "../../assets/styles/css/App.css";
-import { FaPeopleArrows } from "react-icons/fa";
+import {
+  createChannel,
+  addNewMemberToChannel,
+  fetchUsers,
+} from "../../Utils/api";
 
-const AddNewChannel = (props) => {
+const AddNewChannel = ({
+  title,
+  channelId,
+  selectedChannelName,
+  toggleAddUsers,
+  show,
+  onClose,
+}) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
   const [filterEmail, setFilterEmail] = useState("");
   const [users, setUsers] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [selectedUserIDs, setSelectedUserIDs] = useState([]);
+  const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
 
+
+  //Notes: changes on the states trigger re-rendering
+  //useStates run at first then runs again if a dependency changes
   useEffect(() => {
     const getUsers = async () => {
       const headerList = JSON.parse(sessionStorage.getItem("header"));
@@ -40,10 +52,6 @@ const AddNewChannel = (props) => {
     }
   }, [filterEmail]);
 
-  useEffect(() => {
-    console.log(selectedUserIDs);
-  }, [selectedUserIDs]);
-
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -54,9 +62,7 @@ const AddNewChannel = (props) => {
     }
   };
 
-  const registerChannel = async (event) => {
-    event.preventDefault();
-
+  const registerChannel = async () => {
     const header = JSON.parse(sessionStorage.getItem("header"));
     const result = await createChannel(channelName, selectedUserIDs, header);
 
@@ -68,27 +74,51 @@ const AddNewChannel = (props) => {
       setFilterEmail("");
       setFilteredUsers(null);
       setSelectedUserIDs([]);
-      props.onClose();
+      onClose();
       navigate("/");
+    }
+  };
+
+  const registerNewMembersToChannel = async () => {
+    const header = JSON.parse(sessionStorage.getItem("header"));
+
+    var result = {};
+    selectedUserIDs.map((userId) => {
+      addNewMemberToChannel(channelId, userId, header)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+
+    if (result.errors !== undefined) {
+      console.log(result.errors);
+    } else {
+      setChannelName("");
+      setFilterEmail("");
+      setFilteredUsers(null);
+      setSelectedUserIDs([]);
+      onClose();
     }
   };
 
   const AddToSelectedUsers = (id) => {
     setSelectedUserIDs([...selectedUserIDs, id]);
+    setFilterEmail("");
   };
 
   const renderFilteredUsers = () => {
     if (filteredUsers !== null) {
       return filteredUsers.map((item) => {
         return (
-          <div key={item.id}>
+          <div
+            style={{ cursor: "pointer" }}
+            key={item.id}
+            onClick={AddToSelectedUsers.bind(this, item.id)}
+          >
             <span> {item.email} </span>
-            <FaPeopleArrows
-              className="channel-user-add-user"
-              id={item.id}
-              onClick={AddToSelectedUsers.bind(this, item.id)}
-              style={{ position: "absolute", right: "10px" }}
-            />
           </div>
         );
       });
@@ -96,71 +126,140 @@ const AddNewChannel = (props) => {
   };
 
   const getSpecificUser = (user_id) => {
-    return users.find(({ id }) => (id === user_id));
+    return users.find(({ id }) => id === user_id);
+  };
+
+  const removeFromSelectedUsers = (id) => {
+    selectedUserIDs.pop(id)
+    setSelectedUserIDs([...selectedUserIDs]);
   };
 
   const renderSelectedUsers = () => {
-    return selectedUserIDs.map((item, index) => {
-      return <p key={index}>{getSpecificUser(item).email}</p>;
-    });
+    return (
+      <div className="channel-user-selected-userlist">
+        {selectedUserIDs.map((id, index) => {
+          return (
+            <div className="selected-user" key={index}>
+              {getSpecificUser(id).email}
+              <a onClick={removeFromSelectedUsers.bind(this, id)}> X</a>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const showAddUsers = (e) => {
+    e.preventDefault();
+    setIsShowAddUsers(true);
+  };
+
+  const saveChannel = () => {
+    if (channelId) {
+      registerNewMembersToChannel();
+    } else {
+      registerChannel();
+    }
   };
 
   return ReactDOM.createPortal(
-    <div
-      className={`modal ${props.show ? "show" : ""}`}
-      onClick={props.onClose}
-    >
+    <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h4 className="modal-title"> {props.title}</h4>
-          <span>
-            Channels are where your team communicates. They're best when
-            organized around a topic - #programming for example.
-          </span>
-        </div>
+        {!isShowAddUsers ? (
+          <div className="modal-header">
+            <h4 className="modal-title">{title} </h4>
+          </div>
+        ) : (
+          <div className="modal-header">
+            <h4 className="modal-title">
+              <span>Add members to </span>
+              <span id="channel-name">
+                {selectedChannelName ? selectedChannelName : channelName}
+              </span>
+            </h4>
+          </div>
+        )}
         <div className="modal-body">
-          <form onSubmit={registerChannel}>
-            <label>Channel Name: </label>
-            <input
-              type="text"
-              name="channelName"
-              value={channelName}
-              onChange={handleChange}
-            />
-            <div>
-              <div style={{ position: "relative" }}>
-                <h4>Add members</h4>
+          {!isShowAddUsers ? (
+            /* For setting the channel name */
+            <div
+              id="set-channel-name"
+              style={{ position: "relative", marginBottom: "10px" }}
+            >
+              <span style={{ fontSize: ".8em" }}>
+                Channels are where your team communicates. They're best when
+                organized around a topic - #programming for example.
+              </span>
+              <div
+                style={{
+                  paddingTop: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <label style={{ fontWeight: "bold", fontSize: ".8em" }}>
+                  Channel Name
+                </label>
+                <input
+                  style={{ marginTop: "10px", padding: "10px" }}
+                  type="text"
+                  name="channelName"
+                  value={channelName}
+                  onChange={handleChange}
+                  placeholder="#programming"
+                />
+                <button
+                  onClick={showAddUsers}
+                  style={{
+                    alignSelf: "flex-end",
+                    cursor: "pointer",
+                    width: "100px",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* For adding users to the channel */
+            <div
+              id="user-selection"
+              style={{
+                position: "relative",
+              }}
+            >
+              <div>
                 <input
                   type="search"
                   name="filterEmailAdd"
                   placeholder="Search by name or email address"
                   value={filterEmail}
                   onChange={handleChange}
-                  style={{ width: "100%" }}
+                  style={{
+                    width: "100%",
+                    marginTop: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <div style={{ position: "relative" }}>
                   <div className="channel-user-custom-dropdown">
                     {renderFilteredUsers()}
                   </div>
                 </div>
-                <div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
                   <h4>Selected users</h4>
                   <div>{renderSelectedUsers()}</div>
-                  <input
-                    style={{
-                      right: "0",
-                      marginTop: "10px",
-                      marginRight: "10px",
-                      marginBottom: "10px",
-                      width: "100px",
-                    }}
-                    value="Create Channel"
-                    type="submit"
-                  />
+                  <button
+                    style={{ alignSelf: "flex-end" }}
+                    className="channel-save-channel-button"
+                    onClick={saveChannel}
+                  >
+                    Done
+                  </button>
                 </div>
               </div>
             </div>
-          </form>
+          )}
         </div>
         <div className="modal-footer"></div>
       </div>

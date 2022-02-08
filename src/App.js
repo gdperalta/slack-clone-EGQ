@@ -1,5 +1,5 @@
 import "./assets/styles/css/App.css";
-import { fetchUsers } from "./Utils/api";
+import { fetchUsers, getUserChannels } from "./Utils/api";
 import { useEffect, useState } from "react";
 import { getHeaders } from "./Utils/getHeaders";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,7 +9,6 @@ import Layout from "./Pages/Layout";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
-import { getUserChannels } from "./Utils/channelAPI";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({

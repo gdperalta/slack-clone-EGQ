@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
-import { getChannelDetails } from "../../Utils/channelAPI";
+import { getChannelDetails } from "../../Utils/api";
 import { useState } from "react";
+import AddNewChannel from "./AddNewChannel";
 
 const ChannelMessages = () => {
   const [channelDetails, setChannelDetails] = useState({});
+  const [show, setShow] = useState(true);
 
   let params = useParams();
   let channelId = params.channelId;
@@ -20,6 +22,7 @@ const ChannelMessages = () => {
         header.uid
       );
 
+      console.log(channelDetails);
       setChannelDetails(channelDetails);
     };
 
@@ -27,10 +30,15 @@ const ChannelMessages = () => {
   }, [channelId]);
 
   return (
-    <div>
-      <div style={{position:"absolute", right: "20px"}}>
-        <a>Add members</a>
+    <div className="messageWrapper">
+      <div className="channel-add-member-button" onClick={() => setShow(true)}>
+        Add members
       </div>
+      <AddNewChannel
+        title="Create new channel"
+        onClose={() => setShow(false)}
+        show={show}        
+      />
       <p>Hello!</p>
       {channelDetails.data !== undefined ? (
         channelDetails.data.id + " " + channelDetails.data.name

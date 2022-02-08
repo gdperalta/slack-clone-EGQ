@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getUserChannels } from "../../Utils/channelAPI";
 import Channel from "./Channel";
 import AddNewChannel from "./AddNewChannel";
-import { AiFillCaretRight, AiFillCaretDown } from "react-icons/ai";
+import {
+  AiFillCaretRight,
+  AiFillCaretDown,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { IconContext } from "react-icons";
 
 const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
@@ -42,25 +45,38 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
 
   return (
     <div>
-      <button
-        className="collapsibleWrapper"
-        style={{ paddingLeft: "0.5rem" }}
-        onClick={handleCollapse}
-      >
-        <IconContext.Provider value={{ color: "white", size: "20px" }}>
-          <div>{isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}</div>
-        </IconContext.Provider>
-        <h3>Channels</h3>
-      </button>
+      <div className="channels-button">
+        <button className="collapsibleWrapper" onClick={handleCollapse}>
+          <IconContext.Provider value={{ color: "white", size: "20px" }}>
+            <div>
+              {isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}
+            </div>
+          </IconContext.Provider>
+          <h3>Channels</h3>
+        </button>
+        <a
+          className="add-channel-button"
+          title="Open a Direct Message"
+          onClick={() => setShow(true)}
+        >
+          <IconContext.Provider value={{ color: "white", size: "20px" }}>
+            <div>
+              <AiOutlinePlus />
+            </div>
+          </IconContext.Provider>
+        </a>
+      </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
         {userChannels ? renderChannelList() : <p>Loading channels</p>}
-        <button onClick={() => setShow(true)}>Add new channel</button>
       </nav>
-      <AddNewChannel
-        title="Create new channel"
-        onClose={() => setShow(false)}
-        show={show}
-      />
+      {show ? (
+        <AddNewChannel
+          title="Create new channel"
+          onClose={() => setShow(false)}
+          show={show}
+          toggleAddUsers={false}
+        />
+      ) : null}
     </div>
   );
 };
