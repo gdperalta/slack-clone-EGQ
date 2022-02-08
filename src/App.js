@@ -1,16 +1,15 @@
-
-
 import "./assets/styles/css/App.css";
-import { logIn, fetchUsers, register } from "./Utils/api";
+import { fetchUsers } from "./Utils/api";
 import { useEffect, useState } from "react";
 import { getHeaders } from "./Utils/getHeaders";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
-import Signup from "./Components/Signup/Signup"
+import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
+import { getUserChannels } from "./Utils/channelAPI";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -19,7 +18,8 @@ const App = () => {
   });
   const [headerList, setHeaderList] = useState(null);
   const [users, setUsers] = useState(null);
-  const [receiverEmail, setReceiverEmail] = useState(null);
+  const [userChannels, setUserChannels] = useState(null);
+  const [messageTitle, setMessageTitle] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
 
@@ -27,17 +27,18 @@ const App = () => {
 
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     if (oldHeader) {
-      setIsLoggedIn(true); // for
-      logInUser();
+      setIsLoggedIn(true);
+      setHeaderList(oldHeader);
+      setUserDetail(user);
     } else {
       setIsLoggedIn(false);
     }
   }, []);
 
-  const logInUser = async (userData,header) => {
-    console.log(header)
+  const logInUser = async (userData, header) => {
     const userHeader = getHeaders(header);
 
     const { email, id } = userData.data;
@@ -50,90 +51,115 @@ const App = () => {
     sessionStorage.setItem("user", JSON.stringify({ email, id }));
     setIsLoggedIn(true);
   };
-  //Fetch All Users
+
+
+  //Fetch All Users and Channels
+
   useEffect(() => {
     if (headerList) {
       getUsers();
+      getChannels();
     }
   }, [headerList]);
-
 
   const getUsers = async () => {
     const data = await fetchUsers(headerList);
     setUsers(data.data);
   };
 
-  //Message Receiver
-  const changeReceiver = (e) => {
-    setReceiverEmail(e.target.textContent);
+  const getChannels = async () => {
+    if (headerList) {
+      const data = await getUserChannels(headerList);
+      setUserChannels(data.data);
+    }
   };
 
-  const messageWasSent = (msg) => {
-    setMessageSent(msg);
+  //Message Receiver
+  const changeMessageDisplay = (e) => {
+    setMessageTitle(e.target.textContent);
   };
-  console.log(isLoggedIn)
+
+  const messageWasSent = (receiver) => {
+    setMessageSent(receiver);
+  };
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
-        {isLoggedIn ?<Route path="/" element={<Layout/>}> 
-
-          {/* <Route
-            path="/"
-            element={
-              isLoggedIn ? (
+          {isLoggedIn ? (
+            <Route
+              path="/"
+              element={
                 <Layout
                   headerList={headerList}
-                  changeReceiver={changeReceiver}
-                  receiverEmail={receiverEmail}
+                  changeMessageDisplay={changeMessageDisplay}
                   messageSent={messageSent}
-                />
-              ) : (
-                <Login onclick={handleLogin} />
-              )
-            }
-          > */}
-            <Route
-              index
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>Select a Channel</p>
-                </main>
-              }
-            />
-            <Route
-              path="users"
-              element={<Users users={users} changeReceiver={changeReceiver} />}
-            />
-            <Route path="channels/:channelId" element={<ChannelMessages />} />
-            <Route
-              path=":uid"
-              element={
-                <Message
-                  users={users}
-                  userDetails={userDetails}
-                  headerList={headerList}
-                  receiverEmail={receiverEmail}
-                  messageWasSent={messageWasSent}
+                  userChannels={userChannels}
+                  getChannels={getChannels}
                 />
               }
-            />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Route>
-          :<Route path="/" element={<Login onSuccess={logInUser} />}/>}
-          <Route path="/Mainpage" element={<Layout/>} />
-          <Route path="/signup" element={<Signup/>} />
+            >
+              <Route
+                index
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>Select a Channel</p>
+                  </main>
+                }
+              />
+              <Route
+                path="users"
+                element={
+                  <Users
+                    users={users}
+                    headerList={headerList}
+                    userDetails={userDetails}
+                    changeMessageDisplay={changeMessageDisplay}
+                  />
+                }
+              />
+              <Route path="channels/:channelId" element={<ChannelMessages />} />
+              <Route
+                path=":uid"
+                element={
+                  <Message
+                    users={users}
+                    userChannels={userChannels}
+                    userDetails={userDetails}
+                    headerList={headerList}
+                    messageTitle={messageTitle}
+                    messageWasSent={messageWasSent}
+                  />
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Route>
+          ) : (
+            <Route path="/">
+              <Route index element={<Login onSuccess={logInUser} />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Route>
+          )}
         </Routes>
       </BrowserRouter>
     </div>
-  )};
-
+  );
+};
 
 export default App;

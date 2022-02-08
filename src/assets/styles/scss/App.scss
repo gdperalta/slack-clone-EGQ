@@ -1,10 +1,13 @@
 @use "./layout/sidebar";
+@use "./layout/outlet";
 @use "./components/channels";
 @use "./components/modal";
 @use "./components/msgScreen";
 @use "./components/directMessages";
 @use "./components/messages";
 @use "./components/header";
+@use "./components/collapsibles";
+@use "./components/users";
 
 *,
 *:before,

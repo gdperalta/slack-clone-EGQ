@@ -4,7 +4,8 @@ import "../../assets/styles/css/App.css";
 const Channel = (props) => {
   const showChannelNames = (props) => {
     return (
-      <div style={{display: "flex" , cursor:"pointer"}}>{/* replace this with class from css */}
+      <div style={{ display: "flex", cursor: "pointer" }}>
+        {/* replace this with class from css */}
         <svg
           style={{
             display: "flex",
@@ -18,7 +19,7 @@ const Channel = (props) => {
             boxSizing: "border-box",
             height: "1em",
             width: "1em",
-            viewBox : "0 0 24 24",
+            viewBox: "0 0 24 24",
           }}
         >
           <path
@@ -29,7 +30,12 @@ const Channel = (props) => {
           ></path>
         </svg>
 
-        <NavLink to={`/channels/${props.id}`}>{props.name}</NavLink>
+        <NavLink
+          to={`/Channel_${props.id}`}
+          onClick={props.changeMessageDisplay}
+        >
+          {props.name}
+        </NavLink>
       </div>
     );
   };

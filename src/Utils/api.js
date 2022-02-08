@@ -1,5 +1,5 @@
 export const logIn = async (email, password) => {
-  var raw = { email: email , password: password };
+  var raw = { email: email, password: password };
 
   var requestOptions = {
     method: "POST",
@@ -37,7 +37,12 @@ export const fetchUsers = async (headers) => {
   return await response.json();
 };
 
-export const sendMessageToServer = async (headers, receiverID, message) => {
+export const sendMessageToServer = async (
+  headers,
+  receiverID,
+  message,
+  msgClass
+) => {
   const { accessToken, client, expiry, uid } = headers;
   const myHeaders = new Headers();
   myHeaders.append("access-token", accessToken);
@@ -48,7 +53,7 @@ export const sendMessageToServer = async (headers, receiverID, message) => {
 
   const raw = {
     receiver_id: receiverID,
-    receiver_class: "User",
+    receiver_class: msgClass,
     body: message,
   };
 
@@ -67,7 +72,7 @@ export const sendMessageToServer = async (headers, receiverID, message) => {
   return await response.json();
 };
 
-export const fetchMessages = async (header, id) => {
+export const fetchMessages = async (header, msgClass, id) => {
   const { accessToken, client, expiry, uid } = header;
   var myHeaders = new Headers();
   myHeaders.append("access-token", accessToken);
@@ -82,7 +87,7 @@ export const fetchMessages = async (header, id) => {
   };
 
   const response = await fetch(
-    `http://206.189.91.54//api/v1/messages?receiver_class=User&receiver_id=${id}`,
+    `http://206.189.91.54//api/v1/messages?receiver_class=${msgClass}&receiver_id=${id}`,
     requestOptions
   );
 
