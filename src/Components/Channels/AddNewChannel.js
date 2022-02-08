@@ -24,9 +24,8 @@ const AddNewChannel = ({
   const [selectedUserIDs, setSelectedUserIDs] = useState([]);
   const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
 
-
   //Notes: changes on the states trigger re-rendering
-  //useStates run at first then runs again if a dependency changes
+  //useEffects run at first then runs again if a dependency changes
   useEffect(() => {
     const getUsers = async () => {
       const headerList = JSON.parse(sessionStorage.getItem("header"));
@@ -114,7 +113,7 @@ const AddNewChannel = ({
       return filteredUsers.map((item) => {
         return (
           <div
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", paddingBottom: "10px" }}
             key={item.id}
             onClick={AddToSelectedUsers.bind(this, item.id)}
           >
