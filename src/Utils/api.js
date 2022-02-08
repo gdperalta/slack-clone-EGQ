@@ -1,25 +1,3 @@
-export const register = async () => {
-  var raw = {
-    email: "dio@gmail.com",
-    password: "asdfjkl",
-    password_confirmation: "asdfjkl",
-  };
-
-  var requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(raw),
-    redirect: "follow",
-  };
-
-  fetch("http://206.189.91.54//api/v1/auth/", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-};
-
 export const logIn = async (email, password) => {
   var raw = { email: email, password: password };
 

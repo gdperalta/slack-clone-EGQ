@@ -1,0 +1,136 @@
+@use "../utilities/variables";
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 7%;
+  padding: 1rem;
+  border: 0;
+  color: darken(variables.$font-color, 50%);
+  font-size: variables.$font-size - 4px;
+  border-bottom: solid 1px lighten(variables.$hover-color, 40%);
+  span {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    height: 100%;
+  }
+  input {
+    color: inherit;
+    width: 90%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    font-size: variables.$font-size - 8px;
+  }
+}
+
+.navlinkWrapper {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 84vw;
+  max-height: 0;
+  padding: 0;
+  nav {
+    background-color: white;
+    z-index: 1;
+    width: 95%;
+    overflow: auto;
+    border-radius: 6px;
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}
+
+.showModal {
+  max-height: 35%;
+  margin-top: -1rem;
+  nav {
+    padding-top: 1rem;
+    border: solid 1px lighten(variables.$hover-color, 40%);
+  }
+}
+
+.links {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+  width: 100%;
+  &:hover {
+    background-color: variables.$secondary-color;
+  }
+}
+
+.userMessagesWrapper {
+  height: 86%;
+  padding: 1rem;
+  overflow: hidden;
+  background-color: rgb(243, 243, 243);
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  &:hover {
+    overflow: auto;
+  }
+}
+.messageBody {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: solid 1px lighten(variables.$hover-color, 40%);
+  border-radius: 8px;
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+  span {
+    color: rgb(109, 109, 109);
+  }
+  &:hover {
+    background-color: lighten(variables.$tertiary-color, 70%);
+  }
+}
+
+.msg {
+  margin-left: 52px;
+  h3 {
+    margin: 0;
+  }
+}
+
+.iconUsers {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  border-radius: 4px;
+  background-color: variables.$alternate-color2;
+  color: white;
+  font-size: variables.$font-size + 10px;
+  text-align: center;
+}

@@ -51,7 +51,9 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
+
   //Fetch All Users and Channels
+
   useEffect(() => {
     if (headerList) {
       getUsers();
@@ -110,6 +112,8 @@ const App = () => {
                 element={
                   <Users
                     users={users}
+                    headerList={headerList}
+                    userDetails={userDetails}
                     changeMessageDisplay={changeMessageDisplay}
                   />
                 }
