@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Channel from "./Channel";
 import AddNewChannel from "./AddNewChannel";
-import { AiFillCaretRight, AiFillCaretDown, AiOutlinePlus } from "react-icons/ai";
+import {
+  AiFillCaretRight,
+  AiFillCaretDown,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { IconContext } from "react-icons";
 
 const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
@@ -50,7 +54,11 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           </IconContext.Provider>
           <h3>Channels</h3>
         </button>
-        <a className="add-channel-button" title="Open a Direct Message" onClick={() => setShow(true)}>
+        <a
+          className="add-channel-button"
+          title="Open a Direct Message"
+          onClick={() => setShow(true)}
+        >
           <IconContext.Provider value={{ color: "white", size: "20px" }}>
             <div>
               <AiOutlinePlus />
@@ -59,14 +67,16 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
         </a>
       </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
-        {userChannels ? renderChannelList() : <p>Loading channels</p>}        
+        {userChannels ? renderChannelList() : <p>Loading channels</p>}
       </nav>
-      <AddNewChannel
-        title="Create new channel"
-        onClose={() => setShow(false)}
-        show={show}
-        mode="createChannel"
-      />
+      {show ? (
+        <AddNewChannel
+          title="Create new channel"
+          onClose={() => setShow(false)}
+          show={show}
+          toggleAddUsers={false}
+        />
+      ) : null}
     </div>
   );
 };
