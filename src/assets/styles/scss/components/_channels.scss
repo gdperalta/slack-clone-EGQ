@@ -124,16 +124,15 @@
   }
 }
 
-.selected-user{
+.selected-user {
   opacity: 1;
   padding: 5px;
   cursor: pointer;
-  &:hover{
-    .selected-user{
+  &:hover {
+    .selected-user {
       opacity: 0;
     }
   }
-  
 }
 
 .active-channel {
