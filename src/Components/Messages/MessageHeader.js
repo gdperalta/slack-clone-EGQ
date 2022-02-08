@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AddNewChannel from "../Channels/AddNewChannel";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaPen } from "react-icons/fa";
 
 const MessageHeader = ({ receiver }) => {
   const [show, setShow] = useState(false);
@@ -20,16 +20,19 @@ const MessageHeader = ({ receiver }) => {
             className="channel-add-member-button"
             onClick={() => setShow(true)}
           >
+            <FaPen />
             Add members
           </div>
-          <AddNewChannel
-            title="Create new channel"
-            channelId = {receiver.id}
-            channelName={receiver.name}
-            onClose={() => setShow(false)}
-            show={show}
-            mode="addMember"
-          />
+          {show ? (
+            <AddNewChannel
+              title="Create new channel"
+              channelId={receiver.id}
+              selectedChannelName={receiver.name}
+              onClose={() => setShow(false)}
+              show={show}
+              toggleAddUsers={true}
+            />
+          ) : null}
         </div>
       )}
     </>
