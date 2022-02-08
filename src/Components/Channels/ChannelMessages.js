@@ -37,8 +37,7 @@ const ChannelMessages = () => {
       <AddNewChannel
         title="Create new channel"
         onClose={() => setShow(false)}
-        show={show}
-        mode="addMember"
+        show={show}        
       />
       <p>Hello!</p>
       {channelDetails.data !== undefined ? (
