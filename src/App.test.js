@@ -40,7 +40,7 @@ test("should login and display interface when logged in", async () => {
   expect(outlet).toBeInTheDocument();
 });
 
-test("should login and display interface when logged in", async () => {
+test("show display messages with user", async () => {
   const { findByText } = render(<App />);
   /*const loginBtn = screen.getByText("Sign In with Email");
   userEvent.click(loginBtn); */
