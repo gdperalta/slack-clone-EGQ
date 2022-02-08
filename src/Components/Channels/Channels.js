@@ -56,7 +56,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
         </button>
         <a
           className="add-channel-button"
-          title="Open a Direct Message"
+          title="Create a new channel"
           onClick={() => setShow(true)}
         >
           <IconContext.Provider value={{ color: "white", size: "20px" }}>
@@ -71,7 +71,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
       </nav>
       {show ? (
         <AddNewChannel
-          title="Create new channel"
+          title="Create a new channel"
           onClose={() => setShow(false)}
           show={show}
           toggleAddUsers={false}
