@@ -68,6 +68,14 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
       </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
         {userChannels ? renderChannelList() : <p>Loading channels</p>}
+        <div className="channel-create-button" onClick={() => setShow(true)}>
+          <IconContext.Provider value={{ color: "white", size: "20px" }}>
+            <div>
+              <AiOutlinePlus />
+            </div>
+          </IconContext.Provider>
+          <span>Add a new channel</span>
+        </div>
       </nav>
       {show ? (
         <AddNewChannel
