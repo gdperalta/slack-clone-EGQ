@@ -94,7 +94,7 @@ export const fetchMessages = async (header, msgClass, id) => {
   return await response.json();
 };
 
-export const fetchRecentMsgs = async (header, id) => {
+export const fetchRecentMsgs = async (header) => {
   const { accessToken, client, expiry, uid } = header;
   var myHeaders = new Headers();
   myHeaders.append("access-token", accessToken);
@@ -126,7 +126,7 @@ export const createChannel = async (channelName, newMembers, headers) => {
         "access-token": accessToken,
         client: client,
         expiry: expiry,
-       uid: uid,
+        uid: uid,
       },
       body: JSON.stringify({ name: channelName, user_ids: newMembers }),
     });
@@ -161,35 +161,45 @@ export const getChannelDetails = async (
   email
 ) => {
   try {
-    const result = await fetch("http://206.189.91.54//api/v1/channels/" + channelID, {
-      method: "GET",
-      headers: {
-        "access-token": accessToken,
-        client: client,
-        expiry: expiry,
-        uid: email,
-      },
-    });
+    const result = await fetch(
+      "http://206.189.91.54//api/v1/channels/" + channelID,
+      {
+        method: "GET",
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: email,
+        },
+      }
+    );
 
     //return result;
     return result.json();
   } catch (e) {}
 };
 
-export const addNewMemberToChannel = async (channelId, newMemberId, headers) => {
+export const addNewMemberToChannel = async (
+  channelId,
+  newMemberId,
+  headers
+) => {
   const { accessToken, client, expiry, uid } = headers;
   try {
-    const result = await fetch("http://206.189.91.54//api/v1/channel/add_member", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "access-token": accessToken,
-        client: client,
-        expiry: expiry,
-       uid: uid,
-      },
-      body: JSON.stringify({ id: channelId, member_id: newMemberId }),
-    });
+    const result = await fetch(
+      "http://206.189.91.54//api/v1/channel/add_member",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: uid,
+        },
+        body: JSON.stringify({ id: channelId, member_id: newMemberId }),
+      }
+    );
     return await result.json();
   } catch (e) {}
 };
