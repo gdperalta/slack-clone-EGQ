@@ -1,4 +1,4 @@
-import { useState,useEffect} from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignupBody(){
@@ -30,7 +30,7 @@ export default function SignupBody(){
             response.json()
         ) 
         .then((result) => {if(result.status == "error" ){
-            alert("error")
+            alert("Registration Failed!")
         }else{
             navigate("/")
         }})
