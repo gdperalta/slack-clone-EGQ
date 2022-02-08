@@ -45,8 +45,8 @@
       color: black;
       margin: 0;
       box-sizing: border-box;
-      height: .8em;
-      width: .8em;      
+      height: 0.8em;
+      width: 0.8em;
     }
 
     &:hover {
@@ -89,6 +89,9 @@
     right: 20px;
     user-select: none;
     cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
   }
 
   &-user {
@@ -104,6 +107,12 @@
       border-color: rgba(219, 211, 215, 0.8);
     }
 
+    &-selected-userlist {
+      display: block;
+      height: 180px;
+      overflow-y: scroll;
+    }
+
     &-add-user {
       opacity: 1;
       cursor: pointer;
@@ -113,6 +122,18 @@
       }
     }
   }
+}
+
+.selected-user{
+  opacity: 1;
+  padding: 5px;
+  cursor: pointer;
+  &:hover{
+    .selected-user{
+      opacity: 0;
+    }
+  }
+  
 }
 
 .active-channel {
