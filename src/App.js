@@ -51,9 +51,7 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
-
   //Fetch All Users and Channels
-
   useEffect(() => {
     if (headerList) {
       getUsers();
