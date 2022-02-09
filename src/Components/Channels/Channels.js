@@ -15,7 +15,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
   const collapsibleContent = useRef(null);
 
   useEffect(() => {
-    getChannels();
+    getChannels();    
   }, [show]);
 
   const renderChannelList = () => {
@@ -83,6 +83,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           onClose={() => setShow(false)}
           show={show}
           toggleAddUsers={false}
+          getChannels={getChannels}
         />
       ) : null}
     </div>

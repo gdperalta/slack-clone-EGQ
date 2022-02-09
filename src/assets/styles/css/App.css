@@ -30,13 +30,90 @@
   padding-left: 5px;
 }
 
-.channel-list-item {
+.channels-button {
   display: flex;
+  align-items: center;
+  height: 30px;
+  padding-left: 0.5rem;
+}
+.channels-button .add-channel-button {
+  opacity: 0;
+  padding: 2px;
+  cursor: pointer;
+}
+.channels-button .add-channel-button:hover {
+  background-color: #4a5664;
+  border-radius: 4px;
+}
+.channels-button:hover .add-channel-button {
+  opacity: 1;
+}
+
+.channel-list-item {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  width: calc(19vw - 1px);
+  max-width: 400px;
+  margin-left: -1rem;
+  padding: 0.25rem 2rem;
+  color: #d9d9d9;
+  text-decoration: none;
   cursor: pointer;
 }
 .channel-list-item-icon {
   height: "1em";
   width: "1em";
+}
+.channel-list-item svg {
+  padding-right: 5px;
+  font-size: 25px;
+  color: black;
+  margin: 0;
+  box-sizing: border-box;
+  height: 0.8em;
+  width: 0.8em;
+}
+.channel-list-item:hover {
+  background-color: #4a5664;
+}
+.channel-create-button {
+  display: flex;
+  flex-direction: row;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: white;
+  margin-left: -1rem;
+  padding-left: 1.8rem;
+  padding-top: 0.2rem;
+  user-select: none;
+}
+.channel-create-button:hover {
+  background-color: #4a5664;
+}
+.channel-save-channel-button {
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+.channel-save-new-member-to-channel-button {
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 8rem;
+}
+.channel-add-member-button {
+  position: absolute;
+  right: 20px;
+  user-select: none;
+  cursor: pointer;
+}
+.channel-add-member-button:hover {
+  opacity: 0.6;
 }
 .channel-user-custom-dropdown {
   position: absolute;
@@ -45,9 +122,14 @@
   top: 0;
   z-index: 100;
   border: 1px solid;
-  overflow-y: hidden;
+  overflow-y: scroll;
   background-color: white;
   border-color: rgba(219, 211, 215, 0.8);
+}
+.channel-user-selected-userlist {
+  display: block;
+  height: 180px;
+  overflow-y: scroll;
 }
 .channel-user-add-user {
   opacity: 1;
@@ -55,6 +137,33 @@
 }
 .channel-user-add-user:hover {
   opacity: 0.7;
+}
+
+.selected-user {
+  opacity: 1;
+  padding: 5px;
+  cursor: pointer;
+}
+.selected-user:hover .selected-user {
+  opacity: 0;
+}
+
+.active-channel {
+  color: #ffffff;
+  background-color: #6698c8;
+}
+.active-channel:hover {
+  background-color: #6698c8;
+}
+
+.svg-plus-sign {
+  fill: white;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  font-size: 1.5rem;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  flex-shrink: 0;
 }
 
 .modal {
