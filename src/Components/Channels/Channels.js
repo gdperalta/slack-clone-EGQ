@@ -15,7 +15,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
   const collapsibleContent = useRef(null);
 
   useEffect(() => {
-    getChannels();    
+    getChannels();
   }, [show]);
 
   const renderChannelList = () => {
@@ -26,7 +26,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           id={item.id}
           name={item.name}
           changeMessageDisplay={changeMessageDisplay}
-        />
+        />        
       );
     });
   };
@@ -68,15 +68,15 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
       </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
         {userChannels ? renderChannelList() : <p>Loading channels</p>}
-        <div className="channel-create-button" onClick={() => setShow(true)}>
-          <IconContext.Provider value={{ color: "white", size: "20px" }}>
-            <div>
-              <AiOutlinePlus />
-            </div>
-          </IconContext.Provider>
-          <span>Add a new channel</span>
-        </div>
       </nav>
+      <div className="channel-create-button" onClick={() => setShow(true)}>
+        <IconContext.Provider value={{ color: "white", size: "20px" }}>
+          <div>
+            <AiOutlinePlus />
+          </div>
+        </IconContext.Provider>
+        <span>Add a new channel</span>
+      </div>
       {show ? (
         <AddNewChannel
           title="Create a new channel"
