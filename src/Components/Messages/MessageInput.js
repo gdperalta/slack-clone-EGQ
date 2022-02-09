@@ -18,7 +18,7 @@ const MessageInput = ({ sendMessage, receiver }) => {
         onChange={(e) => {
           setMessage(e.target.value);
         }}
-        onKeyDown={enterKey}
+        onKeyDown={message ? enterKey : null}
         placeholder={
           receiver.email
             ? `Message ${receiver.email.split("@")[0]}`
