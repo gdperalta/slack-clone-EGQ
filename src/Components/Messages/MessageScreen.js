@@ -1,11 +1,19 @@
 import { getFullDate, getDate, getTimeOnly } from "../../Utils/handleDate";
 import { FaLock } from "react-icons/fa";
+import { useEffect, useRef } from "react";
 
 const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
+  const bottomEl = useRef(null);
   let currentUser, currentDate;
 
+  useEffect(() => {
+    if (bottomEl.current) {
+      bottomEl.current.scrollIntoView();
+    }
+  });
+
   return (
-    <div className="messageScreen">
+    <div className="messageScreen" scrollTop={(e) => e.target.scrollHeight}>
       {receiver.email ? (
         <div className="messageStart">
           <div className="userInfo">
@@ -68,6 +76,8 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
           );
         }
       })}
+      {/* Added div to scroll into bottom */}
+      <div ref={bottomEl}></div>
     </div>
   );
 };
