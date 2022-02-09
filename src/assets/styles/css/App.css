@@ -26,7 +26,8 @@
   padding-left: 1rem;
   border-bottom: solid 1px #afbdcd;
 }
-.outletHeader h3 {
+.outletHeader h3,
+.outletHeader h2 {
   padding-left: 5px;
 }
 
