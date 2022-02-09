@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import App from "./App";
-import { messageHandlers } from "./testServer";
+import { handlers, mockUsers, rest } from "./testServer";
 import { setupServer } from "msw/node";
 import userEvent from "@testing-library/user-event";
 
-const server = setupServer(...messageHandlers);
+const server = setupServer(...handlers);
 
 beforeAll(() => {
   server.listen();
@@ -18,6 +18,20 @@ afterAll(() => {
 
 describe("App Navigation and Interaction", () => {
   test("should login and navigate to home page", async () => {
+    server.use(
+      rest.post(
+        "http://206.189.91.54//api/v1/auth/sign_in",
+        (req, res, ctx) => {
+          return res(
+            ctx.status(200),
+            ctx.json({
+              data: mockUsers[0],
+            })
+          );
+        }
+      )
+    );
+
     render(<App />);
     const loginBtn = screen.getByText("Sign In with Email");
     userEvent.click(loginBtn);
@@ -44,6 +58,22 @@ describe("App Navigation and Interaction", () => {
   });
 
   test("sends message and shows message in message screen", async () => {
+    server.use(
+      rest.post("http://206.189.91.54//api/v1/messages", (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            data: {
+              body: "Hello World",
+              created_at: "2022-02-09T12:00:00.839Z",
+              id: 100000,
+              receiver: mockUsers[1],
+              sender: mockUsers[0],
+            },
+          })
+        );
+      })
+    );
     render(<App />);
 
     userEvent.click(await screen.findByTitle("Send Message"));
