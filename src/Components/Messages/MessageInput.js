@@ -1,8 +1,15 @@
 import { useState } from "react";
-import sendButton from "../../assets/images/send.png";
+import { MdSend } from "react-icons/md";
+import { IconContext } from "react-icons";
 
 const MessageInput = ({ sendMessage, receiver }) => {
   const [message, setMessage] = useState("");
+
+  const enterKey = (e) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      sendMessage(message);
+    }
+  };
 
   return (
     <div className="inputWrapper">
@@ -11,6 +18,7 @@ const MessageInput = ({ sendMessage, receiver }) => {
         onChange={(e) => {
           setMessage(e.target.value);
         }}
+        onKeyDown={enterKey}
         placeholder={
           receiver.email
             ? `Message ${receiver.email.split("@")[0]}`
@@ -18,8 +26,20 @@ const MessageInput = ({ sendMessage, receiver }) => {
         }
       />
 
-      <button onClick={() => sendMessage(message)}>
-        <img src={sendButton} />
+      <button
+        className={message ? "" : "disabledButton"}
+        onClick={() => sendMessage(message)}
+      >
+        <IconContext.Provider
+          value={{
+            color: message ? "#47aa0d" : "rgb(185, 185, 185)",
+            size: "25px",
+          }}
+        >
+          <div>
+            <MdSend />
+          </div>
+        </IconContext.Provider>
       </button>
     </div>
   );
