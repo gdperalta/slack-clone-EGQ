@@ -17,6 +17,9 @@ afterAll(() => {
 });
 
 describe("App Navigation and Interaction", () => {
+  //Needed to manually add scrollIntoView beacuse it is not implemented in jsdom
+  window.HTMLElement.prototype.scrollIntoView = function () {};
+
   test("should login and navigate to home page", async () => {
     server.use(
       rest.post(
