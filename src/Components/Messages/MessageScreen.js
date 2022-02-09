@@ -10,7 +10,7 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
     if (bottomEl.current) {
       bottomEl.current.scrollIntoView();
     }
-  });
+  }, []);
 
   return (
     <div className="messageScreen" scrollTop={(e) => e.target.scrollHeight}>
