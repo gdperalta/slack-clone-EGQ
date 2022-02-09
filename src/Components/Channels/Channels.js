@@ -54,11 +54,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           </IconContext.Provider>
           <h3>Channels</h3>
         </button>
-        <a
-          className="add-channel-button"
-          title="Open a Direct Message"
-          onClick={() => setShow(true)}
-        >
+        <a className="add-channel-button" onClick={() => setShow(true)}>
           <IconContext.Provider value={{ color: "white", size: "20px" }}>
             <div>
               <AiOutlinePlus />
