@@ -29,6 +29,7 @@ const MessageInput = ({ sendMessage, receiver }) => {
       <button
         className={message ? "" : "disabledButton"}
         onClick={() => sendMessage(message)}
+        title="Send Message"
       >
         <IconContext.Provider
           value={{
