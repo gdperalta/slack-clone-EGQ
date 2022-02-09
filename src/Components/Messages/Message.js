@@ -15,6 +15,7 @@ const Message = ({
   messageWasSent,
 }) => {
   const [receiver, setReceiver] = useState(null);
+  const [channelOwner, setChannelOwner] = useState(null);
   const [messageClass, setMessageClass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [messageDisplay, setMessageDisplay] = useState(null);
@@ -27,8 +28,11 @@ const Message = ({
     if (routeParam[0] === "Channel") {
       if (userChannels) {
         let channelData = getChannel(parseInt(routeParam[1]));
+        let currentOwner = getUser(channelData.owner_id);
+
         setReceiver(channelData);
         setMessageClass(routeParam[0]);
+        setChannelOwner(currentOwner);
       }
     } else {
       if (users) {
@@ -97,9 +101,9 @@ const Message = ({
       <MessageHeader receiver={receiver} />
       <div className="messageDisplay">
         <MessageScreen
-          headerList={headerList}
           receiver={receiver}
           messageDisplay={messageDisplay}
+          channelOwner={channelOwner}
         />
       </div>
       <div className="messageFooter">

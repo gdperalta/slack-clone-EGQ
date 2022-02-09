@@ -1,10 +1,43 @@
 import { getFullDate, getDate, getTimeOnly } from "../../Utils/handleDate";
+import { FaLock } from "react-icons/fa";
 
-const MessageScreen = ({ messageDisplay }) => {
+const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
   let currentUser, currentDate;
 
   return (
     <div className="messageScreen">
+      {receiver.email ? (
+        <div className="messageStart">
+          <div className="userInfo">
+            <span>{receiver.email.charAt(0).toUpperCase()}</span>
+            <div>
+              <h3>{receiver.email.split("@")[0]}</h3>
+              <i>{receiver.email}</i>
+            </div>
+          </div>
+          <p>
+            This is the very beginning of your direct message history with{" "}
+            <b>{receiver.email.split("@")[0]}</b>
+          </p>
+        </div>
+      ) : (
+        <div className="messageStart">
+          <div className="userInfo">
+            <div className="channelIcon">
+              <FaLock />
+            </div>
+            <h2>{receiver.name}</h2>
+          </div>
+          <p>
+            {" "}
+            {channelOwner.email.split("@")[0]} created this private channel on{" "}
+            {getDate(channelOwner.created_at).props.children}. This is the very
+            beginning of the <FaLock />
+            {receiver.name} channel
+          </p>
+        </div>
+      )}
+
       {messageDisplay.map((user) => {
         if (
           currentUser === user.sender.email &&
