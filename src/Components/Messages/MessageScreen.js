@@ -7,13 +7,13 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
   let currentUser, currentDate;
 
   useEffect(() => {
-    if (bottomEl.current) {
+    if (bottomEl.current && receiver) {
       bottomEl.current.scrollIntoView();
     }
-  }, []);
+  }, [receiver]);
 
   return (
-    <div className="messageScreen" scrollTop={(e) => e.target.scrollHeight}>
+    <div className="messageScreen">
       {receiver.email ? (
         <div className="messageStart">
           <div className="userInfo">
