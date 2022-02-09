@@ -41,6 +41,14 @@ export const getTime = (date) => {
   return <span>{completeDate}</span>;
 };
 
+export const getTimeOnly = (date) => {
+  let d = new Date(date);
+  let convertedHour = convertHour(d.getHours());
+  let minutes = addZero(d.getMinutes());
+  let completeDate = `${convertedHour}:${minutes}`;
+  return <span className="hiddenTime">{completeDate}</span>;
+};
+
 export const getFullDate = (date) => {
   let d = new Date(date);
   let hour = d.getHours();
