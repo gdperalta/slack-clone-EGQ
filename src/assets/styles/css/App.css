@@ -253,8 +253,7 @@
 .messageStart {
   height: 18vh;
   margin-bottom: 0.5rem;
-  padding-bottom: 10px;
-  border-bottom: solid 1px #ced7e1;
+  padding-bottom: 1rem;
 }
 .messageStart p {
   margin: 0.8rem;
@@ -322,6 +321,34 @@
   opacity: 1;
 }
 
+.date {
+  margin-left: 8px;
+  color: #949494;
+  font-size: 14px;
+}
+
+.fullDate {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.fullDate hr {
+  width: 100%;
+  border: solid #eef1f4 1px;
+}
+.fullDate span {
+  background-color: white;
+  z-index: 1;
+  padding: 6px 12px;
+  margin-top: -1.5rem;
+  font-size: 12px;
+  border: solid #dee4ea 1px;
+  border-radius: 16px;
+}
+
 .recentMessages {
   height: 35px;
   display: flex;
@@ -386,12 +413,6 @@
   width: 100%;
   height: 12%;
   padding: 0 1rem 1rem 1rem;
-}
-
-#date {
-  margin-left: 8px;
-  color: #949494;
-  font-size: 14px;
 }
 
 .inputWrapper {
