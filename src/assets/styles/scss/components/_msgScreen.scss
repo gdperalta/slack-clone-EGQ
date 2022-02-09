@@ -24,12 +24,17 @@
 .messageContainer {
   display: flex;
   padding: 0.2rem 1rem;
+  .hiddenTime {
+    width: 55px;
+    opacity: 0;
+    color: lighten(variables.$hover-color, 30%);
+    font-size: variables.$font-size - 12px;
+  }
   div {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0 10px;
-
     div {
       display: flex;
       flex-direction: row;
@@ -45,5 +50,8 @@
   }
   &:hover {
     background-color: lighten(variables.$tertiary-color, 70%);
+    .hiddenTime {
+      opacity: 1;
+    }
   }
 }

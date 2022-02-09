@@ -237,6 +237,12 @@
   display: flex;
   padding: 0.2rem 1rem;
 }
+.messageContainer .hiddenTime {
+  width: 55px;
+  opacity: 0;
+  color: #96a2b1;
+  font-size: 12px;
+}
 .messageContainer div {
   display: flex;
   flex-direction: column;
@@ -257,6 +263,9 @@
 }
 .messageContainer:hover {
   background-color: #e9ecf1;
+}
+.messageContainer:hover .hiddenTime {
+  opacity: 1;
 }
 
 .recentMessages {
