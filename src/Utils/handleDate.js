@@ -27,7 +27,8 @@ export const getDate = (date) => {
   let d = new Date(date);
   let day = d.getDate();
   let month = months[d.getMonth()];
-  let completeDate = `${month} ${day}`;
+  let year = d.getFullYear();
+  let completeDate = `${month} ${day}, ${year}`;
   return <h4>{completeDate}</h4>;
 };
 
@@ -38,7 +39,7 @@ export const getTime = (date) => {
   let convertedHour = convertHour(d.getHours());
   let minutes = addZero(d.getMinutes());
   let completeDate = `${convertedHour}:${minutes} ${time}`;
-  return <span>{completeDate}</span>;
+  return <span className="date">{completeDate}</span>;
 };
 
 export const getTimeOnly = (date) => {
@@ -51,12 +52,14 @@ export const getTimeOnly = (date) => {
 
 export const getFullDate = (date) => {
   let d = new Date(date);
-  let hour = d.getHours();
-  let time = hour > 11 ? "pm" : "am";
-  let convertedHour = convertHour(d.getHours());
-  let minutes = addZero(d.getMinutes());
   let day = d.getDate();
   let month = months[d.getMonth()];
-  let completeDate = `${month} ${day}, ${convertedHour}:${minutes} ${time}`;
-  return <span id="date">{completeDate}</span>;
+  let year = d.getFullYear();
+  let completeDate = `${month} ${day}, ${year}`;
+  return (
+    <div className="fullDate">
+      <hr></hr>
+      <span>{completeDate}</span>
+    </div>
+  );
 };
