@@ -1,14 +1,30 @@
-.sidebar-wrapper {
-  height: 100%;
+.sidebarWrapper {
+  height: calc(100% - 40px);
   width: 17vw;
   max-width: 400px;
-  padding-top: 45px;
+  margin-top: 40px;
+  padding-bottom: 1rem;
   color: #ffffff;
   background-color: #303e4d;
-  border: solid #4a5664 1px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.sidebarWrapper #sidebarLinks {
+  padding-top: 1rem;
+}
+.sidebarWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebarWrapper::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.sidebarWrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.sidebarWrapper:hover {
+  overflow: auto;
 }
 
 .outletWrapper {
@@ -24,7 +40,8 @@
   width: 100%;
   height: 7%;
   padding-left: 1rem;
-  border-bottom: solid 1px #afbdcd;
+  border-top: solid 1px #57718c;
+  border-bottom: solid 1px #57718c;
 }
 .outletHeader h3,
 .outletHeader h2 {
@@ -233,6 +250,43 @@
   overflow: auto;
 }
 
+.messageStart {
+  height: 18vh;
+  margin-bottom: 0.5rem;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ced7e1;
+}
+.messageStart p {
+  margin: 0.8rem;
+  font-size: 19px;
+}
+.messageStart .userInfo {
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+.messageStart .userInfo .channelIcon {
+  font-size: 20px;
+  margin: 0 0.2rem 0 0.5rem;
+}
+.messageStart .userInfo span {
+  width: 55px;
+  height: 55px;
+  line-height: 52px;
+  margin: 0;
+  border-radius: 4px;
+  background-color: #78af8f;
+  color: white;
+  font-size: 34px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 0.5rem 0.8rem;
+}
+.messageStart .userInfo h3,
+.messageStart .userInfo i {
+  margin: 0.1rem;
+}
+
 .messageContainer {
   display: flex;
   padding: 0.2rem 1rem;
@@ -392,7 +446,6 @@
   padding: 0;
   background-color: #303e4d;
   color: #ffffff;
-  border-bottom: solid #4a5664 2px;
   width: 100%;
   height: 40px;
   text-align: center;

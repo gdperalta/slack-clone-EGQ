@@ -21,6 +21,43 @@
   }
 }
 
+.messageStart {
+  height: 18vh;
+  margin-bottom: 0.5rem;
+  padding-bottom: 10px;
+  border-bottom: solid 1px lighten(variables.$primary-color, 60%);
+  p {
+    margin: 0.8rem;
+    font-size: variables.$font-size - 5px;
+  }
+  .userInfo {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    .channelIcon {
+      font-size: variables.$font-size - 4px;
+      margin: 0 0.2rem 0 0.5rem;
+    }
+    span {
+      width: 55px;
+      height: 55px;
+      line-height: 52px;
+      margin: 0;
+      border-radius: 4px;
+      background-color: variables.$alternate-color2;
+      color: white;
+      font-size: variables.$font-size + 10px;
+      font-weight: bolder;
+      text-align: center;
+      margin: 0.5rem 0.8rem;
+    }
+    h3,
+    i {
+      margin: 0.1rem;
+    }
+  }
+}
+
 .messageContainer {
   display: flex;
   padding: 0.2rem 1rem;
