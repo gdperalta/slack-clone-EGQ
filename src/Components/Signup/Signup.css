@@ -51,6 +51,8 @@ body,html{
     margin: 0;
     justify-content: left;
     font-size: 10px;
+    height: 10px;
+    text-align: center;
 }
 .signBtn{
     background: #3f0f40;

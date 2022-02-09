@@ -101,7 +101,10 @@ export default function LoginBody({ onSuccess }) {
               value={formData.password}
               onChange={handleChange}
             ></input>
+            <div>
             <p className="error">{formErrors.password}</p>
+            </div>
+            
           </div>
           <div className="signin">
             <button className="signBtn">
