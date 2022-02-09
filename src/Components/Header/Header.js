@@ -4,11 +4,16 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import HistoryIcon from '@material-ui/icons/History';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SearchIcon from '@material-ui/icons/Search';
-
 import "./Header.css"
 
 
+
+
 const Header = () => {
+  const Signout = () =>{
+    window.sessionStorage.clear()
+    window.location.replace("/")
+  }
   return (
     <div className="Header">
       <div className="header__container">
@@ -26,7 +31,7 @@ const Header = () => {
                     </div>
                     <HelpOutlineIcon />
                 </div>
-                <div className="sign-out">Sign Out</div>
+                <div className="sign-out" onClick={Signout}>Sign Out</div>
             </div>
         </div>
     </div>
