@@ -23,35 +23,12 @@ const mockUsers = [
   },
 ];
 
-//Specifically mocks test "App Navigation and Interaction"
-const messageHandlers = [
-  rest.post("http://206.189.91.54//api/v1/auth/sign_in", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        data: mockUsers[0],
-      })
-    );
-  }),
+const handlers = [
   rest.get("http://206.189.91.54//api/v1/users", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
         data: mockUsers,
-      })
-    );
-  }),
-  rest.post("http://206.189.91.54//api/v1/messages", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        data: {
-          body: "Hello World",
-          created_at: "2022-02-09T12:00:00.839Z",
-          id: 100000,
-          receiver: mockUsers[1],
-          sender: mockUsers[0],
-        },
       })
     );
   }),
@@ -98,4 +75,4 @@ const messageHandlers = [
   }),
 ];
 
-export { messageHandlers };
+export { handlers, mockUsers, rest };
