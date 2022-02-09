@@ -1,20 +1,24 @@
-import { getFullDate } from "../../Utils/handleDate";
+import { getFullDate, getDate, getTimeOnly } from "../../Utils/handleDate";
 
 const MessageScreen = ({ messageDisplay }) => {
-  let currentUser;
+  let currentUser, currentDate;
 
   return (
     <div className="messageScreen">
       {messageDisplay.map((user) => {
-        if (currentUser === user.sender.email) {
+        if (
+          currentUser === user.sender.email &&
+          currentDate === getDate(user.created_at).props.children
+        ) {
           return (
             <div key={user.id} className="messageContainer">
-              <span style={{ width: "55px" }}></span>
+              {getTimeOnly(user.created_at)}
               <p key={user.id}>{user.body}</p>
             </div>
           );
         } else {
           currentUser = user.sender.email;
+          currentDate = getDate(user.created_at).props.children;
           return (
             <div className="messageContainer" key={user.id}>
               <span className="icon">
