@@ -1,4 +1,4 @@
-import { getDate, getFullDate } from "../../Utils/handleDate";
+import { getFullDate } from "../../Utils/handleDate";
 
 const MessageScreen = ({ messageDisplay }) => {
   let currentUser;
