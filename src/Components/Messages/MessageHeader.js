@@ -10,7 +10,7 @@ const MessageHeader = ({ receiver }) => {
       {receiver.email ? (
         <div className="outletHeader">
           <span className="icon">{receiver.email.charAt(0).toUpperCase()}</span>
-          <h3>Hi {receiver.email.split("@")[0]}</h3>
+          <h3>{receiver.email.split("@")[0]}</h3>
         </div>
       ) : (
         <div className="outletHeader">
