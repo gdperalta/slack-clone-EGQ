@@ -36,7 +36,7 @@ const AddNewChannel = ({
       const headerList = JSON.parse(sessionStorage.getItem("header"));
 
       const data = await fetchUsers(headerList);
-      setUsers(data.data);
+      if (data.data) setUsers(data.data);
     };
 
     getUsers().catch(console.error);
@@ -47,7 +47,7 @@ const AddNewChannel = ({
       const headerList = JSON.parse(sessionStorage.getItem("header"));
 
       const data = await getChannelDetails(channelId, headerList);
-      setMembers(data.data.channel_members);
+     if (data.data) setMembers(data.data.channel_members);
     };
 
     getMembers().catch(console.error);
