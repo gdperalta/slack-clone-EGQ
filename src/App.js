@@ -145,6 +145,7 @@ const App = () => {
             <Route path="/">
               <Route index element={<Login onSuccess={logInUser} />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route
                 path="*"
                 element={
