@@ -62,7 +62,11 @@ const Message = ({
   };
 
   const getMessages = async () => {
-    const messages = await fetchMessages(headerList, messageClass, receiver.id);
+    const messages = await fetchMessages(
+      headerList,
+      messageClass,
+      receiver.id
+    ).catch(console.error);
     const filteredMessages = filterMessages(messages.data);
 
     setMessageDisplay(filteredMessages);
