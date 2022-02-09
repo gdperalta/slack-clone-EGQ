@@ -1,11 +1,35 @@
 import { rest } from "msw";
 
-const handlers = [
+const mockUsers = [
+  {
+    id: 1,
+    uid: "odie@gmail.com",
+    email: "odie@gmail.com",
+  },
+  {
+    id: 2,
+    uid: "quev@gmail.com",
+    email: "quev@gmail.com",
+  },
+  {
+    id: 3,
+    uid: "erma@gmail.com",
+    email: "erma@gmail.com",
+  },
+  {
+    id: 4,
+    uid: "dio@gmail.com",
+    email: "dio@gmail.com",
+  },
+];
+
+//Specifically mocks test "App Navigation and Interaction"
+const messageHandlers = [
   rest.post("http://206.189.91.54//api/v1/auth/sign_in", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
-        data: { email: "odie@gmail.com", id: 123 },
+        data: mockUsers[0],
       })
     );
   }),
@@ -13,94 +37,52 @@ const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        data: [
-          {
-            id: 1,
-            uid: "odie@gmail.com",
-            email: "odie@gmail.com",
-          },
-          {
-            id: 2,
-            uid: "quev@gmail.com",
-            email: "quev@gmail.com",
-          },
-          {
-            id: 3,
-            uid: "erma@gmail.com",
-            email: "erma@gmail.com",
-          },
-          {
-            id: 4,
-            uid: "dio@gmail.com",
-            email: "dio@gmail.com",
-          },
-        ],
+        data: mockUsers,
       })
     );
   }),
   rest.post("http://206.189.91.54//api/v1/messages", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: {
+          body: "Hello World",
+          created_at: "2022-02-09T12:00:00.839Z",
+          id: 100000,
+          receiver: mockUsers[1],
+          sender: mockUsers[0],
+        },
+      })
+    );
   }),
-  rest.get(
-    `http://206.189.91.54//api/v1/messages?receiver_class=User&receiver_id=1`,
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-          data: [
-            {
-              body: "Hi",
-              created_at: "2022-02-03T12:46:48.839Z",
-              id: 14431,
-              receiver: {
-                id: 1,
-                uid: "odie@gmail.com",
-                email: "odie@gmail.com",
-              },
-              sender: {
-                id: 2,
-                uid: "quev@gmail.com",
-                email: "quev@gmail.com",
-              },
-            },
-            {
-              body: "hei",
-              created_at: "2022-02-03T12:46:48.839Z",
-              id: 14431,
-              receiver: {
-                id: 2,
-                uid: "quev@gmail.com",
-                email: "quev@gmail.com",
-              },
-              sender: {
-                id: 1,
-                uid: "odie@gmail.com",
-                email: "odie@gmail.com",
-              },
-            },
-          ],
-        })
-      );
-    }
-  ),
-  rest.get("http://206.189.91.54//api/v1/users/recent", (req, res, ctx) => {
+  rest.get(`http://206.189.91.54//api/v1/messages`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
         data: [
           {
-            id: 1,
-            uid: "odie@gmail.com",
+            body: "Hi",
+            created_at: "2022-02-03T12:46:48.839Z",
+            id: 100001,
+            receiver: mockUsers[0],
+            sender: mockUsers[3],
           },
           {
-            id: 2,
-            uid: "quev@gmail.com",
-          },
-          {
-            id: 3,
-            uid: "erma@gmail.com",
+            body: "Hey",
+            created_at: "2022-02-03T12:46:48.839Z",
+            id: 100002,
+            receiver: mockUsers[3],
+            sender: mockUsers[0],
           },
         ],
+      })
+    );
+  }),
+  rest.get("http://206.189.91.54//api/v1/users/recent", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: [mockUsers[0], mockUsers[1], mockUsers[3]],
       })
     );
   }),
@@ -116,16 +98,4 @@ const handlers = [
   }),
 ];
 
-/* const mockUserStorage = {
-  email: "odie@gmail.com",
-  id: 123,
-};
-
-const mockHeaderStorage = {
-  accessToken: "xxx",
-  client: "yyy",
-  expiry: "1645530342",
-  uid: "odie@gmail.com",
-}; */
-
-export { handlers };
+export { messageHandlers };
