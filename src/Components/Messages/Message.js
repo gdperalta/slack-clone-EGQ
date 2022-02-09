@@ -30,6 +30,11 @@ const Message = ({
         let channelData = getChannel(parseInt(routeParam[1]));
         let currentOwner = getUser(channelData.owner_id);
 
+        if (receiver === channelData) {
+          setIsLoading(false);
+          return;
+        }
+
         setReceiver(channelData);
         setMessageClass(routeParam[0]);
         setChannelOwner(currentOwner);
@@ -37,6 +42,12 @@ const Message = ({
     } else {
       if (users) {
         let receiverData = getUser(parseInt(routeParam[1]));
+
+        if (receiver === receiverData) {
+          setIsLoading(false);
+          return;
+        }
+
         setReceiver(receiverData);
         setMessageClass(routeParam[0]);
       }
