@@ -1,4 +1,9 @@
-import { getFullDate, getDate, getTimeOnly } from "../../Utils/handleDate";
+import {
+  getFullDate,
+  getDate,
+  getTimeOnly,
+  getTime,
+} from "../../Utils/handleDate";
 import { FaLock } from "react-icons/fa";
 import { useEffect, useRef } from "react";
 
@@ -57,9 +62,8 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
               <p key={user.id}>{user.body}</p>
             </div>
           );
-        } else {
+        } else if (currentDate === getDate(user.created_at).props.children) {
           currentUser = user.sender.email;
-          currentDate = getDate(user.created_at).props.children;
           return (
             <div className="messageContainer" key={user.id}>
               <span className="icon">
@@ -68,9 +72,29 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
               <div>
                 <div>
                   <h3>{user.sender.email.split("@")[0]}</h3>
-                  {getFullDate(user.created_at)}
+                  {getTime(user.created_at)}
                 </div>
                 <p key={user.id}>{user.body}</p>
+              </div>
+            </div>
+          );
+        } else {
+          currentUser = user.sender.email;
+          currentDate = getDate(user.created_at).props.children;
+          return (
+            <div>
+              {getFullDate(user.created_at)}
+              <div className="messageContainer" key={user.id}>
+                <span className="icon">
+                  {user.sender.email.charAt(0).toUpperCase()}
+                </span>
+                <div>
+                  <div>
+                    <h3>{user.sender.email.split("@")[0]}</h3>
+                    {getTime(user.created_at)}
+                  </div>
+                  <p key={user.id}>{user.body}</p>
+                </div>
               </div>
             </div>
           );
