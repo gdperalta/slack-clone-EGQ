@@ -1,14 +1,30 @@
 @use "../utilities/variables";
 
-.sidebar-wrapper {
-  height: 100%;
+.sidebarWrapper {
+  height: calc(100% - 40px);
   width: 17vw;
   max-width: 400px;
-  padding-top: 45px;
+  margin-top: 40px;
+  padding-bottom: 1rem;
   color: variables.$font-color;
   background-color: variables.$primary-color;
-  border: solid variables.$hover-color 1px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  #sidebarLinks {
+    padding-top: 1rem;
+  }
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  &:hover {
+    overflow: auto;
+  }
 }
