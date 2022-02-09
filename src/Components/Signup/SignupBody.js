@@ -16,10 +16,8 @@ export default function SignupBody(){
 
       const handleSubmit = async (e) => {
             e.preventDefault();
-            console.log("hello")
             setFormErrors(validate(formData));
             setIsSubmit(true);
-         
         var raw = {
           email: formData.email,
           password: formData.password,
@@ -43,6 +41,8 @@ export default function SignupBody(){
         .then((result) => {
             if(result.status !== "error"){
                 navigate("/")
+            }else{
+                console.log(result.json())
             }
         });
         
@@ -63,11 +63,11 @@ export default function SignupBody(){
         }
         if (!values.password) {
             errors.password = "Password is required";
-        } else if (values.password.length < 6) {
+        }else if (values.password.length < 6) {
             errors.password = "Password must be more than 5 characters";
-        } else if (values.password.length > 10) {
+        }else if (values.password.length > 10) {
             errors.password = "Password cannot exceed more than 10 characters";
-        } else if (formData.password !== formData.password_confirmation) {
+        }else if (formData.password !== formData.password_confirmation) {
             errors.password = "The password and confirmation password do not match.";
         }
         return errors;
