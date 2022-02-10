@@ -74,7 +74,7 @@ const App = () => {
 
   //Message Receiver
   const changeMessageDisplay = (e) => {
-    setMessageTitle(e.target.textContent);
+    setMessageTitle(e.currentTarget.textContent);
   };
 
   const messageWasSent = (receiver) => {

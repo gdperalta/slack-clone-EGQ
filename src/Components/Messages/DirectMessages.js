@@ -89,6 +89,7 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
             >
               <span className="iconDM">{user.uid.charAt(0).toUpperCase()}</span>
               <span>{user.uid.split("@")[0]}</span>
+              <span style={{ opacity: "0" }}>{user.id}</span>
             </NavLink>
           );
         })}
