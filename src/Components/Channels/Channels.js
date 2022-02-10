@@ -38,10 +38,9 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
     if (collapsibleContent.current.style.maxHeight) {
       collapsibleContent.current.style.maxHeight = null;
     } else {
-      collapsibleContent.current.style.maxHeight =
-        collapsibleContent.current.scrollHeight + "px";
+      collapsibleContent.current.style.maxHeight = "fit-content";
     }
-  };
+  }; 
 
   return (
     <div>
@@ -54,7 +53,11 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           </IconContext.Provider>
           <h3>Channels</h3>
         </button>
-        <a className="add-channel-button" onClick={() => setShow(true)}>
+        <a
+          className="add-channel-button"
+          title="Create a new channel"
+          onClick={() => setShow(true)}
+        >
           <IconContext.Provider value={{ color: "white", size: "20px" }}>
             <div>
               <AiOutlinePlus />
@@ -65,12 +68,21 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
       <nav className="collapsibleContent" ref={collapsibleContent}>
         {userChannels ? renderChannelList() : <p>Loading channels</p>}
       </nav>
+      <div className="channel-create-button" onClick={() => setShow(true)}>
+        <IconContext.Provider value={{ color: "white", size: "20px" }}>
+          <div>
+            <AiOutlinePlus />
+          </div>
+        </IconContext.Provider>
+        <span>Add a new channel</span>
+      </div>
       {show ? (
         <AddNewChannel
-          title="Create new channel"
+          title="Create a new channel"
           onClose={() => setShow(false)}
           show={show}
           toggleAddUsers={false}
+          getChannels={getChannels}          
         />
       ) : null}
     </div>

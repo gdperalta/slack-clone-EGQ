@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { handlers, mockUsers, rest } from "./testServer";
 import { setupServer } from "msw/node";
@@ -111,4 +112,22 @@ describe("App Navigation and Interaction", () => {
   });
 
   sessionStorage.clear();
+});
+
+test("renders list of channels", async () => {
+ /*  server.use(
+ 
+  ); */
+
+  render(<App />);
+  const btnLogin = screen.getByText("Sign In with Email");
+  userEvent.click(btnLogin);
+
+  //expect(await screen.findByText("Channels")).toBeInTheDocument();
+  const btnChannels =  await screen.findByText("Channels");
+  userEvent.click(btnChannels);
+  screen.debug();
+
+  /*  const channel = screen.getByText("egq123-2");
+  expect(channel).toBeInTheDocument(); */
 });

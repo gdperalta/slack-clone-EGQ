@@ -146,35 +146,29 @@ export const getUserChannels = async (headers) => {
         uid: uid,
       },
     });
-
+    
     return await result.json();
   } catch (e) {
     console.log(e);
   }
 };
 
-export const getChannelDetails = async (
-  channelID,
-  accessToken,
-  client,
-  expiry,
-  email
-) => {
+export const getChannelDetails = async (channelId, headers) => {
+  const { accessToken, client, expiry, uid } = headers;
   try {
     const result = await fetch(
-      "http://206.189.91.54//api/v1/channels/" + channelID,
+      "http://206.189.91.54//api/v1/channels/" + channelId,
       {
         method: "GET",
         headers: {
           "access-token": accessToken,
           client: client,
           expiry: expiry,
-          uid: email,
+          uid: uid,
         },
       }
     );
 
-    //return result;
     return result.json();
   } catch (e) {}
 };

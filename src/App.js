@@ -9,6 +9,7 @@ import Layout from "./Pages/Layout";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
+import Home from "./Pages/Home";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -99,11 +100,7 @@ const App = () => {
             >
               <Route
                 index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select a Channel</p>
-                  </main>
-                }
+                element={<Home getChannels={getChannels}/>}
               />
               <Route
                 path="users"

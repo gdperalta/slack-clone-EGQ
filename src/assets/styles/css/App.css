@@ -97,12 +97,14 @@
 }
 .channel-create-button {
   display: flex;
+  flex-direction: row;
   border: 0;
   text-align: left;
   cursor: pointer;
   color: white;
   margin-left: -1rem;
-  padding-left: 0.5rem;
+  padding-left: 1.8rem;
+  padding-top: 0.2rem;
   user-select: none;
 }
 .channel-create-button:hover {
@@ -212,6 +214,13 @@
   background-color: #fff;
   transform: translateY(-800px);
   transition: all 0.3 ease-in-out;
+}
+
+.modal-header {
+  background-color: #303e4d;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .modal-header,
@@ -646,6 +655,22 @@
   color: white;
   font-size: 34px;
   text-align: center;
+}
+
+.home-page {
+  padding: 50px 0 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+}
+.home-page-icon {
+  height: 100px;
+}
+.home-page-create-channel-btn {
+  width: 150px;
+  cursor: pointer;
 }
 
 *,
