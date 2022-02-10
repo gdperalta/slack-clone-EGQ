@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { handlers, mockUsers, rest } from "./testServer";
 import { setupServer } from "msw/node";
-import userEvent from "@testing-library/user-event";
 
 const server = setupServer(...handlers);
 
@@ -112,25 +111,33 @@ describe("App Navigation and Interaction", () => {
     ).toBeInTheDocument();
   });
 
+  test("renders list of channels", async () => {
+    render(<App />);
+  
+    const channel = await screen.findByText("egq123-2");
+    expect(channel).toBeInTheDocument();
+
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+  
+  });
+
+  test("renders the create channel modal", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+
+    
+
+  
+  });
+
   sessionStorage.clear();
 });
 
-test("renders list of channels", async () => {
- /*  server.use(
- 
-  ); */
 
-  render(<App />);
-
-  const btnLogin = screen.getByText("Sign In with Email");
-  userEvent.click(btnLogin);
-
-  //expect(await screen.findByText("Channels")).toBeInTheDocument();
-  const btnChannels =  await screen.findByText("Channels");
-  userEvent.click(btnChannels);
-  screen.debug();
-
-  /*  const channel = screen.getByText("egq123-2");
-  expect(channel).toBeInTheDocument(); */
-
-});
