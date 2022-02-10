@@ -59,7 +59,7 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
           return (
             <div key={user.id} className="messageContainer">
               {getTimeOnly(user.created_at)}
-              <p key={user.id}>{user.body}</p>
+              <p>{user.body}</p>
             </div>
           );
         } else if (currentDate === getDate(user.created_at).props.children) {
@@ -74,7 +74,7 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
                   <h3>{user.sender.email.split("@")[0]}</h3>
                   {getTime(user.created_at)}
                 </div>
-                <p key={user.id}>{user.body}</p>
+                <p>{user.body}</p>
               </div>
             </div>
           );
@@ -82,9 +82,9 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
           currentUser = user.sender.email;
           currentDate = getDate(user.created_at).props.children;
           return (
-            <div>
+            <div key={user.id}>
               {getFullDate(user.created_at)}
-              <div className="messageContainer" key={user.id}>
+              <div className="messageContainer">
                 <span className="icon">
                   {user.sender.email.charAt(0).toUpperCase()}
                 </span>
@@ -93,7 +93,7 @@ const MessageScreen = ({ receiver, messageDisplay, channelOwner }) => {
                     <h3>{user.sender.email.split("@")[0]}</h3>
                     {getTime(user.created_at)}
                   </div>
-                  <p key={user.id}>{user.body}</p>
+                  <p>{user.body}</p>
                 </div>
               </div>
             </div>
