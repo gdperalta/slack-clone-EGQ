@@ -147,7 +147,7 @@ export const getUserChannels = async (headers) => {
         uid: uid,
       },
     });
-    
+
     return await result.json();
   } catch (e) {
     console.log(e);
