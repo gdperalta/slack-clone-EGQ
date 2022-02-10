@@ -17,7 +17,7 @@ const AddNewChannel = ({
   toggleAddUsers,
   show,
   onClose,
-  getChannels
+  getChannels,
 }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
@@ -28,6 +28,10 @@ const AddNewChannel = ({
   const [selectedUserIDs, setSelectedUserIDs] = useState([]);
   const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
   const [errors, setErrors] = useState(null);
+  const [showErrorChannelExists, setShowErrorChannelExists] = useState(false);
+  const [showErrorChannelTooShort, setshowErrorChannelTooShort] =
+    useState(false);
+  const [showErrorChannelTooLong, setshowErrorChannelTooLong] = useState(false);
 
   //Notes: changes on the states trigger re-rendering
   //useEffects run at first then runs again if a dependency changes
@@ -47,7 +51,7 @@ const AddNewChannel = ({
       const headerList = JSON.parse(sessionStorage.getItem("header"));
 
       const data = await getChannelDetails(channelId, headerList);
-     if (data.data) setMembers(data.data.channel_members);
+      if (data.data) setMembers(data.data.channel_members);
     };
 
     getMembers().catch(console.error);
@@ -82,7 +86,14 @@ const AddNewChannel = ({
     const result = await createChannel(channelName, selectedUserIDs, header);
 
     if (result.errors) {
-      setErrors(result.errors);      
+        setErrors(result.errors);
+
+      if (result.errors[0] === "Name is too short (minimum is 3 characters)")
+        setshowErrorChannelTooShort(true);
+      else if (result.errors[0] === "Name is too long (maximum is 15 characters)")
+        setshowErrorChannelTooLong(true);
+      else if (result.errors[0] === "Name has already been taken")
+        setShowErrorChannelExists(true);
     } else {
       setChannelName("");
       setFilterEmail("");
@@ -109,7 +120,6 @@ const AddNewChannel = ({
     });
 
     if (result.errors !== undefined) {
-      console.log(result.errors);
     } else {
       setChannelName("");
       setFilterEmail("");
@@ -145,7 +155,7 @@ const AddNewChannel = ({
       return filteredUsers.map((item) => {
         return (
           <div
-            style={{ cursor: "pointer", paddingBottom: "10px" }}
+            style={{ cursor: "pointer", paddingBottom: "10px", color: "black" }}
             key={item.id}
             onClick={AddToSelectedUsers.bind(this, item.id)}
           >
@@ -193,7 +203,7 @@ const AddNewChannel = ({
     }
   };
 
-  return ReactDOM.createPortal(
+  return (
     <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {!isShowAddUsers ? (
@@ -220,7 +230,7 @@ const AddNewChannel = ({
               id="set-channel-name"
               style={{ position: "relative", marginBottom: "10px" }}
             >
-              <span style={{ fontSize: ".8em" }}>
+              <span style={{ fontSize: ".8em", color: "black" }}>
                 Channels are where your team communicates. They're best when
                 organized around a topic - #programming for example.
               </span>
@@ -231,7 +241,13 @@ const AddNewChannel = ({
                   flexDirection: "column",
                 }}
               >
-                <label style={{ fontWeight: "bold", fontSize: ".8em" }}>
+                <label
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: ".8em",
+                    color: "black",
+                  }}
+                >
                   Channel Name
                 </label>
                 <input
@@ -281,7 +297,7 @@ const AddNewChannel = ({
                   </div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <h4>Selected users</h4>
+                  <h4 style={{ color: "black" }}>Selected users</h4>
                   <div>{renderSelectedUsers()}</div>
                   <button
                     style={{ alignSelf: "flex-end" }}
@@ -291,14 +307,22 @@ const AddNewChannel = ({
                     Done
                   </button>
                 </div>
+                {showErrorChannelExists ? (
+                  <h5 style={{ color: "red" }}>{errors[0]}</h5>
+                ) : null}
+                {showErrorChannelTooShort ? (
+                  <h5 style={{ color: "red" }}>{errors[0]}</h5>
+                ) : null}
+                {showErrorChannelTooLong ? (
+                  <h5 style={{ color: "red" }}>{errors[0]}</h5>
+                ) : null}
               </div>
             </div>
           )}
         </div>
         <div className="modal-footer"></div>
       </div>
-    </div>,
-    document.getElementById("root")
+    </div>
   );
 };
 
