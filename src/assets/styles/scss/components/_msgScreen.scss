@@ -62,8 +62,11 @@
   display: flex;
   padding: 0.2rem 1rem;
   .hiddenTime {
+    display: flex;
+    align-items: center;
     width: 55px;
     opacity: 0;
+    height: 100%;
     color: lighten(variables.$hover-color, 30%);
     font-size: variables.$font-size - 12px;
   }

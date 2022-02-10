@@ -291,8 +291,11 @@
   padding: 0.2rem 1rem;
 }
 .messageContainer .hiddenTime {
+  display: flex;
+  align-items: center;
   width: 55px;
   opacity: 0;
+  height: 100%;
   color: #96a2b1;
   font-size: 12px;
 }
