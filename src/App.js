@@ -83,7 +83,7 @@ const App = () => {
 
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename="/slack-clone-egq">
         <Routes>
           {isLoggedIn ? (
             <Route
@@ -138,7 +138,14 @@ const App = () => {
               <Route index element={<Login onSuccess={logInUser} />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
             </Route>
           )}
         </Routes>
