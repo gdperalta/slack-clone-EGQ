@@ -13,19 +13,24 @@ const Layout = ({
   return (
     <div className="wrapper">
       <Header />
-      <div className="sidebar-wrapper">
-        <nav>
-          <Channels
-            changeMessageDisplay={changeMessageDisplay}
-            userChannels={userChannels}
-            getChannels={getChannels}
-          />
-          <DirectMessages
-            changeMessageDisplay={changeMessageDisplay}
-            headerList={headerList}
-            messageSent={messageSent}
-          />
-        </nav>
+      <div className="sidebarWrapper">
+        <div className="outletHeader">
+          <h2>Avion School</h2>
+        </div>
+        <div id="sidebarLinks">
+          <nav>
+            <Channels
+              changeMessageDisplay={changeMessageDisplay}
+              userChannels={userChannels}
+              getChannels={getChannels}
+            />
+            <DirectMessages
+              changeMessageDisplay={changeMessageDisplay}
+              headerList={headerList}
+              messageSent={messageSent}
+            />
+          </nav>
+        </div>
       </div>
       <Outlet />
     </div>

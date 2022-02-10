@@ -56,8 +56,6 @@ export default function LoginBody({ onSuccess }) {
     }
     return errors;
   };
- 
-  console.log(formData);
   return (
     <div className="login-main">
       <div className="login-board">

@@ -1,3 +1,4 @@
+
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -21,6 +22,7 @@ const Header = () => {
     window.sessionStorage.clear()
     window.location.replace("/")
   }
+
   return (
     <div className="Header">
       <div className="header__container">
@@ -39,13 +41,13 @@ const Header = () => {
                           placeholder="Search"
                           onChange={handleChange}>
                         </input>
-                        {/* <div ref={searchModal} className="navlinkWrapper">
-                          <UserSearchModal
+                        {/* { <div ref={searchModal} className="navlinkWrapper"> */}
+                          {/* <UserSearchModal
                             users={users}
                             searchParams={searchParams}
                             changeMessageDisplay={changeMessageDisplay}
                           />
-                        </div> */}
+                        </div> } */}
                         <SearchIcon />
                     </div>
                     <HelpOutlineIcon />

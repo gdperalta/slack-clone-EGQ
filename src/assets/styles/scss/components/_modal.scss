@@ -30,9 +30,17 @@
     transition: all 0.3 ease-in-out ;
   }
   
+  .modal-header{
+    background-color: #303e4d; 
+    color: white;    
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
   .modal-header,
   .modal-footer {
     padding: 10px;
+    
   }
   
   .modal-title {

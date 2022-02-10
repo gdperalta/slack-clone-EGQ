@@ -56,12 +56,14 @@
 
   &-create-button {
     display: flex;
+    flex-direction: row;
     border: 0;
     text-align: left;
     cursor: pointer;
     color: white;
     margin-left: -1rem;
-    padding-left: 0.5rem;
+    padding-left: 1.8rem;
+    padding-top: .2rem;
     user-select: none;
     &:hover {
       background-color: #4a5664;
@@ -124,16 +126,15 @@
   }
 }
 
-.selected-user{
+.selected-user {
   opacity: 1;
   padding: 5px;
   cursor: pointer;
-  &:hover{
-    .selected-user{
+  &:hover {
+    .selected-user {
       opacity: 0;
     }
   }
-  
 }
 
 .active-channel {

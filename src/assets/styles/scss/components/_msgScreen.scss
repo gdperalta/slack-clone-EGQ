@@ -21,15 +21,60 @@
   }
 }
 
+.messageStart {
+  height: 18vh;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1rem;
+  //border-bottom: solid 1px lighten(variables.$primary-color, 60%);
+  p {
+    margin: 0.8rem;
+    font-size: variables.$font-size - 5px;
+  }
+  .userInfo {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    .channelIcon {
+      font-size: variables.$font-size - 4px;
+      margin: 0 0.2rem 0 0.5rem;
+    }
+    span {
+      width: 55px;
+      height: 55px;
+      line-height: 52px;
+      margin: 0;
+      border-radius: 4px;
+      background-color: variables.$alternate-color2;
+      color: white;
+      font-size: variables.$font-size + 10px;
+      font-weight: bolder;
+      text-align: center;
+      margin: 0.5rem 0.8rem;
+    }
+    h3,
+    i {
+      margin: 0.1rem;
+    }
+  }
+}
+
 .messageContainer {
   display: flex;
   padding: 0.2rem 1rem;
+  .hiddenTime {
+    display: flex;
+    align-items: center;
+    width: 55px;
+    opacity: 0;
+    height: 100%;
+    color: lighten(variables.$hover-color, 30%);
+    font-size: variables.$font-size - 12px;
+  }
   div {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0 10px;
-
     div {
       display: flex;
       flex-direction: row;
@@ -45,5 +90,36 @@
   }
   &:hover {
     background-color: lighten(variables.$tertiary-color, 70%);
+    .hiddenTime {
+      opacity: 1;
+    }
+  }
+}
+
+.date {
+  margin-left: 8px;
+  color: rgb(148, 148, 148);
+  font-size: variables.$font-size - 10px;
+}
+
+.fullDate {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  hr {
+    width: 100%;
+    border: solid lighten(variables.$primary-color, 70%) 1px;
+  }
+  span {
+    background-color: white;
+    z-index: 1;
+    padding: 6px 12px;
+    margin-top: -1.5rem;
+    font-size: variables.$font-size - 12px;
+    border: solid lighten(variables.$primary-color, 65%) 1px;
+    border-radius: 16px;
   }
 }
