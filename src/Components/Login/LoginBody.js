@@ -31,7 +31,7 @@ export default function LoginBody({ onSuccess }) {
       onSuccess(data, userData);
       navigate("/");
     } else {
-      alert("Log in Failed")
+      console.log("Log in Failed")
     }
    
   };

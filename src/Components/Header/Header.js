@@ -5,11 +5,18 @@ import HistoryIcon from '@material-ui/icons/History';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SearchIcon from '@material-ui/icons/Search';
 import "./Header.css"
-
-
+import { useState, useEffect } from "react";
+import UserSearchModal from '../Users/UserSearchModal';
+import Search from "./Search";
 
 
 const Header = () => {
+  const [searchData, setFormValues] = useState("");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...searchData, [name]: value });
+  };
+  console.log(searchData)
   const Signout = () =>{
     window.sessionStorage.clear()
     window.location.replace("/")
@@ -26,7 +33,19 @@ const Header = () => {
                         <div className="history"><HistoryIcon /></div>
                     </div>
                     <div className="header__search">
-                        <span>Search</span>
+                        <input
+                          type="text"
+                          name="search"
+                          placeholder="Search"
+                          onChange={handleChange}>
+                        </input>
+                        {/* <div ref={searchModal} className="navlinkWrapper">
+                          <UserSearchModal
+                            users={users}
+                            searchParams={searchParams}
+                            changeMessageDisplay={changeMessageDisplay}
+                          />
+                        </div> */}
                         <SearchIcon />
                     </div>
                     <HelpOutlineIcon />
