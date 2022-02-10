@@ -94,7 +94,7 @@ export const fetchMessages = async (header, msgClass, id) => {
   return await response.json();
 };
 
-export const fetchRecentMsgs = async (header, id) => {
+export const fetchRecentMsgs = async (header) => {
   const { accessToken, client, expiry, uid } = header;
   var myHeaders = new Headers();
   myHeaders.append("access-token", accessToken);

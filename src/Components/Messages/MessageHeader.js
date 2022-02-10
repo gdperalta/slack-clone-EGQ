@@ -12,12 +12,12 @@ const MessageHeader = ({ receiver }) => {
       {receiver.email ? (
         <div className="outletHeader">
           <span className="icon">{receiver.email.charAt(0).toUpperCase()}</span>
-          <h3>{receiver.email.split("@")[0]}</h3>
+          <h2>{receiver.email.split("@")[0]}</h2>
         </div>
       ) : (
         <div className="outletHeader">
           <FaLock />
-          <h3>{receiver.name}</h3>
+          <h2>{receiver.name}</h2>
           <div
             style={{ paddingLeft: "3px" }}
             onClick={() => {

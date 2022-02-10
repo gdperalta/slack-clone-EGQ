@@ -30,7 +30,7 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
   }, [messageSent]);
 
   const getDirectMessages = async () => {
-    const recentDMs = await fetchRecentMsgs(headerList);
+    const recentDMs = await fetchRecentMsgs(headerList).catch(console.error);
     const uniqueUsers = createUniqueArray(recentDMs.data);
 
     setRecentMessages(uniqueUsers);
