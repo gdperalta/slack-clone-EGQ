@@ -2,7 +2,7 @@ import "./assets/styles/css/App.css";
 import { fetchUsers, getUserChannels } from "./Utils/api";
 import { useEffect, useState } from "react";
 import { getHeaders } from "./Utils/getHeaders";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Users from "./Components/Users/Users";
 import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
@@ -98,10 +98,7 @@ const App = () => {
                 />
               }
             >
-              <Route
-                index
-                element={<Home getChannels={getChannels}/>}
-              />
+              <Route index element={<Home getChannels={getChannels} />} />
               <Route
                 path="users"
                 element={
@@ -141,14 +138,7 @@ const App = () => {
               <Route index element={<Login onSuccess={logInUser} />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>There's nothing here!</p>
-                  </main>
-                }
-              />
+              <Route path="*" element={<Navigate to="/" />} />
             </Route>
           )}
         </Routes>
