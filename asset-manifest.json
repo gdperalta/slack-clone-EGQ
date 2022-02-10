@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/slack-clone-egq/static/css/main.5948f765.css",
-    "main.js": "/slack-clone-egq/static/js/main.faca3eda.js",
+    "main.js": "/slack-clone-egq/static/js/main.a72f3da7.js",
     "static/media/slack.gif": "/slack-clone-egq/static/media/slack.9b18afce55403e429d32.gif",
     "index.html": "/slack-clone-egq/index.html",
     "main.5948f765.css.map": "/slack-clone-egq/static/css/main.5948f765.css.map",
-    "main.faca3eda.js.map": "/slack-clone-egq/static/js/main.faca3eda.js.map"
+    "main.a72f3da7.js.map": "/slack-clone-egq/static/js/main.a72f3da7.js.map"
   },
   "entrypoints": [
     "static/css/main.5948f765.css",
-    "static/js/main.faca3eda.js"
+    "static/js/main.a72f3da7.js"
   ]
 }
