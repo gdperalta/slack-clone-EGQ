@@ -45,6 +45,15 @@ body,html{
 .inputs input:hover{
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
+.error{
+    color: red;
+    padding: 0;
+    margin: 0;
+    justify-content: left;
+    font-size: 10px;
+    height: 10px;
+    text-align: center;
+}
 .signBtn{
     background: #3f0f40;
     color: #fff;

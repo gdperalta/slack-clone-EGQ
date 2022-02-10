@@ -97,14 +97,21 @@
 }
 .channel-create-button {
   display: flex;
+<<<<<<< HEAD
+=======
   flex-direction: row;
+>>>>>>> origin/third-merge
   border: 0;
   text-align: left;
   cursor: pointer;
   color: white;
   margin-left: -1rem;
+<<<<<<< HEAD
+  padding-left: 0.5rem;
+=======
   padding-left: 1.8rem;
   padding-top: 0.2rem;
+>>>>>>> origin/third-merge
   user-select: none;
 }
 .channel-create-button:hover {

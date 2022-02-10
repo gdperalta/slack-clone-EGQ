@@ -1,3 +1,4 @@
+
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
@@ -120,6 +121,7 @@ test("renders list of channels", async () => {
   ); */
 
   render(<App />);
+
   const btnLogin = screen.getByText("Sign In with Email");
   userEvent.click(btnLogin);
 
@@ -130,4 +132,5 @@ test("renders list of channels", async () => {
 
   /*  const channel = screen.getByText("egq123-2");
   expect(channel).toBeInTheDocument(); */
+
 });
