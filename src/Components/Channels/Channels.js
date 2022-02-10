@@ -26,7 +26,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           id={item.id}
           name={item.name}
           changeMessageDisplay={changeMessageDisplay}
-        />        
+        />
       );
     });
   };
@@ -38,10 +38,9 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
     if (collapsibleContent.current.style.maxHeight) {
       collapsibleContent.current.style.maxHeight = null;
     } else {
-      collapsibleContent.current.style.maxHeight =
-        collapsibleContent.current.scrollHeight + "px";
+      collapsibleContent.current.style.maxHeight = "fit-content";
     }
-  };
+  }; 
 
   return (
     <div>
@@ -83,7 +82,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           onClose={() => setShow(false)}
           show={show}
           toggleAddUsers={false}
-          getChannels={getChannels}
+          getChannels={getChannels}          
         />
       ) : null}
     </div>
