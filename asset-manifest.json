@@ -1,16 +1,14 @@
 {
   "files": {
-    "main.css": "/slack-clone-egq/static/css/main.073c9b0a.css",
-    "main.js": "/slack-clone-egq/static/js/main.2dafcefc.js",
-    "static/js/787.029ce6df.chunk.js": "/slack-clone-egq/static/js/787.029ce6df.chunk.js",
-    "static/media/logo.svg": "/slack-clone-egq/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/slack-clone-egq/static/css/main.5948f765.css",
+    "main.js": "/slack-clone-egq/static/js/main.faca3eda.js",
+    "static/media/slack.gif": "/slack-clone-egq/static/media/slack.9b18afce55403e429d32.gif",
     "index.html": "/slack-clone-egq/index.html",
-    "main.073c9b0a.css.map": "/slack-clone-egq/static/css/main.073c9b0a.css.map",
-    "main.2dafcefc.js.map": "/slack-clone-egq/static/js/main.2dafcefc.js.map",
-    "787.029ce6df.chunk.js.map": "/slack-clone-egq/static/js/787.029ce6df.chunk.js.map"
+    "main.5948f765.css.map": "/slack-clone-egq/static/css/main.5948f765.css.map",
+    "main.faca3eda.js.map": "/slack-clone-egq/static/js/main.faca3eda.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.2dafcefc.js"
+    "static/css/main.5948f765.css",
+    "static/js/main.faca3eda.js"
   ]
 }
