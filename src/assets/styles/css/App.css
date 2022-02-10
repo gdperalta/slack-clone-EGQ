@@ -97,21 +97,14 @@
 }
 .channel-create-button {
   display: flex;
-<<<<<<< HEAD
-=======
   flex-direction: row;
->>>>>>> origin/third-merge
   border: 0;
   text-align: left;
   cursor: pointer;
   color: white;
   margin-left: -1rem;
-<<<<<<< HEAD
-  padding-left: 0.5rem;
-=======
   padding-left: 1.8rem;
   padding-top: 0.2rem;
->>>>>>> origin/third-merge
   user-select: none;
 }
 .channel-create-button:hover {
@@ -155,6 +148,7 @@
   display: block;
   height: 180px;
   overflow-y: scroll;
+  color: black;
 }
 .channel-user-add-user {
   opacity: 1;
@@ -167,6 +161,7 @@
 .selected-user {
   opacity: 1;
   padding: 5px;
+  color: black;
   cursor: pointer;
 }
 .selected-user:hover .selected-user {
@@ -204,6 +199,7 @@
   opacity: 0;
   transition: all 0.3s ease-in-out;
   pointer-events: none;
+  z-index: 100;
 }
 
 .modal.show {
