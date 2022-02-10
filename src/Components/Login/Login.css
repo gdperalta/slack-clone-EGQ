@@ -29,6 +29,7 @@ body,html{
 .rightCol .create:hover{
     text-decoration: underline;
 }
+
 /* body styling  */
 button{
     width: 100%;

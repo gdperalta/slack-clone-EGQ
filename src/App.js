@@ -9,6 +9,7 @@ import Layout from "./Pages/Layout";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ChannelMessages from "./Components/Channels/ChannelMessages";
+import Home from "./Pages/Home";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -51,9 +52,7 @@ const App = () => {
     setIsLoggedIn(true);
   };
 
-
   //Fetch All Users and Channels
-
   useEffect(() => {
     if (headerList) {
       getUsers();
@@ -101,11 +100,7 @@ const App = () => {
             >
               <Route
                 index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select a Channel</p>
-                  </main>
-                }
+                element={<Home getChannels={getChannels}/>}
               />
               <Route
                 path="users"
@@ -145,6 +140,7 @@ const App = () => {
             <Route path="/">
               <Route index element={<Login onSuccess={logInUser} />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route
                 path="*"
                 element={

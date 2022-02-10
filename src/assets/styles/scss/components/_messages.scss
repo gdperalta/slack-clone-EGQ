@@ -11,14 +11,9 @@
   padding: 0 1rem 1rem 1rem;
 }
 
-#date {
-  margin-left: 8px;
-  color: rgb(148, 148, 148);
-  font-size: variables.$font-size - 10px;
-}
-
 .inputWrapper {
   display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
   padding: 0.5rem;
@@ -32,16 +27,20 @@
     font-size: variables.$font-size - 4px;
   }
   button {
-    width: 40px;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 38px;
     border: 0;
-    img {
-      width: 100%;
-      &:hover {
-        cursor: pointer;
-      }
+    &:hover {
+      cursor: pointer;
     }
   }
+}
+
+.disabledButton {
+  pointer-events: none;
 }
 
 .icon {

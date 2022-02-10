@@ -6,34 +6,56 @@ import { logIn } from "../../Utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginBody({ onSuccess }) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  let navigate = useNavigate();
+  const initialValues = { email: "", password: ""};
+  const [formData, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formData, [name]: value });
+  };
 
-  const logInUser = async () => {
+
+  let navigate = useNavigate();
+ 
+  
+  const logInUser = async (e) => {
+    e.preventDefault();
+    setFormErrors(validate(formData));
+    setIsSubmit(true);
     const userData = await logIn(formData.email, formData.password);
     const data = await userData.json();
+    
     if (data.data) {
       onSuccess(data, userData);
       navigate("/");
     } else {
-      console.log("failed");
+      console.log("Log in Failed")
     }
+   
   };
-
-  const handleLogin = () => {
-    logInUser();
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formData);
+    }
+  }, [formErrors]);
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+        errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+        errors.email = "This is not a valid email format!";
+    }
+    if (!values.password) {
+        errors.password = "Password is required";
+    }else if (values.password.length < 6) {
+        errors.password = "Password must be more than 5 characters";
+    }
+    return errors;
   };
-
-  function handleEmailInput(e) {
-    setFormData({ ...formData, email: e.target.value });
-  }
-  function handlePasswordInput(e) {
-    setFormData({ ...formData, password: e.target.value });
-  }
-  console.log(formData);
   return (
     <div className="login-main">
       <div className="login-board">
@@ -60,25 +82,35 @@ export default function LoginBody({ onSuccess }) {
           <div className="center">OR</div>
           <hr className="rightLine"></hr>
         </div>
-        <div className="input">
-          <input
-            type="email"
-            placeholder="name@work-email.com"
-            value={formData.email}
-            onChange={handleEmailInput}
-          ></input>
-          <input
-            type="password"
-            placeholder="password"
-            value={formData.password}
-            onChange={handlePasswordInput}
-          ></input>
-        </div>
-        <div className="signin">
-          <button className="signBtn" onClick={handleLogin}>
-            Sign In with Email
-          </button>
-        </div>
+        <form onSubmit={logInUser}>
+          <div className="input">
+            <input
+              type="text"
+              name="email"
+              placeholder="name@work-email.com"
+              value={formData.email}
+              onChange={handleChange}
+            ></input>
+            <p className="error">{formErrors.email}</p>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              value={formData.password}
+              onChange={handleChange}
+            ></input>
+            <div>
+            <p className="error">{formErrors.password}</p>
+            </div>
+            
+          </div>
+          <div className="signin">
+            <button className="signBtn">
+              Sign In with Email
+            </button>
+          </div>
+        </form>
+        
         <div className="instruction">
           <WiStars size={70} className="instructionIcon" />
           <span>

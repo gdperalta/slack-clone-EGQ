@@ -1,20 +1,29 @@
-import { useState} from "react";
+import { useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignupBody(){
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        password_confirmation:"",
-    })
-    let navigate = useNavigate();
-    const register = async () => {
+    const initialValues = { email: "", password: "", password_confirmation: "" };
+    const [formData, setFormValues] = useState(initialValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
+
+    let navigate = useNavigate()
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues({ ...formData, [name]: value });
+      };
+
+      const handleSubmit = async (e) => {
+            e.preventDefault();
+            setFormErrors(validate(formData));
+            setIsSubmit(true);
         var raw = {
           email: formData.email,
           password: formData.password,
           password_confirmation: formData.password_confirmation,
         };
-
+    
         var requestOptions = {
           method: "POST",
           headers: {
@@ -29,53 +38,80 @@ export default function SignupBody(){
         .then((response) =>
             response.json()
         ) 
-        .then((result) => {if(result.status == "error" ){
-            alert("Registration Failed!")
-        }else{
-            navigate("/")
-        }})
+        .then((result) => {
+            if(result.status !== "error"){
+                navigate("/")
+            }else{
+                console.log(result.json())
+            }
+        });
+        
+      }
+    useEffect(() => {
+        console.log(formErrors);
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+          console.log(formData);
+        }
+      }, [formErrors]);
+      const validate = (values) => {
+        const errors = {};
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!values.email) {
+            errors.email = "Email is required!";
+        } else if (!regex.test(values.email)) {
+            errors.email = "This is not a valid email format!";
+        }
+        if (!values.password) {
+            errors.password = "Password is required";
+        }else if (values.password.length < 6) {
+            errors.password = "Password must be more than 5 characters";
+        }else if (values.password.length > 10) {
+            errors.password = "Password cannot exceed more than 10 characters";
+        }else if (formData.password !== formData.password_confirmation) {
+            errors.password = "The password and confirmation password do not match.";
+        }
+        return errors;
       };
     console.log(formData)
-    function handleEmailInput(e){
-        setFormData({...formData, email: e.target.value});
-      }
-    function handlePasswordInput(e){
-        setFormData({...formData, password: e.target.value});
-    }
-    function handleConfirmPassword(e){
-        setFormData({...formData, password_confirmation: e.target.value});
-    }
+   
     return(
-       
         <div>
-            
             <div className="signup-main">
                 <div className='signup-board'>
                     <div className="heading">First, enter your email</div>
                     <div className="sub-heading">We suggest using the <strong>email address you use at work.</strong></div>
-                    <div className="inputs">
-                        <input type="email" 
-                            type="email" 
-                            placeholder="name@work-email.com"
-                            value={formData.email}
-                            onChange={handleEmailInput}>
-                        </input>
-                        <input 
-                            type="text" 
-                            placeholder="Enter your password"
-                            value={formData.password}
-                            onChange={handlePasswordInput}>
-                        </input>
-                        <input 
-                            type="text" 
-                            placeholder="Confirm password"
-                            value={formData.password_confirmation}
-                            onChange={handleConfirmPassword}>
-                         </input>
-                    </div>
-                    <div className="signin">
-                        <button className="signBtn" onClick={register}>Continue</button>
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="inputs">
+                            <input 
+                                type="text" 
+                                name="email" 
+                                placeholder="name@work-email.com"
+                                value={formData.email}
+                                onChange={handleChange}>
+                            </input>
+                            <p className="error">{formErrors.email}</p>
+                            <input 
+                                type="text"
+                                name="password"
+                                 placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={handleChange}>
+                            </input>
+                            <p className="error">{formErrors.password}</p>
+                            <input 
+                                type="text" 
+                                name="password_confirmation"
+                                placeholder="Confirm password"
+                                value={formData.password_confirmation}
+                                onChange={handleChange}>
+                            </input>
+                            <p className="error">{formErrors.password}</p>
+                            </div>
+                            <div className="signin">
+                                <button className="signBtn" >Continue</button>
+                            </div>
+                    </form>
+                        
                     <div className="instructions">
                         <span className="emailNotifs"> <input type="checkbox" name="emailnotifs" id="emailnotifs"/> <label htmlFor="emailnotifs">Its okay to send me emails about Slack.</label></span>
                         <div className="terms">By continuing, you’re agreeing to our 

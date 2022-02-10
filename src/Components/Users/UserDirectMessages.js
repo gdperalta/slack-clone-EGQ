@@ -16,16 +16,18 @@ const UserDirectMessages = ({ headerList, userDetails }) => {
   }, []);
 
   const getDirectMessages = async () => {
-    const recentDMs = await fetchRecentMsgs(headerList);
+    const recentDMs = await fetchRecentMsgs(headerList).catch(console.error);
     const uniqueUsers = createUniqueArray(recentDMs.data);
     const messageList = [];
 
     for (const user of uniqueUsers) {
-      const message = await fetchMessages(headerList, "User", user.id);
+      const message = await fetchMessages(headerList, "User", user.id).catch(
+        console.error
+      );
       let i = message.data.length - 1;
       messageList.push(message.data[i]);
     }
-    console.log(messageList);
+
     setRecentMessages(messageList);
 
     setIsLoading(false);

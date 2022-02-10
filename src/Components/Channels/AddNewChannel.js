@@ -1,3 +1,4 @@
+import { response } from "msw";
 import React from "react";
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
@@ -5,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {
   createChannel,
   addNewMemberToChannel,
+  getChannelDetails,
   fetchUsers,
 } from "../../Utils/api";
 
@@ -15,27 +17,40 @@ const AddNewChannel = ({
   toggleAddUsers,
   show,
   onClose,
+  getChannels
 }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
   const [filterEmail, setFilterEmail] = useState("");
   const [users, setUsers] = useState(null);
+  const [members, setMembers] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [selectedUserIDs, setSelectedUserIDs] = useState([]);
   const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
-
+  const [errors, setErrors] = useState(null);
 
   //Notes: changes on the states trigger re-rendering
-  //useStates run at first then runs again if a dependency changes
+  //useEffects run at first then runs again if a dependency changes
   useEffect(() => {
     const getUsers = async () => {
       const headerList = JSON.parse(sessionStorage.getItem("header"));
 
       const data = await fetchUsers(headerList);
-      setUsers(data.data);
+      if (data.data) setUsers(data.data);
     };
 
     getUsers().catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const getMembers = async () => {
+      const headerList = JSON.parse(sessionStorage.getItem("header"));
+
+      const data = await getChannelDetails(channelId, headerList);
+     if (data.data) setMembers(data.data.channel_members);
+    };
+
+    getMembers().catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -66,15 +81,15 @@ const AddNewChannel = ({
     const header = JSON.parse(sessionStorage.getItem("header"));
     const result = await createChannel(channelName, selectedUserIDs, header);
 
-    if (result.errors !== undefined) {
-      if (result.errors[0] == "Name has already been taken")
-        alert("Name has already been taken");
+    if (result.errors) {
+      setErrors(result.errors);      
     } else {
       setChannelName("");
       setFilterEmail("");
       setFilteredUsers(null);
       setSelectedUserIDs([]);
       onClose();
+      getChannels();
       navigate("/");
     }
   };
@@ -104,9 +119,25 @@ const AddNewChannel = ({
     }
   };
 
+  const getMembers = async () => {
+    const headerList = JSON.parse(sessionStorage.getItem("header"));
+
+    const data = await getChannelDetails(channelId, headerList);
+    return data.data.channel_members;
+  };
+
   const AddToSelectedUsers = (id) => {
-    setSelectedUserIDs([...selectedUserIDs, id]);
-    setFilterEmail("");
+    if (channelId) {
+      if (members.find(({ user_id }) => user_id == id) !== undefined)
+        alert("User is already a member");
+      else {
+        setSelectedUserIDs([...selectedUserIDs, id]);
+        setFilterEmail("");
+      }
+    } else {
+      setSelectedUserIDs([...selectedUserIDs, id]);
+      setFilterEmail("");
+    }
   };
 
   const renderFilteredUsers = () => {
@@ -114,7 +145,7 @@ const AddNewChannel = ({
       return filteredUsers.map((item) => {
         return (
           <div
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", paddingBottom: "10px" }}
             key={item.id}
             onClick={AddToSelectedUsers.bind(this, item.id)}
           >
@@ -130,7 +161,7 @@ const AddNewChannel = ({
   };
 
   const removeFromSelectedUsers = (id) => {
-    selectedUserIDs.pop(id)
+    selectedUserIDs.pop(id);
     setSelectedUserIDs([...selectedUserIDs]);
   };
 
@@ -173,7 +204,10 @@ const AddNewChannel = ({
           <div className="modal-header">
             <h4 className="modal-title">
               <span>Add members to </span>
-              <span id="channel-name">
+              <span
+                id="channel-name"
+                style={errors ? { fontSize: ".8em", color: "red" } : null}
+              >
                 {selectedChannelName ? selectedChannelName : channelName}
               </span>
             </h4>
