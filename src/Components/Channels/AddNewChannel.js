@@ -17,7 +17,7 @@ const AddNewChannel = ({
   toggleAddUsers,
   show,
   onClose,
-  getChannels,
+  getChannels
 }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
