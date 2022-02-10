@@ -198,6 +198,13 @@
   transition: all 0.3 ease-in-out;
 }
 
+.modal-header {
+  background-color: #303e4d;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
 .modal-header,
 .modal-footer {
   padding: 10px;
@@ -556,6 +563,22 @@
   color: white;
   font-size: 34px;
   text-align: center;
+}
+
+.home-page {
+  padding: 50px 0 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+}
+.home-page-icon {
+  height: 100px;
+}
+.home-page-create-channel-btn {
+  width: 150px;
+  cursor: pointer;
 }
 
 *,
