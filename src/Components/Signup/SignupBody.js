@@ -85,27 +85,30 @@ export default function SignupBody(){
                             <input 
                                 type="text" 
                                 name="email" 
+                                data-testid="email1-input"
                                 placeholder="name@work-email.com"
                                 value={formData.email}
                                 onChange={handleChange}>
                             </input>
-                            <p className="error">{formErrors.email}</p>
+                            <p title="email" data-testid="error1-msg" className="error">{formErrors.email}</p>
                             <input 
                                 type="text"
+                                data-testid="password1-input"
                                 name="password"
                                  placeholder="Enter your password"
                                 value={formData.password}
                                 onChange={handleChange}>
                             </input>
-                            <p className="error">{formErrors.password}</p>
+                            <p data-testid="pw1-error-msg" className="error">{formErrors.password}</p>
                             <input 
                                 type="text" 
+                                data-testid="password2-input"
                                 name="password_confirmation"
                                 placeholder="Confirm password"
                                 value={formData.password_confirmation}
                                 onChange={handleChange}>
                             </input>
-                            <p className="error">{formErrors.password}</p>
+                            <p data-testid="pw2-error-msg" className="error">{formErrors.password}</p>
                             </div>
                             <div className="signin">
                                 <button className="signBtn" >Continue</button>
