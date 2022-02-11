@@ -8,8 +8,9 @@ import Message from "./Components/Messages/Message";
 import Layout from "./Pages/Layout";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
-import ChannelMessages from "./Components/Channels/ChannelMessages";
 import Home from "./Pages/Home";
+import RequireAuth from "./Utils/RequireAuth";
+import ErrorPage from "./Pages/Errors";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -24,7 +25,6 @@ const App = () => {
   const [messageSent, setMessageSent] = useState(false);
 
   //Log in
-
   useEffect(() => {
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -49,6 +49,8 @@ const App = () => {
     setHeaderList(userHeader);
     sessionStorage.setItem("header", JSON.stringify(userHeader));
     sessionStorage.setItem("user", JSON.stringify({ email, id }));
+    sessionStorage.setItem("auth", JSON.stringify(true));
+
     setIsLoggedIn(true);
   };
 
@@ -74,7 +76,7 @@ const App = () => {
 
   //Message Receiver
   const changeMessageDisplay = (e) => {
-    setMessageTitle(e.target.textContent);
+    setMessageTitle(e.currentTarget.textContent);
   };
 
   const messageWasSent = (receiver) => {
@@ -82,41 +84,44 @@ const App = () => {
   };
 
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          {isLoggedIn ? (
-            <Route
-              path="/"
-              element={
-                <Layout
+    <BrowserRouter basename="/slack-clone-egq">
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login onSuccess={logInUser} />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth isLoggedIn={isLoggedIn}>
+              <Layout
+                users={users}
+                headerList={headerList}
+                changeMessageDisplay={changeMessageDisplay}
+                messageSent={messageSent}
+                userChannels={userChannels}
+                getChannels={getChannels}
+              />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<Home getChannels={getChannels} />} />
+          <Route
+            path="direct-messages"
+            element={
+              <RequireAuth isLoggedIn={isLoggedIn}>
+                <Users
+                  users={users}
                   headerList={headerList}
+                  userDetails={userDetails}
                   changeMessageDisplay={changeMessageDisplay}
-                  messageSent={messageSent}
-                  userChannels={userChannels}
-                  getChannels={getChannels}
                 />
-              }
-            >
-              <Route
-                index
-                element={<Home getChannels={getChannels}/>}
-              />
-              <Route
-                path="users"
-                element={
-                  <Users
-                    users={users}
-                    headerList={headerList}
-                    userDetails={userDetails}
-                    changeMessageDisplay={changeMessageDisplay}
-                  />
-                }
-              />
-              <Route path="channels/:channelId" element={<ChannelMessages />} />
-              <Route
-                path=":uid"
-                element={
+              </RequireAuth>
+            }
+          />
+          <Route path="Channel">
+            <Route
+              path=":uid"
+              element={
+                <RequireAuth isLoggedIn={isLoggedIn}>
                   <Message
                     users={users}
                     userChannels={userChannels}
@@ -125,35 +130,31 @@ const App = () => {
                     messageTitle={messageTitle}
                     messageWasSent={messageWasSent}
                   />
-                }
-              />
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>There's nothing here!</p>
-                  </main>
-                }
-              />
-            </Route>
-          ) : (
-            <Route path="/">
-              <Route index element={<Login onSuccess={logInUser} />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>There's nothing here!</p>
-                  </main>
-                }
-              />
-            </Route>
-          )}
-        </Routes>
-      </BrowserRouter>
-    </div>
+                </RequireAuth>
+              }
+            />
+          </Route>
+          <Route path="User">
+            <Route
+              path=":uid"
+              element={
+                <RequireAuth isLoggedIn={isLoggedIn}>
+                  <Message
+                    users={users}
+                    userChannels={userChannels}
+                    userDetails={userDetails}
+                    headerList={headerList}
+                    messageTitle={messageTitle}
+                    messageWasSent={messageWasSent}
+                  />
+                </RequireAuth>
+              }
+            />
+          </Route>
+        </Route>
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

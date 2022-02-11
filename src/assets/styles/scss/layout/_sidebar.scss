@@ -10,7 +10,7 @@
   background-color: variables.$primary-color;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
   #sidebarLinks {
     padding-top: 1rem;
   }
@@ -18,13 +18,14 @@
     width: 4px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
+    background: transparent;
   }
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
   &:hover {
-    overflow: auto;
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
   }
 }

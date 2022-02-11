@@ -8,7 +8,7 @@
   background-color: #303e4d;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
 }
 .sidebarWrapper #sidebarLinks {
   padding-top: 1rem;
@@ -17,18 +17,16 @@
   width: 4px;
 }
 .sidebarWrapper::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+  background: transparent;
 }
 .sidebarWrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.sidebarWrapper:hover {
-  overflow: auto;
+.sidebarWrapper:hover::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .outletWrapper {
-  position: relative;
   width: 100%;
   height: calc(100% - 40px);
   margin-top: 40px;
@@ -242,7 +240,7 @@
 }
 
 .messageScreen {
-  overflow: hidden;
+  overflow: auto;
   width: 100%;
   height: 100%;
   display: flex;
@@ -252,14 +250,14 @@
   width: 8px;
 }
 .messageScreen::-webkit-scrollbar-thumb {
-  background: #888;
+  background: transparent;
   border-radius: 4px;
 }
 .messageScreen::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.messageScreen:hover {
-  overflow: auto;
+.messageScreen:hover::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .messageStart {
@@ -356,7 +354,6 @@
 }
 .fullDate span {
   background-color: white;
-  z-index: 1;
   padding: 6px 12px;
   margin-top: -1.5rem;
   font-size: 12px;
@@ -491,6 +488,82 @@
   margin: 0;
 }
 
+.headerSearchBar {
+  display: flex;
+  position: absolute;
+  max-height: 0;
+  top: 1rem;
+  left: -0.5rem;
+  width: 780px;
+  padding: 0;
+  z-index: 5;
+}
+.headerSearchBar nav {
+  background-color: white;
+  width: 100%;
+  overflow: auto;
+  border-radius: 6px;
+}
+.headerSearchBar nav::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.headerSearchBar nav::-webkit-scrollbar {
+  width: 8px;
+}
+.headerSearchBar nav::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.headerSearchBar nav::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.showSearchModal {
+  max-height: 30vh;
+  margin-top: 1rem;
+}
+.showSearchModal nav {
+  border: solid 1px #b3bcc7;
+}
+
+.searchLinks {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: #202020;
+}
+.searchLinks:hover {
+  background-color: #6698c8;
+  color: white;
+}
+
+.iconSearch {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-color: #78af8f;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.iconSearchCh {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
 .collapsibleWrapper {
   display: flex;
   align-items: center;
@@ -602,21 +675,21 @@
 .userMessagesWrapper {
   height: 86%;
   padding: 1rem;
-  overflow: hidden;
+  overflow: auto;
   background-color: #f3f3f3;
 }
 .userMessagesWrapper::-webkit-scrollbar {
   width: 8px;
 }
 .userMessagesWrapper::-webkit-scrollbar-thumb {
-  background: #888;
+  background: transparent;
   border-radius: 4px;
 }
 .userMessagesWrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.userMessagesWrapper:hover {
-  overflow: auto;
+.userMessagesWrapper:hover::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .messageBody {
@@ -676,6 +749,39 @@
   cursor: pointer;
 }
 
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.errorPage .errorContainer {
+  width: 30vw;
+  padding: 2rem;
+  border-radius: 4px;
+  z-index: 1;
+}
+.errorPage .errorContainer div {
+  display: flex;
+  align-items: center;
+}
+.errorPage .errorContainer div h1 {
+  margin: 0;
+  padding-left: 0.7rem;
+}
+.errorPage .errorContainer a {
+  text-decoration: none;
+  color: #356593;
+}
+.errorPage img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 *,
 *:before,
 *:after {
@@ -686,6 +792,11 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
   width: 100%;
   height: 100%;
 }

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import MessageScreen from "./MessageScreen";
 import { sendMessageToServer, fetchMessages } from "../../Utils/api";
 import { createUniqueArray } from "../../Utils/handleArrays";
 import MessageHeader from "./MessageHeader";
+import { ErrorMessage } from "../../Pages/Errors";
 
 const Message = ({
   users,
@@ -18,16 +19,24 @@ const Message = ({
   const [channelOwner, setChannelOwner] = useState(null);
   const [messageClass, setMessageClass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [messageDisplay, setMessageDisplay] = useState(null);
   let params = useParams();
+  let location = useLocation();
 
   //Handle Receiver
   useEffect(() => {
+    setIsError(false);
     setIsLoading(true);
-    let routeParam = params.uid.split("_");
-    if (routeParam[0] === "Channel") {
+    let chatType = location.pathname.split("/")[1];
+    if (chatType === "Channel") {
       if (userChannels) {
-        let channelData = getChannel(parseInt(routeParam[1]));
+        let channelData = getChannel(parseInt(params.uid));
+        if (!channelData) {
+          setIsError(true);
+          return;
+        }
+
         let currentOwner = getUser(channelData.owner_id);
 
         if (receiver === channelData) {
@@ -36,12 +45,17 @@ const Message = ({
         }
 
         setReceiver(channelData);
-        setMessageClass(routeParam[0]);
+        setMessageClass(chatType);
         setChannelOwner(currentOwner);
       }
     } else {
       if (users) {
-        let receiverData = getUser(parseInt(routeParam[1]));
+        let receiverData = getUser(parseInt(params.uid));
+
+        if (!receiverData) {
+          setIsError(true);
+          return;
+        }
 
         if (receiver === receiverData) {
           setIsLoading(false);
@@ -49,7 +63,7 @@ const Message = ({
         }
 
         setReceiver(receiverData);
-        setMessageClass(routeParam[0]);
+        setMessageClass(chatType);
       }
     }
   }, [messageTitle, users]);
@@ -102,6 +116,14 @@ const Message = ({
     if (messageClass === "User") messageWasSent(receiver);
     setIsLoading(false);
   };
+
+  if (isError) {
+    return (
+      <div className="outletWrapper">
+        <ErrorMessage chatType={location.pathname.split("/")[1]} />
+      </div>
+    );
+  }
 
   if (isLoading) {
     return <div className="outletWrapper">...Loading</div>;

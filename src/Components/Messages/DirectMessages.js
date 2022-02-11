@@ -23,11 +23,12 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
         return;
       }
     }
+
     setIsLoading(true);
     if (headerList) {
       getDirectMessages();
     }
-  }, [messageSent]);
+  }, [messageSent, headerList]);
 
   const getDirectMessages = async () => {
     const recentDMs = await fetchRecentMsgs(headerList).catch(console.error);
@@ -38,20 +39,20 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (recentMessages) {
+      if (collapsibleContent.current.style.maxHeight) {
+        collapsibleContent.current.style.maxHeight = null;
+      } else {
+        collapsibleContent.current.style.maxHeight =
+          collapsibleContent.current.scrollHeight + "px";
+      }
+    }
+  }, [isCollapsed]);
+
   const handleCollapse = () => {
     isCollapsed === true ? setisCollapsed(false) : setisCollapsed(true);
-
-    if (collapsibleContent.current.style.maxHeight) {
-      collapsibleContent.current.style.maxHeight = null;
-    } else {
-      collapsibleContent.current.style.maxHeight =
-        collapsibleContent.current.scrollHeight + "px";
-    }
   };
-
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
 
   return (
     <div>
@@ -65,7 +66,7 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
           <h3>Direct Messages</h3>
         </button>
         <Link
-          to="/users"
+          to="/direct-messages"
           className="addUserButton"
           title="Open a Direct Message"
         >
@@ -76,23 +77,37 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
           </IconContext.Provider>
         </Link>
       </div>
-      <nav className="collapsibleContent" ref={collapsibleContent}>
-        {recentMessages.map((user) => {
-          return (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "recentMessages activeMsg" : "recentMessages"
-              }
-              to={`/User_${user.id}`}
-              key={user.id}
-              onClick={changeMessageDisplay}
-            >
-              <span className="iconDM">{user.uid.charAt(0).toUpperCase()}</span>
-              <span>{user.uid.split("@")[0]}</span>
-            </NavLink>
-          );
-        })}
-      </nav>
+      <div style={{ position: "relative" }}>
+        <nav className="collapsibleContent" ref={collapsibleContent}>
+          {isLoading ? (
+            <div>...loading</div>
+          ) : (
+            recentMessages.map((user) => {
+              return (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "recentMessages activeMsg" : "recentMessages"
+                  }
+                  style={({ isActive }) => {
+                    return {
+                      position: isActive && isCollapsed ? "absolute" : "",
+                    };
+                  }}
+                  to={`/User/${user.id}`}
+                  key={user.id}
+                  onClick={changeMessageDisplay}
+                >
+                  <span className="iconDM">
+                    {user.uid.charAt(0).toUpperCase()}
+                  </span>
+                  <span>{user.uid.split("@")[0]}</span>
+                  <span style={{ opacity: "0" }}>{user.id}</span>
+                </NavLink>
+              );
+            })
+          )}
+        </nav>
+      </div>
     </div>
   );
 };

@@ -26,7 +26,7 @@ const Users = ({ users, changeMessageDisplay, headerList, userDetails }) => {
 
   const handleSearchFilter = (filter) => {
     if (filter) {
-      setSearchParams({ filter });
+      setSearchParams({ Users: filter });
       handleSearchModal(true);
     } else {
       setSearchParams({});
