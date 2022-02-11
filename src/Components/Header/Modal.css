@@ -1,0 +1,44 @@
+.profileModal{
+    position: absolute;
+    color: #000;
+    top: 41px;
+    right: 10px;
+    height: 112px;
+    border: 1px solid gray;
+    text-align: left;
+    padding:0 ;
+    margin: 0;
+    background:#F5F5F5;
+    border-radius: 4px;
+    width: 200px;
+}
+.profileModal img{
+    height: 45px;
+    padding-left: 10px;
+    
+}
+.profileName{
+    border-top: 1px solid gray;
+    font-weight: lighter;
+    width: 100%;
+    padding-left: 10px; 
+    padding-top: 5px; 
+    height: 30px;
+   font-size: 15px;
+   cursor: pointer;
+}
+.profileName:hover{
+    background: lightblue;
+}
+.Signout{
+    color:#000;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 5px; 
+    height: 30px;
+    border-top: 1px solid gray;
+    font-size: 15px;
+}
+.Signout:hover{
+    background: lightblue;
+}

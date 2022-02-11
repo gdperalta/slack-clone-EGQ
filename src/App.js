@@ -26,6 +26,7 @@ const App = () => {
   //Log in
 
   useEffect(() => {
+    
     const oldHeader = JSON.parse(sessionStorage.getItem("header"));
     const user = JSON.parse(sessionStorage.getItem("user"));
 
@@ -50,6 +51,7 @@ const App = () => {
     sessionStorage.setItem("header", JSON.stringify(userHeader));
     sessionStorage.setItem("user", JSON.stringify({ email, id }));
     setIsLoggedIn(true);
+    console.log(userHeader);
   };
 
   //Fetch All Users and Channels

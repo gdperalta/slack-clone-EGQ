@@ -28,7 +28,6 @@
 }
 
 .outletWrapper {
-  position: relative;
   width: 100%;
   height: calc(100% - 40px);
   margin-top: 40px;

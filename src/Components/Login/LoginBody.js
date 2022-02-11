@@ -29,6 +29,7 @@ export default function LoginBody({ onSuccess }) {
     
     if (data.data) {
       onSuccess(data, userData);
+      console.log(userData)
       navigate("/");
     } else {
       console.log("Log in Failed")
