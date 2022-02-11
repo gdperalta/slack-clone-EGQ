@@ -1,7 +1,7 @@
 import React from 'react';
 import './Modal.css';
 import { useState} from "react";
-import user2 from "../../assets/user2.png";
+import user2 from "../../assets/images/user2.png";
 
 const Modal = props => { 
     const getUser = () =>{
@@ -16,7 +16,6 @@ const Modal = props => {
     const Signout = () =>{
         window.sessionStorage.clear()
         window.location.replace("/")
-        console.log("hello")
     }
     const { show , close } = props;
 

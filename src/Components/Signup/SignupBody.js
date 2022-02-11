@@ -7,7 +7,6 @@ export default function SignupBody(){
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
 
-
     let navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;

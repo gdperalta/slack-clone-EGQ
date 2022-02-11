@@ -7,7 +7,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SearchIcon from '@material-ui/icons/Search';
 import "./Header.css"
 import { useState, useEffect } from "react";
-import user2 from "../../assets/user2.png";
+import user2 from "../../assets/images/user2.png";
 import Modal from "./Modal"
 
 const Header = () => {
