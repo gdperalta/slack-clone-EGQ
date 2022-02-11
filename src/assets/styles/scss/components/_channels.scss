@@ -187,9 +187,12 @@
   padding: 5px;
   color: black;
   cursor: pointer;
+  a{
+    opacity: 0;
+  }
   &:hover {
-    .selected-user {
-      opacity: 0;
+    a {
+      opacity: 1;
     }
   }
 }
