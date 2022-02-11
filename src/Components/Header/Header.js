@@ -15,10 +15,10 @@ const Header = () => {
     const { name, value } = e.target;
     setFormValues({ ...searchData, [name]: value });
   };
-  console.log(searchData);
+
   const Signout = () => {
     window.sessionStorage.clear();
-    window.location.replace("/slack-clone-egq");
+    window.location.replace("/slack-clone-egq/login");
   };
 
   return (
