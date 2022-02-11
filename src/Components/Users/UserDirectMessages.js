@@ -29,7 +29,6 @@ const UserDirectMessages = ({ headerList, userDetails }) => {
     }
 
     setRecentMessages(messageList);
-
     setIsLoading(false);
   };
 
