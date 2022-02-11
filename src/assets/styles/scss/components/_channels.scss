@@ -54,6 +54,13 @@
     }
   }
 
+  &-details-icon{
+    padding-left: 3px;
+    &:hover{
+      opacity: .7;
+    }
+  }
+
   &-details-container{
     padding-top: 10px;
     display: flex;
@@ -68,7 +75,14 @@
 
   &-name-input{
     margin-top: 10px;
-    padding: 10px
+    padding: 10px;
+    font-family: inherit;
+  }
+
+  &-next{
+    align-self: flex-end;
+    cursor: pointer;
+    width: 100px
   }
 
   &-create-button {
@@ -93,6 +107,7 @@
     margin-right: 10px;
     margin-bottom: 10px;
     width: 100px;
+    align-self: flex-end;
   }
 
   &-save-new-member-to-channel-button {
@@ -113,7 +128,20 @@
     }
   }
 
+  &-selected-users-container{ 
+    display: flex;
+    flex-direction: column
+  }
+  
   &-user {
+    &-container{
+      position: relative;
+    }
+    &-filter{
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+    }
     &-custom-dropdown {
       position: absolute;
       width: 100%;
@@ -182,4 +210,20 @@
   font-size: 1.5rem;
   transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   flex-shrink: 0;
+}
+
+.error-message{
+   color: red;
+}
+
+.error-message-on-input{
+  position: absolute; 
+  top: 20px;
+  right : 20px;
+  font-size: .9em;
+  color: red;
+}
+
+.header-label{
+  color: black;
 }
