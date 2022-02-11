@@ -46,7 +46,7 @@ const UserDirectMessages = ({ headerList, userDetails }) => {
               {getDate(message.created_at)}
               {userDetails.email === message.sender.email ? (
                 <Link
-                  to={`/User_${message.receiver.id}`}
+                  to={`/User/${message.receiver.id}`}
                   className="messageBody"
                 >
                   <b className="iconUsers">
@@ -60,7 +60,7 @@ const UserDirectMessages = ({ headerList, userDetails }) => {
                   {getTime(message.created_at)}
                 </Link>
               ) : (
-                <Link to={`/User_${message.sender.id}`} className="messageBody">
+                <Link to={`/User/${message.sender.id}`} className="messageBody">
                   <b className="iconUsers">
                     {message.sender.email.charAt(0).toUpperCase()}
                   </b>
