@@ -93,6 +93,7 @@ const App = () => {
           element={
             <RequireAuth isLoggedIn={isLoggedIn}>
               <Layout
+                users={users}
                 headerList={headerList}
                 changeMessageDisplay={changeMessageDisplay}
                 messageSent={messageSent}
