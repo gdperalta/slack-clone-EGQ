@@ -15,3 +15,80 @@
     margin: 0;
   }
 }
+
+.headerSearchBar {
+  display: flex;
+  //justify-content: center;
+  position: absolute;
+  max-height: 0;
+  top: 1rem;
+  left: -0.5rem;
+  width: 780px;
+  padding: 0;
+  z-index: 5;
+  nav {
+    background-color: white;
+    width: 100%;
+    overflow: auto;
+    border-radius: 6px;
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}
+
+.showSearchModal {
+  max-height: 30vh;
+  margin-top: 1rem;
+  nav {
+    border: solid 1px lighten(variables.$hover-color, 40%);
+  }
+}
+
+.searchLinks {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+  &:hover {
+    background-color: variables.$secondary-color;
+    color: white;
+  }
+}
+
+.iconSearch {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-color: variables.$alternate-color2;
+  color: white;
+  font-size: variables.$font-size - 4px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.iconSearchCh {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: variables.$font-size - 4px;
+}

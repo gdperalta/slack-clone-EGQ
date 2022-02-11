@@ -27,7 +27,6 @@
 }
 
 .outletWrapper {
-  position: relative;
   width: 100%;
   height: calc(100% - 40px);
   margin-top: 40px;
@@ -486,6 +485,82 @@
   margin: 0;
 }
 
+.headerSearchBar {
+  display: flex;
+  position: absolute;
+  max-height: 0;
+  top: 1rem;
+  left: -0.5rem;
+  width: 780px;
+  padding: 0;
+  z-index: 5;
+}
+.headerSearchBar nav {
+  background-color: white;
+  width: 100%;
+  overflow: auto;
+  border-radius: 6px;
+}
+.headerSearchBar nav::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.headerSearchBar nav::-webkit-scrollbar {
+  width: 8px;
+}
+.headerSearchBar nav::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.headerSearchBar nav::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.showSearchModal {
+  max-height: 30vh;
+  margin-top: 1rem;
+}
+.showSearchModal nav {
+  border: solid 1px #b3bcc7;
+}
+
+.searchLinks {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: #202020;
+}
+.searchLinks:hover {
+  background-color: #6698c8;
+  color: white;
+}
+
+.iconSearch {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-color: #78af8f;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.iconSearchCh {
+  width: 25px;
+  height: 25px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
 .collapsibleWrapper {
   display: flex;
   align-items: center;
@@ -597,21 +672,21 @@
 .userMessagesWrapper {
   height: 86%;
   padding: 1rem;
-  overflow: hidden;
+  overflow: auto;
   background-color: #f3f3f3;
 }
 .userMessagesWrapper::-webkit-scrollbar {
   width: 8px;
 }
 .userMessagesWrapper::-webkit-scrollbar-thumb {
-  background: #888;
+  background: transparent;
   border-radius: 4px;
 }
 .userMessagesWrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.userMessagesWrapper:hover {
-  overflow: auto;
+.userMessagesWrapper:hover::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .messageBody {
