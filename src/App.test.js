@@ -1,10 +1,8 @@
-
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { handlers, mockUsers, rest } from "./testServer";
 import { setupServer } from "msw/node";
-import userEvent from "@testing-library/user-event";
 
 const server = setupServer(...handlers);
 
@@ -41,28 +39,11 @@ describe("App Navigation and Interaction", () => {
     const loginBtn = screen.getByText("Sign In with Email");
     userEvent.click(loginBtn);
 
-    expect(await screen.findByText("Header")).toBeInTheDocument();
     expect(await screen.findByText("Direct Messages")).toBeInTheDocument();
-    expect(await screen.findByText("Select a Channel")).toBeInTheDocument();
+    expect(await screen.findByText(/Welcome to Slack/i)).toBeInTheDocument();
   });
 
-  test("show display messages with selected user", async () => {
-    render(<App />);
-
-    const user = await screen.findByRole("link", { name: /dio/i });
-    userEvent.click(user);
-
-    const msgHeader = await screen.findByRole("heading", {
-      name: /dio/i,
-      level: 2,
-    });
-
-    expect(msgHeader).toBeInTheDocument();
-    expect(await screen.findByText("Hi")).toBeInTheDocument();
-    expect(await screen.findByText("Hey")).toBeInTheDocument();
-  });
-
-  test("sends message and shows message in message screen", async () => {
+  test("show display messages with selected user and sends message", async () => {
     server.use(
       rest.post("http://206.189.91.54//api/v1/messages", (req, res, ctx) => {
         return res(
@@ -81,8 +62,19 @@ describe("App Navigation and Interaction", () => {
     );
     render(<App />);
 
-    userEvent.click(await screen.findByTitle("Send Message"));
+    const user = await screen.findByRole("link", { name: /dio/i });
+    userEvent.click(user);
 
+    const msgHeader = await screen.findByRole("heading", {
+      name: /dio/i,
+      level: 2,
+    });
+
+    expect(msgHeader).toBeInTheDocument();
+    expect(await screen.findByText("Hi")).toBeInTheDocument();
+    expect(await screen.findByText("Hey")).toBeInTheDocument();
+
+    userEvent.click(await screen.findByTitle("Send Message"));
     expect(await screen.findByText("Hello World")).toBeInTheDocument();
   });
 
@@ -111,26 +103,23 @@ describe("App Navigation and Interaction", () => {
       })
     ).toBeInTheDocument();
   });
-
-  sessionStorage.clear();
 });
 
 test("renders list of channels", async () => {
- /*  server.use(
+  /*  server.use(
  
   ); */
 
   render(<App />);
 
-  const btnLogin = screen.getByText("Sign In with Email");
-  userEvent.click(btnLogin);
+  //const btnLogin = screen.getByText("Sign In with Email");
+  //userEvent.click(btnLogin);
 
-  //expect(await screen.findByText("Channels")).toBeInTheDocument();
-  const btnChannels =  await screen.findByText("Channels");
+  expect(await screen.findByText("Channels")).toBeInTheDocument();
+  const btnChannels = await screen.findByText("Channels");
   userEvent.click(btnChannels);
-  screen.debug();
+  //screen.debug();
 
   /*  const channel = screen.getByText("egq123-2");
   expect(channel).toBeInTheDocument(); */
-
 });
