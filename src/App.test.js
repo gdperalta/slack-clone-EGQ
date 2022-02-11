@@ -103,23 +103,82 @@ describe("App Navigation and Interaction", () => {
       })
     ).toBeInTheDocument();
   });
+
+  test("renders list of channels", async () => {
+    render(<App />);
+  
+    const channel = await screen.findByText("egq123-2");
+    expect(channel).toBeInTheDocument();
+
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+  
+  });
+
+  test("renders the create channel modal", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+  
+  });
+
+    test("show error on creating a channel with blank name", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+
+    const inputChannelName = screen.getByTestId("input-channel-name");
+    userEvent.type(inputChannelName, "");
+
+
+    const btnNext = await screen.findByText("Next");
+    expect(btnNext).toBeInTheDocument();
+    userEvent.click(btnNext);
+
+    const errorMessage = await screen.findByText("Name cannot be blank");
+    expect(errorMessage).toBeInTheDocument();
+  
+  });
+
+  test("show error on creating a channel with existing name", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+
+    const inputChannelName = screen.getByTestId("input-channel-name");
+    userEvent.type(inputChannelName, "avion-team");
+
+    const btnNext = await screen.findByText("Next");
+    expect(btnNext).toBeInTheDocument();
+    userEvent.click(btnNext);
+
+    const addMembersHeader = await screen.findByText("Add members to");
+    expect(addMembersHeader).toBeInTheDocument();
+
+    const btnDone = await screen.findByText("Done");
+    userEvent.click(btnDone);
+
+   const showErrorExists = await screen.findByText("Name has already been taken");
+    expect(showErrorExists).toBeInTheDocument(); 
+
+  
+  });
+
 });
 
-test("renders list of channels", async () => {
-  /*  server.use(
- 
-  ); */
 
-  render(<App />);
-
-  //const btnLogin = screen.getByText("Sign In with Email");
-  //userEvent.click(btnLogin);
-
-  expect(await screen.findByText("Channels")).toBeInTheDocument();
-  const btnChannels = await screen.findByText("Channels");
-  userEvent.click(btnChannels);
-  //screen.debug();
-
-  /*  const channel = screen.getByText("egq123-2");
-  expect(channel).toBeInTheDocument(); */
-});

@@ -146,6 +146,7 @@
   display: block;
   height: 180px;
   overflow-y: scroll;
+  color: black;
 }
 .channel-user-add-user {
   opacity: 1;
@@ -158,6 +159,7 @@
 .selected-user {
   opacity: 1;
   padding: 5px;
+  color: black;
   cursor: pointer;
 }
 .selected-user:hover .selected-user {
@@ -195,6 +197,7 @@
   opacity: 0;
   transition: all 0.3s ease-in-out;
   pointer-events: none;
+  z-index: 100;
 }
 
 .modal.show {

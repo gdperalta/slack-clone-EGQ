@@ -54,6 +54,37 @@
     }
   }
 
+  &-details-icon{
+    padding-left: 3px;
+    &:hover{
+      opacity: .7;
+    }
+  }
+
+  &-details-container{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column,
+  }
+
+  &-name-label{
+  font-weight: bold;
+  font-size: .8em;
+  color: black;
+  }
+
+  &-name-input{
+    margin-top: 10px;
+    padding: 10px;
+    font-family: inherit;
+  }
+
+  &-next{
+    align-self: flex-end;
+    cursor: pointer;
+    width: 100px
+  }
+
   &-create-button {
     display: flex;
     flex-direction: row;
@@ -63,7 +94,7 @@
     color: white;
     margin-left: -1rem;
     padding-left: 1.8rem;
-    padding-top: .2rem;
+    padding-top: 0.2rem;
     user-select: none;
     &:hover {
       background-color: #4a5664;
@@ -76,6 +107,7 @@
     margin-right: 10px;
     margin-bottom: 10px;
     width: 100px;
+    align-self: flex-end;
   }
 
   &-save-new-member-to-channel-button {
@@ -96,7 +128,20 @@
     }
   }
 
+  &-selected-users-container{ 
+    display: flex;
+    flex-direction: column
+  }
+  
   &-user {
+    &-container{
+      position: relative;
+    }
+    &-filter{
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+    }
     &-custom-dropdown {
       position: absolute;
       width: 100%;
@@ -107,12 +152,19 @@
       overflow-y: scroll;
       background-color: rgba(255, 255, 255, 1);
       border-color: rgba(219, 211, 215, 0.8);
+      &-item {
+        cursor: pointer;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        color: black;
+      }
     }
 
     &-selected-userlist {
       display: block;
       height: 180px;
       overflow-y: scroll;
+      color: black;
     }
 
     &-add-user {
@@ -126,13 +178,21 @@
   }
 }
 
+#set-channel-name{ 
+  position: relative;
+  margin-bottom: 10px }
+
 .selected-user {
   opacity: 1;
   padding: 5px;
+  color: black;
   cursor: pointer;
+  a{
+    opacity: 0;
+  }
   &:hover {
-    .selected-user {
-      opacity: 0;
+    a {
+      opacity: 1;
     }
   }
 }
@@ -153,4 +213,20 @@
   font-size: 1.5rem;
   transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   flex-shrink: 0;
+}
+
+.error-message{
+   color: red;
+}
+
+.error-message-on-input{
+  position: absolute; 
+  top: 20px;
+  right : 20px;
+  font-size: .9em;
+  color: red;
+}
+
+.header-label{
+  color: black;
 }
