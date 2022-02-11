@@ -7,7 +7,10 @@ const ErrorPage = () => {
   return (
     <div className="errorPage">
       <img src={errorBackground} />
-      <div className="errorContainer">
+      <div
+        className="errorContainer"
+        style={{ backgroundColor: "rgb(255, 255, 255, 0.9)" }}
+      >
         <div>
           <IconContext.Provider value={{ color: "red", size: "30px" }}>
             <IoWarningOutline />
@@ -30,7 +33,10 @@ const ErrorPage = () => {
 export const ErrorMessage = ({ chatType }) => {
   return (
     <div className="errorPage">
-      <div className="errorContainer">
+      <div
+        className="errorContainer"
+        style={{ backgroundColor: "rgb(141, 143, 143, 0.9)", color: "white" }}
+      >
         <div>
           <IconContext.Provider value={{ color: "red", size: "30px" }}>
             <IoWarningOutline />

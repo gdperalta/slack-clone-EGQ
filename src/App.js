@@ -10,7 +10,7 @@ import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import Home from "./Pages/Home";
 import RequireAuth from "./Utils/RequireAuth";
-import ErrorPage from "./Pages/ErrorPage";
+import ErrorPage from "./Pages/Errors";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({

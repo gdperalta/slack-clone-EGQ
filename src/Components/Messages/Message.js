@@ -5,7 +5,7 @@ import MessageScreen from "./MessageScreen";
 import { sendMessageToServer, fetchMessages } from "../../Utils/api";
 import { createUniqueArray } from "../../Utils/handleArrays";
 import MessageHeader from "./MessageHeader";
-import { ErrorMessage } from "../../Pages/ErrorPage";
+import { ErrorMessage } from "../../Pages/Errors";
 
 const Message = ({
   users,
