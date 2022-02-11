@@ -3,20 +3,28 @@ import { DiApple } from "react-icons/di";
 import { WiStars } from "react-icons/wi";
 import { useState, useEffect } from "react";
 import { logIn } from "../../Utils/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function LoginBody({ onSuccess }) {
   const initialValues = { email: "", password: "" };
   const [formData, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    let auth = JSON.parse(sessionStorage.getItem("auth"));
+    if (auth) {
+      navigate("/");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formData, [name]: value });
   };
-
-  let navigate = useNavigate();
 
   const logInUser = async (e) => {
     e.preventDefault();
@@ -27,6 +35,7 @@ export default function LoginBody({ onSuccess }) {
 
     if (data.data) {
       onSuccess(data, userData);
+      navigate(from, { replace: true });
     } else {
       console.log("Log in Failed");
     }
