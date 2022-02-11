@@ -62,7 +62,7 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
           <h3>Direct Messages</h3>
         </button>
         <Link
-          to="/users"
+          to="/direct-messages"
           className="addUserButton"
           title="Open a Direct Message"
         >
@@ -83,7 +83,7 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
                 className={({ isActive }) =>
                   isActive ? "recentMessages activeMsg" : "recentMessages"
                 }
-                to={`/User_${user.id}`}
+                to={`/User/${user.id}`}
                 key={user.id}
                 onClick={changeMessageDisplay}
               >
