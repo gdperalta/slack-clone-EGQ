@@ -34,10 +34,10 @@ const SearchBarAll = ({ users, userChannels, changeMessageDisplay }) => {
             let filter = event.target.value;
             handleSearchFilter(filter);
           }}
-          onBlur={(e) => {
+          /* onBlur={(e) => {
             e.target.value = "";
             handleSearchFilter(false);
-          }}
+          }} */
           placeholder="Search"
         />
         <SearchIcon />

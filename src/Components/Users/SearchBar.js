@@ -8,10 +8,10 @@ const SearchBar = ({ searchParams, handleSearchFilter }) => {
           let filter = event.target.value;
           handleSearchFilter(filter);
         }}
-        onBlur={(e) => {
+        /* onBlur={(e) => {
           e.target.value = "";
           handleSearchFilter(false);
-        }}
+        }} */
         placeholder="@somebody or somebody@gmail.com"
       />
     </div>
