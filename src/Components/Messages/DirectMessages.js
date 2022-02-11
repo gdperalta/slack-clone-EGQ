@@ -23,11 +23,12 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
         return;
       }
     }
+
     setIsLoading(true);
     if (headerList) {
       getDirectMessages();
     }
-  }, [messageSent]);
+  }, [messageSent, headerList]);
 
   const getDirectMessages = async () => {
     const recentDMs = await fetchRecentMsgs(headerList).catch(console.error);
@@ -48,10 +49,6 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
         collapsibleContent.current.scrollHeight + "px";
     }
   };
-
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
 
   return (
     <div>
@@ -77,22 +74,28 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
         </Link>
       </div>
       <nav className="collapsibleContent" ref={collapsibleContent}>
-        {recentMessages.map((user) => {
-          return (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "recentMessages activeMsg" : "recentMessages"
-              }
-              to={`/User_${user.id}`}
-              key={user.id}
-              onClick={changeMessageDisplay}
-            >
-              <span className="iconDM">{user.uid.charAt(0).toUpperCase()}</span>
-              <span>{user.uid.split("@")[0]}</span>
-              <span style={{ opacity: "0" }}>{user.id}</span>
-            </NavLink>
-          );
-        })}
+        {isLoading ? (
+          <div>...loading</div>
+        ) : (
+          recentMessages.map((user) => {
+            return (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "recentMessages activeMsg" : "recentMessages"
+                }
+                to={`/User_${user.id}`}
+                key={user.id}
+                onClick={changeMessageDisplay}
+              >
+                <span className="iconDM">
+                  {user.uid.charAt(0).toUpperCase()}
+                </span>
+                <span>{user.uid.split("@")[0]}</span>
+                <span style={{ opacity: "0" }}>{user.id}</span>
+              </NavLink>
+            );
+          })
+        )}
       </nav>
     </div>
   );
