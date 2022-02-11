@@ -15,20 +15,26 @@ const MessageHeader = ({ receiver }) => {
           <h2>{receiver.email.split("@")[0]}</h2>
         </div>
       ) : (
-        <div className="outletHeader">
-          <FaLock />
-          <h2>{receiver.name}</h2>
-          <div className="channel-details-icon"
-            onClick={() => {
-              setshowChannelDetailsModal(true);              
-            }}
-          >
-            <FaInfoCircle
-              style={{
-                fill: "darkgray",
-                cursor: "pointer",
+        <div
+          className="outletHeader"
+          style={{ justifyContent: "space-between" }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <FaLock />
+            <h2>{receiver.name}</h2>
+            <div
+              className="channel-details-icon"
+              onClick={() => {
+                setshowChannelDetailsModal(true);
               }}
-            />
+            >
+              <FaInfoCircle
+                style={{
+                  fill: "darkgray",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
           </div>
 
           <div
@@ -50,9 +56,11 @@ const MessageHeader = ({ receiver }) => {
           ) : null}
 
           {showChannelDetailsModal ? (
-            <ChannelMembers channelId={receiver.id}
-            onClose={() => setshowChannelDetailsModal(false)}
-              show={showChannelDetailsModal} />
+            <ChannelMembers
+              channelId={receiver.id}
+              onClose={() => setshowChannelDetailsModal(false)}
+              show={showChannelDetailsModal}
+            />
           ) : null}
         </div>
       )}

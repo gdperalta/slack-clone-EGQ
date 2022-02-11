@@ -54,35 +54,35 @@
     }
   }
 
-  &-details-icon{
+  &-details-icon {
     padding-left: 3px;
-    &:hover{
-      opacity: .7;
+    &:hover {
+      opacity: 0.7;
     }
   }
 
-  &-details-container{
+  &-details-container {
     padding-top: 10px;
     display: flex;
-    flex-direction: column,
+    flex-direction: column;
   }
 
-  &-name-label{
-  font-weight: bold;
-  font-size: .8em;
-  color: black;
+  &-name-label {
+    font-weight: bold;
+    font-size: 0.8em;
+    color: black;
   }
 
-  &-name-input{
+  &-name-input {
     margin-top: 10px;
     padding: 10px;
     font-family: inherit;
   }
 
-  &-next{
+  &-next {
     align-self: flex-end;
     cursor: pointer;
-    width: 100px
+    width: 100px;
   }
 
   &-create-button {
@@ -119,8 +119,7 @@
   }
 
   &-add-member-button {
-    position: absolute;
-    right: 20px;
+    padding-right: 20px;
     user-select: none;
     cursor: pointer;
     &:hover {
@@ -128,16 +127,16 @@
     }
   }
 
-  &-selected-users-container{ 
+  &-selected-users-container {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
   }
-  
+
   &-user {
-    &-container{
+    &-container {
       position: relative;
     }
-    &-filter{
+    &-filter {
       width: 100%;
       margin-top: 10px;
       padding: 10px;
@@ -178,16 +177,17 @@
   }
 }
 
-#set-channel-name{ 
+#set-channel-name {
   position: relative;
-  margin-bottom: 10px }
+  margin-bottom: 10px;
+}
 
 .selected-user {
   opacity: 1;
   padding: 5px;
   color: black;
   cursor: pointer;
-  a{
+  a {
     opacity: 0;
   }
   &:hover {
@@ -215,18 +215,18 @@
   flex-shrink: 0;
 }
 
-.error-message{
-   color: red;
-}
-
-.error-message-on-input{
-  position: absolute; 
-  top: 20px;
-  right : 20px;
-  font-size: .9em;
+.error-message {
   color: red;
 }
 
-.header-label{
+.error-message-on-input {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.9em;
+  color: red;
+}
+
+.header-label {
   color: black;
 }

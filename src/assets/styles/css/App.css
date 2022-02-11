@@ -150,8 +150,7 @@
   width: 8rem;
 }
 .channel-add-member-button {
-  position: absolute;
-  right: 20px;
+  padding-right: 20px;
   user-select: none;
   cursor: pointer;
 }
