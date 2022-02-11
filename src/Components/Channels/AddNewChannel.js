@@ -1,7 +1,5 @@
-import { response } from "msw";
 import React from "react";
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import {
   createChannel,
@@ -17,7 +15,7 @@ const AddNewChannel = ({
   toggleAddUsers,
   show,
   onClose,
-  getChannels
+  getChannels,
 }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
@@ -29,6 +27,7 @@ const AddNewChannel = ({
   const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
   const [errors, setErrors] = useState(null);
   const [showErrorChannelExists, setShowErrorChannelExists] = useState(false);
+  const [showErrorChannelIsBlank, setShowErrorChannelIsBlank] = useState(false);
   const [showErrorChannelTooShort, setshowErrorChannelTooShort] =
     useState(false);
   const [showErrorChannelTooLong, setshowErrorChannelTooLong] = useState(false);
@@ -71,13 +70,15 @@ const AddNewChannel = ({
     }
   }, [filterEmail]);
 
-  const handleChange = (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    e.preventDefault();
 
-    if (event.target.name === "channelName") {
-      setChannelName(event.target.value);
-    } else if (event.target.name === "filterEmailAdd") {
-      setFilterEmail(event.target.value);
+    if (e.target.name === "channelName") {
+      if (e.target.value === "") setShowErrorChannelIsBlank(true);
+      else setShowErrorChannelIsBlank(false);
+      setChannelName(e.target.value);
+    } else if (e.target.name === "filterEmailAdd") {
+      setFilterEmail(e.target.value);
     }
   };
 
@@ -85,12 +86,18 @@ const AddNewChannel = ({
     const header = JSON.parse(sessionStorage.getItem("header"));
     const result = await createChannel(channelName, selectedUserIDs, header);
 
-    if (result.errors) {
-        setErrors(result.errors);
+    setErrors(result.errors);
 
-      if (result.errors[0] === "Name is too short (minimum is 3 characters)")
+    if (result.errors) {
+      if (result.errors[0] === "Name can't be blank")
+        setShowErrorChannelIsBlank(true);
+      else if (
+        result.errors[0] === "Name is too short (minimum is 3 characters)"
+      )
         setshowErrorChannelTooShort(true);
-      else if (result.errors[0] === "Name is too long (maximum is 15 characters)")
+      else if (
+        result.errors[0] === "Name is too long (maximum is 15 characters)"
+      )
         setshowErrorChannelTooLong(true);
       else if (result.errors[0] === "Name has already been taken")
         setShowErrorChannelExists(true);
@@ -155,7 +162,7 @@ const AddNewChannel = ({
       return filteredUsers.map((item) => {
         return (
           <div
-            style={{ cursor: "pointer", paddingBottom: "10px", color: "black" }}
+            className="channel-user-custom-dropdown-item"
             key={item.id}
             onClick={AddToSelectedUsers.bind(this, item.id)}
           >
@@ -190,8 +197,7 @@ const AddNewChannel = ({
     );
   };
 
-  const showAddUsers = (e) => {
-    e.preventDefault();
+  const showAddUsers = () => {
     setIsShowAddUsers(true);
   };
 
@@ -226,40 +232,31 @@ const AddNewChannel = ({
         <div className="modal-body">
           {!isShowAddUsers ? (
             /* For setting the channel name */
-            <div
-              id="set-channel-name"
-              style={{ position: "relative", marginBottom: "10px" }}
-            >
+            <div id="set-channel-name">
               <span style={{ fontSize: ".8em", color: "black" }}>
                 Channels are where your team communicates. They're best when
                 organized around a topic - #programming for example.
               </span>
-              <div
-                style={{
-                  paddingTop: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: ".8em",
-                    color: "black",
-                  }}
-                >
-                  Channel Name
-                </label>
-                <input
-                  style={{ marginTop: "10px", padding: "10px" }}
+              <div className="channel-details-container">
+                <label className="channel-name-label">Channel Name</label>
+                <input className="channel-name-input"
                   type="text"
                   name="channelName"
+                  data-testid="input-channel-name"
                   value={channelName}
                   onChange={handleChange}
                   placeholder="#programming"
                 />
+
+                {showErrorChannelIsBlank ? (
+                  <h5 style={{ color: "red" }}>Name cannot be blank</h5>
+                ) : null}
                 <button
-                  onClick={showAddUsers}
+                  onClick={() =>
+                    channelName !== ""
+                      ? showAddUsers()
+                      : setShowErrorChannelIsBlank(true)
+                  }
                   style={{
                     alignSelf: "flex-end",
                     cursor: "pointer",
@@ -307,13 +304,9 @@ const AddNewChannel = ({
                     Done
                   </button>
                 </div>
-                {showErrorChannelExists ? (
-                  <h5 style={{ color: "red" }}>{errors[0]}</h5>
-                ) : null}
-                {showErrorChannelTooShort ? (
-                  <h5 style={{ color: "red" }}>{errors[0]}</h5>
-                ) : null}
-                {showErrorChannelTooLong ? (
+                {showErrorChannelExists ||
+                showErrorChannelTooShort ||
+                showErrorChannelTooLong ? (
                   <h5 style={{ color: "red" }}>{errors[0]}</h5>
                 ) : null}
               </div>
