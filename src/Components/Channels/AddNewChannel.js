@@ -28,9 +28,11 @@ const AddNewChannel = ({
   const [errors, setErrors] = useState(null);
   const [showErrorChannelExists, setShowErrorChannelExists] = useState(false);
   const [showErrorChannelIsBlank, setShowErrorChannelIsBlank] = useState(false);
-  const [showErrorChannelTooShort, setshowErrorChannelTooShort] = useState(false);
+  const [showErrorChannelTooShort, setshowErrorChannelTooShort] =
+    useState(false);
   const [showErrorChannelTooLong, setshowErrorChannelTooLong] = useState(false);
-  const [showErrorOnExistingMember, setShowErrorOnExistingMember] = useState(false);
+  const [showErrorOnExistingMember, setShowErrorOnExistingMember] =
+    useState(false);
 
   //Notes: changes on the states trigger re-rendering
   //useEffects run at first then runs again if a dependency changes
@@ -210,6 +212,10 @@ const AddNewChannel = ({
     }
   };
 
+  const clearError = () => {
+    setShowErrorOnExistingMember(false);
+  };
+
   return (
     <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -240,7 +246,8 @@ const AddNewChannel = ({
               </span>
               <div className="channel-details-container">
                 <label className="channel-name-label">Channel Name</label>
-                <input className="channel-name-input"
+                <input
+                  className="channel-name-input"
                   type="text"
                   name="channelName"
                   data-testid="input-channel-name"
@@ -248,13 +255,16 @@ const AddNewChannel = ({
                   onChange={handleChange}
                   placeholder="#programming"
                 />
-                {showErrorChannelIsBlank ? (<h5 className="error-message">Name cannot be blank</h5>) : null}
-                <button className="channel-next"
+                {showErrorChannelIsBlank ? (
+                  <h5 className="error-message">Name cannot be blank</h5>
+                ) : null}
+                <button
+                  className="channel-next"
                   onClick={() =>
                     channelName !== ""
                       ? showAddUsers()
                       : setShowErrorChannelIsBlank(true)
-                  }                  
+                  }
                 >
                   Next
                 </button>
@@ -262,19 +272,22 @@ const AddNewChannel = ({
             </div>
           ) : (
             /* For adding users to the channel */
-            <div
-              id="user-selection"
-              className="channel-user-container"             
-            >
-              <div style={{position: "relative"}}>
-                <input className="channel-user-filter"
+            <div id="user-selection" className="channel-user-container">
+              <div style={{ position: "relative" }}>
+                <input
+                  className="channel-user-filter"
                   type="search"
                   name="filterEmailAdd"
                   placeholder="Search by name or email address"
                   value={filterEmail}
-                  onChange={handleChange}                  
+                  onChange={handleChange}
+                  onKeyUp={clearError}
                 />
-                {showErrorOnExistingMember? <div className="error-message-on-input">User is already a member!</div> : null }
+                {showErrorOnExistingMember ? (
+                  <div className="error-message-on-input">
+                    User is already a member!
+                  </div>
+                ) : null}
                 <div style={{ position: "relative" }}>
                   <div className="channel-user-custom-dropdown">
                     {renderFilteredUsers()}
@@ -283,7 +296,8 @@ const AddNewChannel = ({
                 <div className="channel-selected-users-container">
                   <h4 className="header-label">Selected users</h4>
                   <div>{renderSelectedUsers()}</div>
-                  <button className="channel-save-channel-button"
+                  <button
+                    className="channel-save-channel-button"
                     onClick={saveChannel}
                   >
                     Done
