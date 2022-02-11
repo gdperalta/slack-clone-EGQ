@@ -12,11 +12,17 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
   const [show, setShow] = useState(false);
   //Collapsible content
   const [isCollapsed, setisCollapsed] = useState(true);
+  const [activeLink, setActiveLink] = useState(false);
   const collapsibleContent = useRef(null);
 
   useEffect(() => {
     getChannels();
   }, [show]);
+
+  const hanldeActiveLink = (boolean) => {
+    setActiveLink(boolean);
+    console.log(activeLink);
+  };
 
   const renderChannelList = () => {
     return userChannels.map((item, index) => {
@@ -26,24 +32,29 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           id={item.id}
           name={item.name}
           changeMessageDisplay={changeMessageDisplay}
+          isCollapsed={isCollapsed}
+          hanldeActiveLink={hanldeActiveLink}
         />
       );
     });
   };
 
-  //Collapsible content
+  useEffect(() => {
+    if (userChannels) {
+      if (collapsibleContent.current.style.maxHeight) {
+        collapsibleContent.current.style.maxHeight = null;
+      } else {
+        collapsibleContent.current.style.maxHeight = "fit-content";
+      }
+    }
+  }, [isCollapsed]);
+
   const handleCollapse = () => {
     isCollapsed === true ? setisCollapsed(false) : setisCollapsed(true);
-
-    if (collapsibleContent.current.style.maxHeight) {
-      collapsibleContent.current.style.maxHeight = null;
-    } else {
-      collapsibleContent.current.style.maxHeight = "fit-content";
-    }
-  }; 
+  };
 
   return (
-    <div>
+    <div style={{ marginBottom: "2.5rem" }}>
       <div className="channels-button">
         <button className="collapsibleWrapper" onClick={handleCollapse}>
           <IconContext.Provider value={{ color: "white", size: "20px" }}>
@@ -65,16 +76,18 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           </IconContext.Provider>
         </a>
       </div>
-      <nav className="collapsibleContent" ref={collapsibleContent}>
-        {userChannels ? renderChannelList() : <p>Loading channels</p>}
-      </nav>
-      <div className="channel-create-button" onClick={() => setShow(true)}>
-        <IconContext.Provider value={{ color: "white", size: "20px" }}>
-          <div>
-            <AiOutlinePlus />
+      <div style={{ position: "relative" }}>
+        <nav className="collapsibleContent" ref={collapsibleContent}>
+          {userChannels ? renderChannelList() : <p>Loading channels</p>}
+          <div className="channel-create-button" onClick={() => setShow(true)}>
+            <IconContext.Provider value={{ color: "white", size: "20px" }}>
+              <div>
+                <AiOutlinePlus />
+              </div>
+            </IconContext.Provider>
+            <span>Add a new channel</span>
           </div>
-        </IconContext.Provider>
-        <span>Add a new channel</span>
+        </nav>
       </div>
       {show ? (
         <AddNewChannel
@@ -82,7 +95,7 @@ const Channels = ({ changeMessageDisplay, userChannels, getChannels }) => {
           onClose={() => setShow(false)}
           show={show}
           toggleAddUsers={false}
-          getChannels={getChannels}          
+          getChannels={getChannels}
         />
       ) : null}
     </div>

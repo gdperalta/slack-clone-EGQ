@@ -39,15 +39,19 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (recentMessages) {
+      if (collapsibleContent.current.style.maxHeight) {
+        collapsibleContent.current.style.maxHeight = null;
+      } else {
+        collapsibleContent.current.style.maxHeight =
+          collapsibleContent.current.scrollHeight + "px";
+      }
+    }
+  }, [isCollapsed]);
+
   const handleCollapse = () => {
     isCollapsed === true ? setisCollapsed(false) : setisCollapsed(true);
-
-    if (collapsibleContent.current.style.maxHeight) {
-      collapsibleContent.current.style.maxHeight = null;
-    } else {
-      collapsibleContent.current.style.maxHeight =
-        collapsibleContent.current.scrollHeight + "px";
-    }
   };
 
   return (
@@ -73,30 +77,37 @@ const DirectMessages = ({ headerList, changeMessageDisplay, messageSent }) => {
           </IconContext.Provider>
         </Link>
       </div>
-      <nav className="collapsibleContent" ref={collapsibleContent}>
-        {isLoading ? (
-          <div>...loading</div>
-        ) : (
-          recentMessages.map((user) => {
-            return (
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "recentMessages activeMsg" : "recentMessages"
-                }
-                to={`/User/${user.id}`}
-                key={user.id}
-                onClick={changeMessageDisplay}
-              >
-                <span className="iconDM">
-                  {user.uid.charAt(0).toUpperCase()}
-                </span>
-                <span>{user.uid.split("@")[0]}</span>
-                <span style={{ opacity: "0" }}>{user.id}</span>
-              </NavLink>
-            );
-          })
-        )}
-      </nav>
+      <div style={{ position: "relative" }}>
+        <nav className="collapsibleContent" ref={collapsibleContent}>
+          {isLoading ? (
+            <div>...loading</div>
+          ) : (
+            recentMessages.map((user) => {
+              return (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "recentMessages activeMsg" : "recentMessages"
+                  }
+                  style={({ isActive }) => {
+                    return {
+                      position: isActive && isCollapsed ? "absolute" : "",
+                    };
+                  }}
+                  to={`/User/${user.id}`}
+                  key={user.id}
+                  onClick={changeMessageDisplay}
+                >
+                  <span className="iconDM">
+                    {user.uid.charAt(0).toUpperCase()}
+                  </span>
+                  <span>{user.uid.split("@")[0]}</span>
+                  <span style={{ opacity: "0" }}>{user.id}</span>
+                </NavLink>
+              );
+            })
+          )}
+        </nav>
+      </div>
     </div>
   );
 };
