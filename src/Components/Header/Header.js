@@ -3,19 +3,10 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import HistoryIcon from "@material-ui/icons/History";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-import SearchIcon from "@material-ui/icons/Search";
+import SearchBarAll from "./SearchBarAll";
 import "./Header.css";
-import { useState, useEffect } from "react";
-import UserSearchModal from "../Users/UserSearchModal";
-import Search from "./Search";
 
-const Header = () => {
-  const [searchData, setFormValues] = useState("");
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...searchData, [name]: value });
-  };
-
+const Header = ({ users, userChannels, changeMessageDisplay }) => {
   const Signout = () => {
     window.sessionStorage.clear();
     window.location.replace("/slack-clone-egq/login");
@@ -36,22 +27,11 @@ const Header = () => {
                 <HistoryIcon />
               </div>
             </div>
-            <div className="header__search">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search"
-                onChange={handleChange}
-              ></input>
-              {/* { <div ref={searchModal} className="navlinkWrapper"> */}
-              {/* <UserSearchModal
-                            users={users}
-                            searchParams={searchParams}
-                            changeMessageDisplay={changeMessageDisplay}
-                          />
-                        </div> } */}
-              <SearchIcon />
-            </div>
+            <SearchBarAll
+              users={users}
+              userChannels={userChannels}
+              changeMessageDisplay={changeMessageDisplay}
+            />
             <HelpOutlineIcon />
           </div>
           <div className="sign-out" onClick={Signout}>

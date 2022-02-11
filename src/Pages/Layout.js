@@ -4,6 +4,7 @@ import Header from "../Components/Header/Header";
 import DirectMessages from "../Components/Messages/DirectMessages";
 
 const Layout = ({
+  users,
   headerList,
   changeMessageDisplay,
   messageSent,
@@ -12,7 +13,11 @@ const Layout = ({
 }) => {
   return (
     <div className="wrapper">
-      <Header />
+      <Header
+        users={users}
+        userChannels={userChannels}
+        changeMessageDisplay={changeMessageDisplay}
+      />
       <div className="sidebarWrapper">
         <div className="outletHeader">
           <h2>Avion School</h2>
