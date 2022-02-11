@@ -10,6 +10,7 @@ import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import Home from "./Pages/Home";
 import RequireAuth from "./Utils/RequireAuth";
+import ErrorPage from "./Pages/ErrorPage";
 
 const App = () => {
   const [userDetails, setUserDetail] = useState({
@@ -103,7 +104,7 @@ const App = () => {
         >
           <Route index element={<Home getChannels={getChannels} />} />
           <Route
-            path="users"
+            path="direct-messages"
             element={
               <RequireAuth isLoggedIn={isLoggedIn}>
                 <Users
@@ -115,31 +116,42 @@ const App = () => {
               </RequireAuth>
             }
           />
-          <Route
-            path=":uid"
-            element={
-              <RequireAuth isLoggedIn={isLoggedIn}>
-                <Message
-                  users={users}
-                  userChannels={userChannels}
-                  userDetails={userDetails}
-                  headerList={headerList}
-                  messageTitle={messageTitle}
-                  messageWasSent={messageWasSent}
-                />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
+          <Route path="Channel">
+            <Route
+              path=":uid"
+              element={
+                <RequireAuth isLoggedIn={isLoggedIn}>
+                  <Message
+                    users={users}
+                    userChannels={userChannels}
+                    userDetails={userDetails}
+                    headerList={headerList}
+                    messageTitle={messageTitle}
+                    messageWasSent={messageWasSent}
+                  />
+                </RequireAuth>
+              }
+            />
+          </Route>
+          <Route path="User">
+            <Route
+              path=":uid"
+              element={
+                <RequireAuth isLoggedIn={isLoggedIn}>
+                  <Message
+                    users={users}
+                    userChannels={userChannels}
+                    userDetails={userDetails}
+                    headerList={headerList}
+                    messageTitle={messageTitle}
+                    messageWasSent={messageWasSent}
+                  />
+                </RequireAuth>
+              }
+            />
+          </Route>
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );
