@@ -90,14 +90,18 @@ export default function LoginBody({ onSuccess }) {
         <form onSubmit={logInUser}>
           <div className="input">
             <input
+              title="emailInput"
+              data-testid="email-input"
               type="text"
               name="email"
               placeholder="name@work-email.com"
               value={formData.email}
               onChange={handleChange}
             ></input>
-            <p className="error">{formErrors.email}</p>
+            <p title="email" data-testid="error-msg" className="error">{formErrors.email}</p>
             <input
+              title="paswordInput"
+              data-testid="password-input"
               type="password"
               name="password"
               placeholder="password"
@@ -105,7 +109,8 @@ export default function LoginBody({ onSuccess }) {
               onChange={handleChange}
             ></input>
             <div>
-              <p className="error">{formErrors.password}</p>
+            <p title="password" data-testid="pw-error-msg" className="error">{formErrors.password}</p>
+
             </div>
           </div>
           <div className="signin">
