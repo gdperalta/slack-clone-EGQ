@@ -210,6 +210,10 @@ const AddNewChannel = ({
     }
   };
 
+  const clearError =() =>{
+    setShowErrorOnExistingMember(false);
+  }
+
   return (
     <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -272,7 +276,8 @@ const AddNewChannel = ({
                   name="filterEmailAdd"
                   placeholder="Search by name or email address"
                   value={filterEmail}
-                  onChange={handleChange}                  
+                  onChange={handleChange} 
+                  onKeyUp={clearError}                 
                 />
                 {showErrorOnExistingMember? <div className="error-message-on-input">User is already a member!</div> : null }
                 <div style={{ position: "relative" }}>
