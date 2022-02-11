@@ -131,8 +131,56 @@ describe("App Navigation and Interaction", () => {
 
     const createChannelHeader = await screen.findByText("Create a new channel");
     expect(createChannelHeader).toBeInTheDocument();
+  
+  });
 
-    
+    test("show error on creating a channel with blank name", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+
+    const inputChannelName = screen.getByTestId("input-channel-name");
+    userEvent.type(inputChannelName, "");
+
+    const btnNext = await screen.findByText("Next");
+    expect(btnNext).toBeInTheDocument();
+    userEvent.click(btnNext);
+
+    const errorMessage = await screen.findByText("Name cannot be blank");
+    expect(errorMessage).toBeInTheDocument();
+  
+  });
+
+  test("show error on creating a channel with existing name", async () => {
+    render(<App />);
+  
+    const btnAddNewChannel = await screen.findByRole("createChannelButton");
+    expect(btnAddNewChannel).toBeInTheDocument();
+    userEvent.click(btnAddNewChannel);
+
+    const createChannelHeader = await screen.findByText("Create a new channel");
+    expect(createChannelHeader).toBeInTheDocument();
+
+    const inputChannelName = screen.getByTestId("input-channel-name");
+    userEvent.type(inputChannelName, "avion-team");
+
+    const btnNext = await screen.findByText("Next");
+    expect(btnNext).toBeInTheDocument();
+    userEvent.click(btnNext);
+
+    const addMembersHeader = await screen.findByText("Add members to");
+    expect(addMembersHeader).toBeInTheDocument();
+
+    const btnDone = await screen.findByText("Done");
+    userEvent.click(btnDone);
+
+   const showErrorExists = await screen.findByText("Name has already been taken");
+    expect(showErrorExists).toBeInTheDocument(); 
 
   
   });

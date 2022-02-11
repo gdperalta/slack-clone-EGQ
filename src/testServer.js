@@ -24,6 +24,13 @@ const mockUsers = [
   },
 ];
 
+const mockChannelCreationErrors = [
+  "Name can't be blank",
+  "Name is too short (minimum is 3 characters)",
+  "Name is too long (maximum is 15 characters)",
+  "Name has already been taken",
+];
+
 const handlers = [
   rest.get("http://206.189.91.54//api/v1/users", (req, res, ctx) => {
     return res(
@@ -81,6 +88,22 @@ const handlers = [
           provider: "email",
           uid: "ewl@gmail.com",
         },
+      })
+    );
+  }),
+ /*  rest.post("http://206.189.91.54//api/v1/channels", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        errors: [mockChannelCreationErrors[0]], 
+      })
+    );
+  }), */
+  rest.post("http://206.189.91.54//api/v1/channels", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        errors: [mockChannelCreationErrors[3]], 
       })
     );
   }),
