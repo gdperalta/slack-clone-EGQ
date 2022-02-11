@@ -672,6 +672,40 @@
   cursor: pointer;
 }
 
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.errorPage .errorContainer {
+  width: 30vw;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  z-index: 1;
+}
+.errorPage .errorContainer div {
+  display: flex;
+  align-items: center;
+}
+.errorPage .errorContainer div h1 {
+  margin: 0;
+  padding-left: 0.7rem;
+}
+.errorPage .errorContainer a {
+  text-decoration: none;
+  color: #356593;
+}
+.errorPage img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 *,
 *:before,
 *:after {
@@ -682,6 +716,11 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
   width: 100%;
   height: 100%;
 }

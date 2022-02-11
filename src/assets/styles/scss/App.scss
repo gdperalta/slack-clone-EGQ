@@ -9,6 +9,7 @@
 @use "./components/collapsibles";
 @use "./components/users";
 @use "./layout/home";
+@use "./layout/errorPage";
 
 *,
 *:before,
@@ -20,6 +21,11 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
   width: 100%;
   height: 100%;
 }
