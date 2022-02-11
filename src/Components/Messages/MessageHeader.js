@@ -18,11 +18,9 @@ const MessageHeader = ({ receiver }) => {
         <div className="outletHeader">
           <FaLock />
           <h2>{receiver.name}</h2>
-          <div
-            style={{ paddingLeft: "3px" }}
+          <div className="channel-details-icon"
             onClick={() => {
-              setshowChannelDetailsModal(true);
-              
+              setshowChannelDetailsModal(true);              
             }}
           >
             <FaInfoCircle

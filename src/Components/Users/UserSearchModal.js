@@ -5,7 +5,7 @@ const UserSearchModal = ({ users, searchParams, changeMessageDisplay }) => {
     <nav>
       {users
         .filter((user) => {
-          let filter = searchParams.get("filter");
+          let filter = searchParams.get("Users");
           //Returned "" if search input is blank to show empty search list on initial render
           if (!filter) return "";
           let name = user.uid.toLowerCase();

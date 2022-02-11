@@ -9,8 +9,9 @@ import "./Header.css"
 import { useState, useEffect } from "react";
 import user2 from "../../assets/images/user2.png";
 import Modal from "./Modal"
+import SearchBarAll from "./SearchBarAll";
 
-const Header = () => {
+const Header = ({ users, userChannels, changeMessageDisplay }) => {
   const [showModal, setShowModal] = useState(false);
   // Method to show / hide the modal
   const handleToggleModal = () => {
@@ -36,15 +37,11 @@ const Header = () => {
                         <ArrowForwardIcon />
                         <div className="history"><HistoryIcon /></div>
                     </div>
-                    <div className="header__search">
-                        <input
-                          type="text"
-                          name="search"
-                          placeholder="Search"
-                          onChange={handleChange}>
-                        </input>
-                        <SearchIcon />
-                    </div>
+                     <SearchBarAll
+                        users={users}
+                        userChannels={userChannels}
+                        changeMessageDisplay={changeMessageDisplay}
+                      />
                     <HelpOutlineIcon />
                 </div>
                 <div id="test"></div>
@@ -52,7 +49,7 @@ const Header = () => {
                   <Modal show={showModal} close={handleToggleModal} />
             </div>
         </div>
-    </div>
+     </div>
   );
 };
 

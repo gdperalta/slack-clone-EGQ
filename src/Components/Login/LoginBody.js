@@ -3,38 +3,42 @@ import { DiApple } from "react-icons/di";
 import { WiStars } from "react-icons/wi";
 import { useState, useEffect } from "react";
 import { logIn } from "../../Utils/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function LoginBody({ onSuccess }) {
-  const initialValues = { email: "", password: ""};
+  const initialValues = { email: "", password: "" };
   const [formData, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    let auth = JSON.parse(sessionStorage.getItem("auth"));
+    if (auth) {
+      navigate("/");
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formData, [name]: value });
   };
 
-
-  let navigate = useNavigate();
- 
-  
   const logInUser = async (e) => {
     e.preventDefault();
     setFormErrors(validate(formData));
     setIsSubmit(true);
     const userData = await logIn(formData.email, formData.password);
     const data = await userData.json();
-    
+
     if (data.data) {
       onSuccess(data, userData);
-      console.log(userData)
-      navigate("/");
+      navigate(from, { replace: true });
     } else {
-      console.log("Log in Failed")
+      console.log("Log in Failed");
     }
-   
   };
   useEffect(() => {
     console.log(formErrors);
@@ -46,14 +50,14 @@ export default function LoginBody({ onSuccess }) {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.email) {
-        errors.email = "Email is required!";
+      errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
-        errors.email = "This is not a valid email format!";
+      errors.email = "This is not a valid email format!";
     }
     if (!values.password) {
-        errors.password = "Password is required";
-    }else if (values.password.length < 6) {
-        errors.password = "Password must be more than 5 characters";
+      errors.password = "Password is required";
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be more than 5 characters";
     }
     return errors;
   };
@@ -106,16 +110,14 @@ export default function LoginBody({ onSuccess }) {
             ></input>
             <div>
             <p title="password" data-testid="pw-error-msg" className="error">{formErrors.password}</p>
+
             </div>
-            
           </div>
           <div className="signin">
-            <button className="signBtn">
-              Sign In with Email
-            </button>
+            <button className="signBtn">Sign In with Email</button>
           </div>
         </form>
-        
+
         <div className="instruction">
           <WiStars size={70} className="instructionIcon" />
           <span>

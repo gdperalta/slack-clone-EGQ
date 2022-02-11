@@ -1,7 +1,5 @@
-import { response } from "msw";
 import React from "react";
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import {
   createChannel,
@@ -17,7 +15,7 @@ const AddNewChannel = ({
   toggleAddUsers,
   show,
   onClose,
-  getChannels
+  getChannels,
 }) => {
   let navigate = useNavigate();
   const [channelName, setChannelName] = useState("");
@@ -28,6 +26,11 @@ const AddNewChannel = ({
   const [selectedUserIDs, setSelectedUserIDs] = useState([]);
   const [isShowAddUsers, setIsShowAddUsers] = useState(toggleAddUsers);
   const [errors, setErrors] = useState(null);
+  const [showErrorChannelExists, setShowErrorChannelExists] = useState(false);
+  const [showErrorChannelIsBlank, setShowErrorChannelIsBlank] = useState(false);
+  const [showErrorChannelTooShort, setshowErrorChannelTooShort] = useState(false);
+  const [showErrorChannelTooLong, setshowErrorChannelTooLong] = useState(false);
+  const [showErrorOnExistingMember, setShowErrorOnExistingMember] = useState(false);
 
   //Notes: changes on the states trigger re-rendering
   //useEffects run at first then runs again if a dependency changes
@@ -47,7 +50,7 @@ const AddNewChannel = ({
       const headerList = JSON.parse(sessionStorage.getItem("header"));
 
       const data = await getChannelDetails(channelId, headerList);
-     if (data.data) setMembers(data.data.channel_members);
+      if (data.data) setMembers(data.data.channel_members);
     };
 
     getMembers().catch(console.error);
@@ -67,13 +70,15 @@ const AddNewChannel = ({
     }
   }, [filterEmail]);
 
-  const handleChange = (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    e.preventDefault();
 
-    if (event.target.name === "channelName") {
-      setChannelName(event.target.value);
-    } else if (event.target.name === "filterEmailAdd") {
-      setFilterEmail(event.target.value);
+    if (e.target.name === "channelName") {
+      if (e.target.value === "") setShowErrorChannelIsBlank(true);
+      else setShowErrorChannelIsBlank(false);
+      setChannelName(e.target.value);
+    } else if (e.target.name === "filterEmailAdd") {
+      setFilterEmail(e.target.value);
     }
   };
 
@@ -81,8 +86,21 @@ const AddNewChannel = ({
     const header = JSON.parse(sessionStorage.getItem("header"));
     const result = await createChannel(channelName, selectedUserIDs, header);
 
+    setErrors(result.errors);
+
     if (result.errors) {
-      setErrors(result.errors);      
+      if (result.errors[0] === "Name can't be blank")
+        setShowErrorChannelIsBlank(true);
+      else if (
+        result.errors[0] === "Name is too short (minimum is 3 characters)"
+      )
+        setshowErrorChannelTooShort(true);
+      else if (
+        result.errors[0] === "Name is too long (maximum is 15 characters)"
+      )
+        setshowErrorChannelTooLong(true);
+      else if (result.errors[0] === "Name has already been taken")
+        setShowErrorChannelExists(true);
     } else {
       setChannelName("");
       setFilterEmail("");
@@ -109,7 +127,6 @@ const AddNewChannel = ({
     });
 
     if (result.errors !== undefined) {
-      console.log(result.errors);
     } else {
       setChannelName("");
       setFilterEmail("");
@@ -129,8 +146,9 @@ const AddNewChannel = ({
   const AddToSelectedUsers = (id) => {
     if (channelId) {
       if (members.find(({ user_id }) => user_id == id) !== undefined)
-        alert("User is already a member");
+        setShowErrorOnExistingMember(true);
       else {
+        setShowErrorOnExistingMember(false);
         setSelectedUserIDs([...selectedUserIDs, id]);
         setFilterEmail("");
       }
@@ -145,7 +163,7 @@ const AddNewChannel = ({
       return filteredUsers.map((item) => {
         return (
           <div
-            style={{ cursor: "pointer", paddingBottom: "10px" }}
+            className="channel-user-custom-dropdown-item"
             key={item.id}
             onClick={AddToSelectedUsers.bind(this, item.id)}
           >
@@ -180,8 +198,7 @@ const AddNewChannel = ({
     );
   };
 
-  const showAddUsers = (e) => {
-    e.preventDefault();
+  const showAddUsers = () => {
     setIsShowAddUsers(true);
   };
 
@@ -193,7 +210,7 @@ const AddNewChannel = ({
     }
   };
 
-  return ReactDOM.createPortal(
+  return (
     <div className={`modal ${show ? "show" : ""}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {!isShowAddUsers ? (
@@ -216,39 +233,28 @@ const AddNewChannel = ({
         <div className="modal-body">
           {!isShowAddUsers ? (
             /* For setting the channel name */
-            <div
-              id="set-channel-name"
-              style={{ position: "relative", marginBottom: "10px" }}
-            >
-              <span style={{ fontSize: ".8em" }}>
+            <div id="set-channel-name">
+              <span className="modal-subtitle">
                 Channels are where your team communicates. They're best when
                 organized around a topic - #programming for example.
               </span>
-              <div
-                style={{
-                  paddingTop: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ fontWeight: "bold", fontSize: ".8em" }}>
-                  Channel Name
-                </label>
-                <input
-                  style={{ marginTop: "10px", padding: "10px" }}
+              <div className="channel-details-container">
+                <label className="channel-name-label">Channel Name</label>
+                <input className="channel-name-input"
                   type="text"
                   name="channelName"
+                  data-testid="input-channel-name"
                   value={channelName}
                   onChange={handleChange}
                   placeholder="#programming"
                 />
-                <button
-                  onClick={showAddUsers}
-                  style={{
-                    alignSelf: "flex-end",
-                    cursor: "pointer",
-                    width: "100px",
-                  }}
+                {showErrorChannelIsBlank ? (<h5 className="error-message">Name cannot be blank</h5>) : null}
+                <button className="channel-next"
+                  onClick={() =>
+                    channelName !== ""
+                      ? showAddUsers()
+                      : setShowErrorChannelIsBlank(true)
+                  }                  
                 >
                   Next
                 </button>
@@ -258,47 +264,43 @@ const AddNewChannel = ({
             /* For adding users to the channel */
             <div
               id="user-selection"
-              style={{
-                position: "relative",
-              }}
+              className="channel-user-container"             
             >
-              <div>
-                <input
+              <div style={{position: "relative"}}>
+                <input className="channel-user-filter"
                   type="search"
                   name="filterEmailAdd"
                   placeholder="Search by name or email address"
                   value={filterEmail}
-                  onChange={handleChange}
-                  style={{
-                    width: "100%",
-                    marginTop: "10px",
-                    padding: "10px",
-                  }}
+                  onChange={handleChange}                  
                 />
+                {showErrorOnExistingMember? <div className="error-message-on-input">User is already a member!</div> : null }
                 <div style={{ position: "relative" }}>
                   <div className="channel-user-custom-dropdown">
                     {renderFilteredUsers()}
                   </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <h4>Selected users</h4>
+                <div className="channel-selected-users-container">
+                  <h4 className="header-label">Selected users</h4>
                   <div>{renderSelectedUsers()}</div>
-                  <button
-                    style={{ alignSelf: "flex-end" }}
-                    className="channel-save-channel-button"
+                  <button className="channel-save-channel-button"
                     onClick={saveChannel}
                   >
                     Done
                   </button>
                 </div>
+                {showErrorChannelExists ||
+                showErrorChannelTooShort ||
+                showErrorChannelTooLong ? (
+                  <h5 className="error-message">{errors[0]}</h5>
+                ) : null}
               </div>
             </div>
           )}
         </div>
         <div className="modal-footer"></div>
       </div>
-    </div>,
-    document.getElementById("root")
+    </div>
   );
 };
 

@@ -7,7 +7,12 @@ const Channel = (props) => {
       className={({ isActive }) =>
         isActive ? "channel-list-item active-channel" : "channel-list-item"
       }
-      to={`/Channel_${props.id}`}
+      style={({ isActive }) => {
+        return {
+          position: isActive && props.isCollapsed ? "absolute" : "",
+        };
+      }}
+      to={`/Channel/${props.id}`}
       onClick={props.changeMessageDisplay}
     >
       <FaLock fill="whiteSmoke" />
