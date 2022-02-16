@@ -16,7 +16,7 @@ const Modal = (props) => {
 
   const Signout = () => {
     window.sessionStorage.clear();
-    window.location.replace("/slack-clone-egq");
+    window.location.replace("/slack-clone-egq/login");
   };
 
   const { show, close } = props;
