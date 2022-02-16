@@ -15,7 +15,7 @@ const UserSearchModal = ({ users, searchParams, changeMessageDisplay }) => {
           return (
             <Link
               className="links"
-              to={`/User_${user.id}`}
+              to={`/User/${user.id}`}
               key={user.id}
               onClick={changeMessageDisplay}
             >
