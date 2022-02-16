@@ -9,6 +9,8 @@ const ErrorPage = () => {
       <img src={errorBackground} />
       <div
         className="errorContainer"
+        //Avoid inline styling
+        //e.g. when branding color changes
         style={{ backgroundColor: "rgb(255, 255, 255, 0.9)" }}
       >
         <div>
