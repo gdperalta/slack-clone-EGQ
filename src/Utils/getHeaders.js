@@ -1,3 +1,14 @@
+/*
+let data = {
+  {
+    accessToken: accessToken,
+    client: client,
+    expiry: expiry,
+    uid: uid,
+  }
+}
+getHeaders(data)
+*/
 export const getHeaders = (data) => {
   const initialHeaders = {};
 
