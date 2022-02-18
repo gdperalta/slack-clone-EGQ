@@ -1,54 +1,55 @@
 {
-  "name": "slack-clone-app",
-  "version": "0.1.0",
-  "homepage": "https://gdperalta.github.io/slack-clone-egq",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "axios": "^0.25.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0",
-    "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --watch --testURL http://localhost/slack-clone-egq",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^8.11.3",
-    "@testing-library/user-event": "^13.5.0",
-    "gh-pages": "^3.2.3",
-    "mathjs": "^10.1.1",
-    "msw": "^0.36.8"
-  }
+	"name": "slack-clone-app",
+	"version": "0.1.0",
+	"homepage": "https://gdperalta.github.io/slack-clone-egq",
+	"private": true,
+	"dependencies": {
+		"@material-ui/core": "^4.12.3",
+		"@material-ui/icons": "^4.11.2",
+		"@testing-library/jest-dom": "^5.16.1",
+		"@testing-library/react": "^12.1.2",
+		"axios": "^0.25.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-icons": "^4.3.1",
+		"react-router-dom": "^6.2.1",
+		"react-scripts": "5.0.0",
+		"socket.io": "^4.4.1",
+		"socket.io-client": "^4.4.1",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --env=jsdom --watch --testURL http://localhost/slack-clone-egq",
+		"eject": "react-scripts eject",
+		"sass": "sass --watch src/assets/styles/scss/App.scss src/assets/styles/css/App.css"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@testing-library/dom": "^8.11.3",
+		"@testing-library/user-event": "^13.5.0",
+		"gh-pages": "^3.2.3",
+		"mathjs": "^10.1.1",
+		"msw": "^0.36.8"
+	}
 }
