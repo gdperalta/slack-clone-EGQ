@@ -86,7 +86,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter basename="/slack-clone-egq">
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login onSuccess={logInUser} />} />
